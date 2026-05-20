@@ -398,12 +398,14 @@
     pointer-events:none !important;
   }
   
-  @media(max-width:768px){
+    @media(max-width:768px){
 
     nav#nav-menu.nav-menu{
       min-height:72px !important;
       padding:10px 14px !important;
       gap:12px !important;
+      justify-content:flex-start !important;
+      overflow:hidden !important;
     }
 
     nav#nav-menu .logo-container{
@@ -411,6 +413,8 @@
       height:58px !important;
       min-width:330px !important;
       min-height:58px !important;
+      flex:0 0 330px !important;
+      max-width:330px !important;
     }
 
     nav#nav-menu .logo-container::before{
@@ -425,7 +429,9 @@
       font-size:7px !important;
     }
 
-    nav#nav-menu .wc-nav-search-slot{
+    nav#nav-menu .wc-nav-search-slot,
+    nav#nav-menu .wc-search-wrap,
+    nav#nav-menu .wc-search-box{
       display:none !important;
     }
   }
