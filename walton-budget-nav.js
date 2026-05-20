@@ -380,6 +380,15 @@
     display:none !important;
   }
 
+  .social-wrapper{
+    display:none !important;
+    visibility:hidden !important;
+    opacity:0 !important;
+    height:0 !important;
+    width:0 !important;
+    overflow:hidden !important;
+  }
+
   @media(max-width:768px){
 
     nav#nav-menu.nav-menu{
