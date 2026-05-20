@@ -642,10 +642,3 @@
   startWcBudgetNav();
 
 })();
-```
-
-Paste this entire code into `walton-budget-nav.js`. Do not add `<script>` or `<style>` tags around it. Then in OpenGov, use only this kind of loader:
-
-```html
-<script src="https://YOUR-USERNAME.github.io/walton-budget-nav/walton-budget-nav.js"></script>
-```
