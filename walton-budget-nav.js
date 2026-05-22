@@ -478,34 +478,39 @@
 
     nav#nav-menu .wc-search-box{
       display:flex !important;
+      align-items:center !important;
       width:100% !important;
       max-width:100% !important;
-      min-height:54px !important;
-      padding:0 18px !important;
+      min-height:46px !important;
+      padding:9px 14px !important;
       border-radius:999px !important;
-      background:#ffffff !important;
-      border:1px solid rgba(36,52,77,0.16) !important;
-      box-shadow:0 8px 20px rgba(36,52,77,0.10) !important;
+      background:linear-gradient(135deg,#006231 0%,#0b7741 100%) !important;
+      border:0 !important;
+      box-shadow:0 8px 18px rgba(0,98,49,0.14) !important;
     }
 
     nav#nav-menu #wcTocSearch{
-      font-size:16px !important;
+      font-size:14px !important;
+      line-height:1.35 !important;
       min-width:0 !important;
-      color:#24344d !important;
+      color:#ffffff !important;
       font-weight:600 !important;
+      font-family:Arial, Helvetica, sans-serif !important;
     }
 
     nav#nav-menu #wcTocSearch::placeholder{
-      color:rgba(36,52,77,0.52) !important;
+      color:rgba(255,255,255,.72) !important;
       opacity:1 !important;
     }
 
     nav#nav-menu .wc-search-icon{
-      width:23px !important;
-      height:23px !important;
-      margin-right:14px !important;
-      color:#006231 !important;
-      stroke:#006231 !important;
+      width:18px !important;
+      height:18px !important;
+      flex-shrink:0 !important;
+      margin-right:10px !important;
+      color:#ffffff !important;
+      stroke:#ffffff !important;
+      fill:none !important;
     }
 
     nav#nav-menu .wc-nav-search-results{
@@ -570,7 +575,7 @@
           <input
             type="search"
             id="wcTocSearch"
-            placeholder="Search sections, summaries, funds, departments..."
+            placeholder="Search budget publications..."
             aria-label="Search table of contents"
             autocomplete="off"
           >
@@ -745,7 +750,7 @@
     }
 
     var moreButtons = nav.querySelectorAll(
-      '.js-more-nav-menu-dropdown-button, li[data-id="more-nav-menu-dropdown"], li[aria-controls="more-nav-menu-dropdown-dropdown"]'
+      '.js-more-nav-menu-dropdown-button, li[data-id="more-nav-menu-dropdown"], li[aria-controls="more-nav-menu-dropdown-dropdown"], li.nav-menu-item.clickable.js-dropdown-button.js-more-nav-menu-dropdown-button'
     );
 
     moreButtons.forEach(function(button){
@@ -759,12 +764,32 @@
       button.setAttribute("aria-hidden", "true");
       button.setAttribute("tabindex", "-1");
     });
+
+    nav.querySelectorAll(".nav-menu-item-title").forEach(function(title){
+      if(title.textContent && title.textContent.trim().toLowerCase() === "more"){
+        var parent = title.closest("li");
+
+        if(parent){
+          parent.style.setProperty("display", "none", "important");
+          parent.style.setProperty("visibility", "hidden", "important");
+          parent.style.setProperty("opacity", "0", "important");
+          parent.style.setProperty("width", "0", "important");
+          parent.style.setProperty("height", "0", "important");
+          parent.style.setProperty("overflow", "hidden", "important");
+          parent.style.setProperty("pointer-events", "none", "important");
+          parent.setAttribute("aria-hidden", "true");
+          parent.setAttribute("tabindex", "-1");
+        }
+      }
+    });
   }
 
   function startWcBudgetNav(){
     if(document.querySelector("nav#nav-menu.nav-menu")){
       initWcNavSearch();
       hideOpenGovMoreButton();
+      setTimeout(hideOpenGovMoreButton, 500);
+      setTimeout(hideOpenGovMoreButton, 1500);
       return;
     }
 
