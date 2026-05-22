@@ -437,25 +437,35 @@
 
     nav#nav-menu .logo-container{
       order:1 !important;
-      width:auto !important;
+      position:relative !important;
+      width:calc(100% - 62px) !important;
+      max-width:calc(100% - 62px) !important;
       height:58px !important;
       min-width:0 !important;
       min-height:58px !important;
-      flex:1 1 auto !important;
-      max-width:calc(100% - 60px) !important;
-      padding-right:0 !important;
+      flex:1 1 calc(100% - 62px) !important;
+      overflow:hidden !important;
     }
 
     nav#nav-menu .logo-container::before{
-      left:58px !important;
-      top:11px;
-      font-size:20px !important;
+      left:54px !important;
+      top:11px !important;
+      font-size:18px !important;
+      max-width:calc(100% - 58px) !important;
+      overflow:hidden !important;
+      text-overflow:ellipsis !important;
+      white-space:nowrap !important;
     }
 
     nav#nav-menu .logo-container::after{
-      left:62px !important;
-      top:35px;
-      font-size:7px !important;
+      left:56px !important;
+      top:34px !important;
+      font-size:6px !important;
+      letter-spacing:.18em !important;
+      max-width:calc(100% - 60px) !important;
+      overflow:hidden !important;
+      text-overflow:ellipsis !important;
+      white-space:nowrap !important;
     }
 
     nav#nav-menu .wc-nav-search-slot{
