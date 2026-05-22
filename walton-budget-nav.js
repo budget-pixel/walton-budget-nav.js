@@ -299,8 +299,30 @@
   nav#nav-menu .table-of-contents,
   nav#nav-menu .table-of-contents-button,
   nav#nav-menu .js-inline-nav-menu-item,
+  nav#nav-menu .js-more-nav-menu-dropdown-button,
+  nav#nav-menu li[data-id="more-nav-menu-dropdown"],
+  nav#nav-menu li[aria-controls="more-nav-menu-dropdown-dropdown"],
   nav#nav-menu li[data-id="6989dbbdb4696f0b333f2246"]{
     display:none !important;
+    visibility:hidden !important;
+    opacity:0 !important;
+    width:0 !important;
+    height:0 !important;
+    overflow:hidden !important;
+    pointer-events:none !important;
+  }
+
+  nav#nav-menu .nav-menu-item-title,
+  nav#nav-menu .dropdown-item-title{
+    pointer-events:auto !important;
+  }
+
+  nav#nav-menu .js-more-nav-menu-dropdown-button .nav-menu-item-title,
+  nav#nav-menu li[data-id="more-nav-menu-dropdown"] .nav-menu-item-title,
+  nav#nav-menu li[aria-controls="more-nav-menu-dropdown-dropdown"] .nav-menu-item-title{
+    display:none !important;
+    visibility:hidden !important;
+    opacity:0 !important;
   }
 
   [data-report-table-container-id]{
@@ -715,9 +737,34 @@
     });
   }
 
+  function hideOpenGovMoreButton(){
+    var nav = document.querySelector("nav#nav-menu.nav-menu");
+
+    if(!nav){
+      return;
+    }
+
+    var moreButtons = nav.querySelectorAll(
+      '.js-more-nav-menu-dropdown-button, li[data-id="more-nav-menu-dropdown"], li[aria-controls="more-nav-menu-dropdown-dropdown"]'
+    );
+
+    moreButtons.forEach(function(button){
+      button.style.setProperty("display", "none", "important");
+      button.style.setProperty("visibility", "hidden", "important");
+      button.style.setProperty("opacity", "0", "important");
+      button.style.setProperty("width", "0", "important");
+      button.style.setProperty("height", "0", "important");
+      button.style.setProperty("overflow", "hidden", "important");
+      button.style.setProperty("pointer-events", "none", "important");
+      button.setAttribute("aria-hidden", "true");
+      button.setAttribute("tabindex", "-1");
+    });
+  }
+
   function startWcBudgetNav(){
     if(document.querySelector("nav#nav-menu.nav-menu")){
       initWcNavSearch();
+      hideOpenGovMoreButton();
       return;
     }
 
