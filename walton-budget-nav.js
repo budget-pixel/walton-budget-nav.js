@@ -401,21 +401,26 @@
     @media(max-width:768px){
 
     nav#nav-menu.nav-menu{
-      min-height:132px !important;
-      padding:10px 14px 12px 14px !important;
-      gap:10px !important;
+      min-height:0 !important;
+      height:auto !important;
+      padding:14px 14px 18px 14px !important;
+      gap:18px !important;
       justify-content:flex-start !important;
+      align-items:flex-start !important;
       flex-wrap:wrap !important;
       overflow:visible !important;
+      border-bottom:4px solid #006231 !important;
+      background:#ffffff !important;
     }
 
     nav#nav-menu .logo-container{
-      width:330px !important;
+      order:1 !important;
+      width:100% !important;
       height:58px !important;
-      min-width:330px !important;
+      min-width:0 !important;
       min-height:58px !important;
-      flex:0 0 330px !important;
-      max-width:330px !important;
+      flex:1 1 100% !important;
+      max-width:100% !important;
     }
 
     nav#nav-menu .logo-container::before{
@@ -437,8 +442,10 @@
       width:100% !important;
       min-width:0 !important;
       max-width:100% !important;
-      margin:4px 0 0 0 !important;
+      margin:0 !important;
+      padding:0 14px !important;
       justify-content:center !important;
+      box-sizing:border-box !important;
     }
 
     nav#nav-menu .wc-search-wrap{
@@ -451,20 +458,32 @@
       display:flex !important;
       width:100% !important;
       max-width:100% !important;
-      padding:8px 13px !important;
+      min-height:54px !important;
+      padding:0 18px !important;
       border-radius:999px !important;
-      box-shadow:0 6px 14px rgba(0,98,49,0.12) !important;
+      background:#ffffff !important;
+      border:1px solid rgba(36,52,77,0.16) !important;
+      box-shadow:0 8px 20px rgba(36,52,77,0.10) !important;
     }
 
     nav#nav-menu #wcTocSearch{
-      font-size:13px !important;
+      font-size:16px !important;
       min-width:0 !important;
+      color:#24344d !important;
+      font-weight:600 !important;
+    }
+
+    nav#nav-menu #wcTocSearch::placeholder{
+      color:rgba(36,52,77,0.52) !important;
+      opacity:1 !important;
     }
 
     nav#nav-menu .wc-search-icon{
-      width:16px !important;
-      height:16px !important;
-      margin-right:8px !important;
+      width:23px !important;
+      height:23px !important;
+      margin-right:14px !important;
+      color:#006231 !important;
+      stroke:#006231 !important;
     }
 
     nav#nav-menu .wc-nav-search-results{
