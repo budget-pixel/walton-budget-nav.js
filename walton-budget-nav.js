@@ -634,7 +634,7 @@
           <input
             type="search"
             id="wcTocSearch"
-            placeholder="Search budget publications..."
+            placeholder="Search the budget publications..."
             aria-label="Search table of contents"
             autocomplete="off"
           >
