@@ -423,13 +423,13 @@
     @media(max-width:768px){
 
     nav#nav-menu.nav-menu{
-      min-height:0 !important;
+      min-height:86px !important;
       height:auto !important;
       padding:14px 14px 18px 14px !important;
-      gap:18px !important;
+      gap:10px !important;
       justify-content:flex-start !important;
-      align-items:flex-start !important;
-      flex-wrap:wrap !important;
+      align-items:center !important;
+      flex-wrap:nowrap !important;
       overflow:visible !important;
       border-bottom:4px solid #006231 !important;
       background:#ffffff !important;
@@ -437,12 +437,13 @@
 
     nav#nav-menu .logo-container{
       order:1 !important;
-      width:100% !important;
+      width:auto !important;
       height:58px !important;
       min-width:0 !important;
       min-height:58px !important;
-      flex:1 1 100% !important;
-      max-width:100% !important;
+      flex:1 1 auto !important;
+      max-width:calc(100% - 60px) !important;
+      padding-right:0 !important;
     }
 
     nav#nav-menu .logo-container::before{
@@ -460,18 +461,43 @@
     nav#nav-menu .wc-nav-search-slot{
       display:flex !important;
       order:2 !important;
-      flex:1 1 100% !important;
-      width:100% !important;
-      min-width:0 !important;
-      max-width:100% !important;
-      margin:0 !important;
-      padding:0 14px !important;
+      flex:0 0 46px !important;
+      width:46px !important;
+      min-width:46px !important;
+      max-width:46px !important;
+      height:46px !important;
+      margin-left:auto !important;
+      margin-right:0 !important;
+      padding:0 !important;
       justify-content:center !important;
+      align-items:center !important;
       box-sizing:border-box !important;
+      position:static !important;
+      z-index:10001 !important;
+    }
+
+    nav#nav-menu .wc-nav-search-slot.is-mobile-open{
+      position:absolute !important;
+      left:14px !important;
+      right:14px !important;
+      top:calc(100% + 10px) !important;
+      width:auto !important;
+      min-width:0 !important;
+      max-width:none !important;
+      height:auto !important;
+      flex:0 0 auto !important;
+      margin:0 !important;
+      padding:0 !important;
+      z-index:10002 !important;
     }
 
     nav#nav-menu .wc-search-wrap{
       display:block !important;
+      width:46px !important;
+      max-width:46px !important;
+    }
+
+    nav#nav-menu .wc-nav-search-slot.is-mobile-open .wc-search-wrap{
       width:100% !important;
       max-width:100% !important;
     }
@@ -479,17 +505,29 @@
     nav#nav-menu .wc-search-box{
       display:flex !important;
       align-items:center !important;
-      width:100% !important;
-      max-width:100% !important;
+      justify-content:center !important;
+      width:46px !important;
+      max-width:46px !important;
       min-height:46px !important;
-      padding:9px 14px !important;
+      padding:0 !important;
       border-radius:999px !important;
       background:linear-gradient(135deg,#006231 0%,#0b7741 100%) !important;
       border:0 !important;
       box-shadow:0 8px 18px rgba(0,98,49,0.14) !important;
+      cursor:pointer !important;
+    }
+
+    nav#nav-menu .wc-nav-search-slot.is-mobile-open .wc-search-box{
+      justify-content:flex-start !important;
+      width:100% !important;
+      max-width:100% !important;
+      min-height:52px !important;
+      padding:0 16px !important;
+      box-shadow:0 14px 30px rgba(36,52,77,0.18) !important;
     }
 
     nav#nav-menu #wcTocSearch{
+      display:none !important;
       font-size:14px !important;
       line-height:1.35 !important;
       min-width:0 !important;
@@ -498,19 +536,30 @@
       font-family:Arial, Helvetica, sans-serif !important;
     }
 
+    nav#nav-menu .wc-nav-search-slot.is-mobile-open #wcTocSearch{
+      display:block !important;
+      width:100% !important;
+    }
+
     nav#nav-menu #wcTocSearch::placeholder{
       color:rgba(255,255,255,.72) !important;
       opacity:1 !important;
     }
 
     nav#nav-menu .wc-search-icon{
-      width:18px !important;
-      height:18px !important;
+      width:20px !important;
+      height:20px !important;
       flex-shrink:0 !important;
-      margin-right:10px !important;
+      margin-right:0 !important;
       color:#ffffff !important;
       stroke:#ffffff !important;
       fill:none !important;
+    }
+
+    nav#nav-menu .wc-nav-search-slot.is-mobile-open .wc-search-icon{
+      width:18px !important;
+      height:18px !important;
+      margin-right:10px !important;
     }
 
     nav#nav-menu .wc-nav-search-results{
@@ -589,6 +638,52 @@
 
     var results = slot.querySelector(".wc-nav-search-results");
     var input = slot.querySelector("#wcTocSearch");
+    var searchBox = slot.querySelector(".wc-search-box");
+    var searchIcon = slot.querySelector(".wc-search-icon");
+
+    function isMobileNav(){
+      return window.matchMedia && window.matchMedia("(max-width:768px)").matches;
+    }
+
+    function openMobileSearch(){
+      if(!isMobileNav()){
+        return;
+      }
+
+      slot.classList.add("is-mobile-open");
+      setTimeout(function(){
+        input.focus();
+        renderResults(input.value);
+      }, 30);
+    }
+
+    function closeMobileSearch(){
+      if(!isMobileNav()){
+        return;
+      }
+
+      slot.classList.remove("is-mobile-open");
+      results.classList.remove("is-active");
+      input.blur();
+    }
+
+    if(searchBox){
+      searchBox.addEventListener("click", function(e){
+        if(isMobileNav() && !slot.classList.contains("is-mobile-open")){
+          e.preventDefault();
+          openMobileSearch();
+        }
+      });
+    }
+
+    if(searchIcon){
+      searchIcon.addEventListener("click", function(e){
+        if(isMobileNav()){
+          e.preventDefault();
+          openMobileSearch();
+        }
+      });
+    }
 
     var links = [];
     var seenHrefs = {};
@@ -732,12 +827,14 @@
       if(e.key === "Escape"){
         results.classList.remove("is-active");
         input.blur();
+        closeMobileSearch();
       }
     });
 
     document.addEventListener("click", function(e){
       if(!slot.contains(e.target)){
         results.classList.remove("is-active");
+        closeMobileSearch();
       }
     });
   }
