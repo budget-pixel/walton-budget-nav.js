@@ -419,6 +419,128 @@
     overflow:hidden !important;
     pointer-events:none !important;
   }
+
+  footer[role="contentinfo"]{
+    display:block !important;
+    margin:48px 0 0 0 !important;
+    padding:0 !important;
+    background:#ffffff !important;
+    border-top:4px solid #006231 !important;
+    box-shadow:0 -8px 24px rgba(36,52,77,0.06) !important;
+    font-family:Arial, Helvetica, sans-serif !important;
+  }
+
+  footer[role="contentinfo"] .footer-container{
+    display:block !important;
+    max-width:1180px !important;
+    margin:0 auto !important;
+    padding:28px 28px 22px 28px !important;
+    box-sizing:border-box !important;
+  }
+
+  footer[role="contentinfo"] .logo-container{
+    display:none !important;
+  }
+
+  .wc-budget-footer-inner{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:28px !important;
+  }
+
+  .wc-budget-footer-brand{
+    display:flex !important;
+    align-items:center !important;
+    gap:12px !important;
+    min-width:0 !important;
+  }
+
+  .wc-budget-footer-seal{
+    display:block !important;
+    width:52px !important;
+    height:52px !important;
+    flex:0 0 52px !important;
+    border-radius:999px !important;
+    background:#ffffff url("https://stories.opengov.com/countyofwaltonfl/uploads/c432578eae78-Walton_County_Logo_no_background.png") center center / 49px 49px no-repeat !important;
+    border:2px solid #d1be78 !important;
+    box-sizing:border-box !important;
+  }
+
+  .wc-budget-footer-brand-text{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:3px !important;
+  }
+
+  .wc-budget-footer-brand-text strong{
+    display:block !important;
+    color:#006231 !important;
+    font-family:"Avenir Next", Avenir, Helvetica, Arial, sans-serif !important;
+    font-size:22px !important;
+    line-height:1 !important;
+    font-weight:800 !important;
+    letter-spacing:.085em !important;
+    text-transform:uppercase !important;
+    white-space:nowrap !important;
+  }
+
+  .wc-budget-footer-brand-text span{
+    display:block !important;
+    color:#000000 !important;
+    font-family:"Avenir Next", Avenir, Helvetica, Arial, sans-serif !important;
+    font-size:8px !important;
+    line-height:1 !important;
+    font-weight:800 !important;
+    letter-spacing:.22em !important;
+    text-transform:uppercase !important;
+    white-space:nowrap !important;
+  }
+
+  .wc-budget-footer-links{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-end !important;
+    flex-wrap:wrap !important;
+    gap:8px !important;
+  }
+
+  .wc-budget-footer-links a{
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    min-height:36px !important;
+    padding:9px 14px !important;
+    border-radius:999px !important;
+    color:#24344d !important;
+    background:transparent !important;
+    border:1px solid rgba(209,190,120,0.42) !important;
+    text-decoration:none !important;
+    font-size:12px !important;
+    line-height:1 !important;
+    font-weight:800 !important;
+    letter-spacing:.07em !important;
+    text-transform:uppercase !important;
+    white-space:nowrap !important;
+  }
+
+  .wc-budget-footer-links a:hover{
+    background:rgba(0,98,49,0.06) !important;
+    border-color:rgba(0,98,49,0.28) !important;
+  }
+
+  .wc-budget-footer-bottom{
+    max-width:1180px !important;
+    margin:0 auto !important;
+    padding:14px 28px 18px 28px !important;
+    border-top:1px solid rgba(36,52,77,0.10) !important;
+    box-sizing:border-box !important;
+    color:rgba(36,52,77,0.70) !important;
+    font-size:12px !important;
+    line-height:1.4 !important;
+    font-weight:600 !important;
+    text-align:center !important;
+  }
   
   /* STANDALONE WALTON HEADER */
 
@@ -521,6 +643,55 @@
   }
 
   @media(max-width:768px){
+
+    footer[role="contentinfo"]{
+      margin-top:36px !important;
+    }
+
+    footer[role="contentinfo"] .footer-container{
+      padding:22px 16px 18px 16px !important;
+    }
+
+    .wc-budget-footer-inner{
+      align-items:flex-start !important;
+      flex-direction:column !important;
+      gap:18px !important;
+    }
+
+    .wc-budget-footer-brand-text strong{
+      font-size:18px !important;
+      max-width:calc(100vw - 104px) !important;
+      overflow:hidden !important;
+      text-overflow:ellipsis !important;
+      white-space:nowrap !important;
+    }
+
+    .wc-budget-footer-brand-text span{
+      font-size:6px !important;
+      letter-spacing:.18em !important;
+      max-width:calc(100vw - 104px) !important;
+      overflow:hidden !important;
+      text-overflow:ellipsis !important;
+      white-space:nowrap !important;
+    }
+
+    .wc-budget-footer-links{
+      width:100% !important;
+      justify-content:flex-start !important;
+      gap:8px !important;
+    }
+
+    .wc-budget-footer-links a{
+      width:100% !important;
+      justify-content:center !important;
+      font-size:11px !important;
+      padding:10px 14px !important;
+    }
+
+    .wc-budget-footer-bottom{
+      padding:14px 16px 18px 16px !important;
+      text-align:left !important;
+    }
 
     .wc-standalone-budget-nav{
       min-height:auto !important;
@@ -1057,16 +1228,63 @@
     document.body.insertBefore(header, document.body.firstChild);
   }
 
+  function renderWaltonBudgetFooter(){
+    var footer = document.querySelector('footer[role="contentinfo"]');
+
+    if(!footer || footer.querySelector('.wc-budget-footer-inner')){
+      return;
+    }
+
+    var footerContainer = footer.querySelector('.footer-container');
+
+    if(!footerContainer){
+      footerContainer = document.createElement('div');
+      footerContainer.className = 'footer-container';
+      footerContainer.id = 'footer';
+      footer.insertBefore(footerContainer, footer.firstChild);
+    }
+
+    footerContainer.innerHTML = `
+      <div class="wc-budget-footer-inner">
+        <div class="wc-budget-footer-brand" aria-label="Walton County">
+          <span class="wc-budget-footer-seal" aria-hidden="true"></span>
+          <span class="wc-budget-footer-brand-text">
+            <strong>Walton County</strong>
+            <span>Board of County Commissioners</span>
+          </span>
+        </div>
+
+        <nav class="wc-budget-footer-links" aria-label="Budget footer links">
+          <a href="https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbdb4696f0b333f2246">Budget Book</a>
+          <a href="https://stories.opengov.com/countyofwaltonfl/605050f8-9a6f-4331-912b-a9eaa7f28258/published/dEsmfR2uM">Capital Improvement Plan</a>
+          <a href="https://budget-pixel.github.io/walton-cip-project-search/?view=all&v=6" target="_blank" rel="noopener noreferrer">Project Search</a>
+          <a href="https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd48feef483c784fe0">Glossary & FAQ</a>
+        </nav>
+      </div>
+    `;
+
+    if(!footer.querySelector('.wc-budget-footer-bottom')){
+      var footerBottom = document.createElement('div');
+      footerBottom.className = 'wc-budget-footer-bottom';
+      footerBottom.textContent = 'Prepared by the Walton County Office of Management and Budget for public transparency and informational purposes.';
+      footer.appendChild(footerBottom);
+    }
+  }
+
   function startWcBudgetNav(){
     if(document.querySelector("nav#nav-menu.nav-menu")){
       initWcNavSearch();
       hideOpenGovMoreButton();
+      renderWaltonBudgetFooter();
       setTimeout(hideOpenGovMoreButton, 500);
       setTimeout(hideOpenGovMoreButton, 1500);
+      setTimeout(renderWaltonBudgetFooter, 500);
+      setTimeout(renderWaltonBudgetFooter, 1500);
       return;
     }
 
     renderStandaloneBudgetNav();
+    renderWaltonBudgetFooter();
   }
 
   startWcBudgetNav();
