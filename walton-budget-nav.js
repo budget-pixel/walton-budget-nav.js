@@ -541,12 +541,12 @@
     display:inline-flex !important;
     align-items:center !important;
     justify-content:center !important;
-    min-height:36px !important;
-    padding:9px 14px !important;
+    min-height:38px !important;
+    padding:10px 16px !important;
     border-radius:999px !important;
-    color:#24344d !important;
-    background:transparent !important;
-    border:1px solid rgba(209,190,120,0.42) !important;
+    color:#ffffff !important;
+    background:linear-gradient(135deg,#006231 0%,#0b7741 100%) !important;
+    border:0 !important;
     text-decoration:none !important;
     font-size:12px !important;
     line-height:1 !important;
@@ -554,11 +554,14 @@
     letter-spacing:.07em !important;
     text-transform:uppercase !important;
     white-space:nowrap !important;
+    box-shadow:0 8px 18px rgba(0,98,49,0.14) !important;
+    transition:transform .2s ease, box-shadow .2s ease !important;
   }
 
   .wc-budget-footer-links a:hover{
-    background:rgba(0,98,49,0.06) !important;
-    border-color:rgba(0,98,49,0.28) !important;
+    transform:translateY(-1px) !important;
+    box-shadow:0 12px 24px rgba(0,98,49,0.20) !important;
+    background:linear-gradient(135deg,#006231 0%,#0b7741 100%) !important;
   }
 
   .wc-budget-footer-bottom{
@@ -1304,7 +1307,7 @@
 
         <nav class="wc-budget-footer-links" aria-label="Budget footer links">
           <a href="https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbdb4696f0b333f2246">Budget Book</a>
-          <a href="https://stories.opengov.com/countyofwaltonfl/605050f8-9a6f-4331-912b-a9eaa7f28258/published/dEsmfR2uM">Capital Improvement Plan</a>
+          <a href="https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd4a9d93e5ac05a153">Capital Improvement Plan</a>
           <a href="https://budget-pixel.github.io/walton-cip-project-search/?view=all&v=6" target="_blank" rel="noopener noreferrer">Project Search</a>
           <a href="https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd48feef483c784fe0">Glossary & FAQ</a>
         </nav>
