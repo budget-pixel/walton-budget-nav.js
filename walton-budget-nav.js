@@ -422,26 +422,45 @@
 
   footer[role="contentinfo"]{
     display:block !important;
-    width:100% !important;
-    max-width:100% !important;
-    margin:48px 0 0 0 !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    position:relative !important;
+    left:auto !important;
+    right:auto !important;
+    bottom:auto !important;
+    width:100vw !important;
+    max-width:100vw !important;
+    min-height:120px !important;
+    height:auto !important;
+    margin:48px 0 0 calc(50% - 50vw) !important;
     padding:0 !important;
     background:#ffffff !important;
     border-top:4px solid #006231 !important;
     box-shadow:none !important;
     font-family:Arial, Helvetica, sans-serif !important;
     box-sizing:border-box !important;
-    overflow:hidden !important;
+    overflow:visible !important;
+    z-index:1 !important;
+  }
+
+  footer[role="contentinfo"] *{
+    visibility:visible !important;
+    opacity:1 !important;
   }
 
   footer[role="contentinfo"] .footer-container{
     display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
     width:100% !important;
     max-width:none !important;
+    min-height:82px !important;
+    height:auto !important;
     margin:0 !important;
     padding:28px 36px 22px 36px !important;
     background:#ffffff !important;
     box-sizing:border-box !important;
+    overflow:visible !important;
   }
 
   footer[role="contentinfo"] .logo-container{
@@ -450,9 +469,16 @@
 
   .wc-budget-footer-inner{
     display:flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
     align-items:center !important;
     justify-content:space-between !important;
     gap:28px !important;
+    width:100% !important;
+    min-height:52px !important;
+    height:auto !important;
+    background:#ffffff !important;
+    box-sizing:border-box !important;
   }
 
   .wc-budget-footer-brand{
@@ -536,8 +562,13 @@
   }
 
   .wc-budget-footer-bottom{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
     width:100% !important;
     max-width:none !important;
+    min-height:44px !important;
+    height:auto !important;
     margin:0 !important;
     padding:14px 36px 18px 36px !important;
     border-top:1px solid rgba(36,52,77,0.10) !important;
@@ -548,6 +579,7 @@
     line-height:1.4 !important;
     font-weight:600 !important;
     text-align:center !important;
+    overflow:visible !important;
   }
   
   /* STANDALONE WALTON HEADER */
@@ -653,7 +685,12 @@
   @media(max-width:768px){
 
     footer[role="contentinfo"]{
-      margin-top:36px !important;
+      width:100vw !important;
+      max-width:100vw !important;
+      min-height:160px !important;
+      height:auto !important;
+      margin:36px 0 0 calc(50% - 50vw) !important;
+      overflow:visible !important;
     }
 
     footer[role="contentinfo"] .footer-container{
