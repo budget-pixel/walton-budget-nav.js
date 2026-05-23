@@ -556,8 +556,10 @@
     }
 
     .wc-standalone-links a{
+      width:100% !important;
+      justify-content:center !important;
       font-size:11px !important;
-      padding:9px 12px !important;
+      padding:10px 14px !important;
     }
 
     nav#nav-menu.nav-menu{
@@ -1048,7 +1050,6 @@
       </div>
 
       <nav class="wc-standalone-links" aria-label="Walton County budget navigation">
-        <a href="https://budget-pixel.github.io/walton-cip-project-search/?view=all">CIP Project Search</a>
         <a href="https://stories.opengov.com/countyofwaltonfl/605050f8-9a6f-4331-912b-a9eaa7f28258/published/dEsmfR2uM">Capital Improvement Plan</a>
       </nav>
     `;
