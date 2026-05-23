@@ -1238,17 +1238,30 @@
 
         var projectSearchText = flattenProjectText(project);
 
-        var projectHref = getProjectValue(project, [
-          "href",
-          "url",
-          "link",
-          "detailUrl",
-          "detailURL",
-          "projectUrl",
-          "projectURL",
-          "pageUrl",
-          "pageURL"
+        var projectSlug = getProjectValue(project, [
+          "slug",
+          "projectSlug",
+          "project_slug",
+          "Slug"
         ]);
+
+        var projectHref = "";
+
+        if(projectSlug){
+          projectHref = "https://budget-pixel.github.io/walton-cip-project-search/project.html?project=" + encodeURIComponent(projectSlug);
+        }else{
+          projectHref = getProjectValue(project, [
+            "href",
+            "url",
+            "link",
+            "detailUrl",
+            "detailURL",
+            "projectUrl",
+            "projectURL",
+            "pageUrl",
+            "pageURL"
+          ]);
+        }
 
         if(!projectHref){
           projectHref = wcProjectSearchBaseUrl + encodeURIComponent(projectTitle);
