@@ -1238,10 +1238,26 @@
 
         var projectSearchText = flattenProjectText(project);
 
+        var projectHref = getProjectValue(project, [
+          "href",
+          "url",
+          "link",
+          "detailUrl",
+          "detailURL",
+          "projectUrl",
+          "projectURL",
+          "pageUrl",
+          "pageURL"
+        ]);
+
+        if(!projectHref){
+          projectHref = wcProjectSearchBaseUrl + encodeURIComponent(projectTitle);
+        }
+
         addSearchLink(
           projectTitle,
           "CIP Project • " + projectDepartment,
-          wcProjectSearchBaseUrl + encodeURIComponent(projectTitle),
+          projectHref,
           projectSearchText
         );
       });
@@ -1252,7 +1268,7 @@
     }
 
     var projectScript = document.createElement("script");
-    projectScript.src = "https://budget-pixel.github.io/walton-cip-project-search/projects.js?v=" + Date.now();
+    projectScript.src = "https://budget-pixel.github.io/walton-cip-project-search/projects.js?v=6";
     projectScript.onload = function(){
       loadProjectSearchData();
     };
