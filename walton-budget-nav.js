@@ -1060,6 +1060,31 @@
     var links = [];
     var seenHrefs = {};
 
+    var wcProjectSearchBaseUrl = "https://budget-pixel.github.io/walton-cip-project-search/?view=all&v=6&q=";
+
+    var wcProjectKeywords = [
+      {
+        title:"Road & Transportation Projects",
+        section:"CIP Project Search",
+        keywords:["road","street","highway","transportation","bridge","traffic"]
+      },
+      {
+        title:"Parks & Recreation Projects",
+        section:"CIP Project Search",
+        keywords:["park","recreation","sports","trail","playground"]
+      },
+      {
+        title:"Public Safety Projects",
+        section:"CIP Project Search",
+        keywords:["fire","ems","sheriff","public safety","emergency"]
+      },
+      {
+        title:"Water & Utility Projects",
+        section:"CIP Project Search",
+        keywords:["water","wastewater","sewer","drainage","stormwater"]
+      }
+    ];
+
     var wcBudgetPages = [
       { title:"Table of Contents", section:"Introduction and Overview", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbdb4696f0b333f2246" },
       { title:"GFOA Distinguished Budget Presentation Award", section:"Introduction and Overview", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd25815ed4e2fe49b4" },
@@ -1155,6 +1180,14 @@
       addSearchLink(page.title, page.section, page.href);
     });
 
+    wcProjectKeywords.forEach(function(projectCategory){
+      addSearchLink(
+        projectCategory.title,
+        projectCategory.section,
+        wcProjectSearchBaseUrl + encodeURIComponent(projectCategory.keywords[0])
+      );
+    });
+
     function renderResultItem(item){
       var resultLink = document.createElement("a");
       resultLink.className = "wc-nav-search-result";
@@ -1175,7 +1208,27 @@
 
       var matches = links.filter(function(item){
         return item.searchText.indexOf(normalizedQuery) !== -1;
-      }).slice(0,12);
+      });
+
+      wcProjectKeywords.forEach(function(projectCategory){
+
+        var keywordMatch = projectCategory.keywords.some(function(keyword){
+          return keyword.indexOf(normalizedQuery) !== -1 ||
+                 normalizedQuery.indexOf(keyword) !== -1;
+        });
+
+        if(keywordMatch){
+          matches.push({
+            title:projectCategory.title,
+            section:"CIP Project Search",
+            href:wcProjectSearchBaseUrl + encodeURIComponent(normalizedQuery),
+            searchText:normalizedQuery
+          });
+        }
+
+      });
+
+      matches = matches.slice(0,12);
 
       if(!matches.length){
         results.innerHTML = '<div class="wc-nav-search-empty">No matching sections found.</div>';
