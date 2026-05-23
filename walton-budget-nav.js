@@ -1039,18 +1039,17 @@
     header.className = "wc-standalone-budget-nav";
 
     header.innerHTML = `
-      <a class="wc-standalone-brand" href="https://budget-pixel.github.io/walton-cip-project-search/?view=all" aria-label="Go to Walton County CIP Project Search">
+      <div class="wc-standalone-brand" aria-label="Walton County">
         <span class="wc-standalone-seal" aria-hidden="true"></span>
         <span class="wc-standalone-brand-text">
           <strong>Walton County</strong>
           <small>Board of County Commissioners</small>
         </span>
-      </a>
+      </div>
 
       <nav class="wc-standalone-links" aria-label="Walton County budget navigation">
         <a href="https://budget-pixel.github.io/walton-cip-project-search/?view=all">CIP Project Search</a>
-        <a href="https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd4a9d93e5ac05a153">Capital Improvement Plan</a>
-        <a href="https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbdb4696f0b333f2246">Budget Book</a>
+        <a href="https://stories.opengov.com/countyofwaltonfl/605050f8-9a6f-4331-912b-a9eaa7f28258/published/dEsmfR2uM">Capital Improvement Plan</a>
       </nav>
     `;
 
