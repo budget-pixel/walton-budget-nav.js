@@ -1134,10 +1134,11 @@
       { title:"Statistical & Supplemental Information", section:"Glossary, Statistical, and Supplemental Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd1da6285c17aaf19a" }
     ];
 
-    function addSearchLink(title, section, href){
-      title = title ? title.trim() : "";
-      section = section ? section.trim() : "Budget Book";
-      href = href ? href.trim() : "";
+    function addSearchLink(title, section, href, extraSearchText){
+      title = title ? String(title).trim() : "";
+      section = section ? String(section).trim() : "Budget Book";
+      href = href ? String(href).trim() : "";
+      extraSearchText = extraSearchText ? String(extraSearchText).trim() : "";
 
       if(!title || !href || href === "#" || seenHrefs[href]){
         return;
@@ -1149,7 +1150,7 @@
         title:title,
         section:section,
         href:href,
-        searchText:(title + " " + section).toLowerCase()
+        searchText:(title + " " + section + " " + extraSearchText).toLowerCase()
       });
     }
 
@@ -1157,29 +1158,101 @@
       addSearchLink(page.title, page.section, page.href);
     });
 
-    function loadProjectSearchData(){
+    function getProjectValue(project, keys){
+      for(var i = 0; i < keys.length; i++){
+        if(project && project[keys[i]] !== undefined && project[keys[i]] !== null && String(project[keys[i]]).trim() !== ""){
+          return String(project[keys[i]]).trim();
+        }
+      }
+      return "";
+    }
 
-      if(!window.wcProjects || !Array.isArray(window.wcProjects)){
+    function flattenProjectText(value){
+      var pieces = [];
+
+      function walk(item){
+        if(item === null || item === undefined){
+          return;
+        }
+
+        if(typeof item === "string" || typeof item === "number"){
+          pieces.push(String(item));
+          return;
+        }
+
+        if(Array.isArray(item)){
+          item.forEach(walk);
+          return;
+        }
+
+        if(typeof item === "object"){
+          Object.keys(item).forEach(function(key){
+            walk(item[key]);
+          });
+        }
+      }
+
+      walk(value);
+      return pieces.join(" ");
+    }
+
+    function getLoadedProjects(){
+      if(window.wcProjects && Array.isArray(window.wcProjects)){
+        return window.wcProjects;
+      }
+
+      try{
+        if(typeof wcProjects !== "undefined" && Array.isArray(wcProjects)){
+          return wcProjects;
+        }
+      }catch(e){}
+
+      return [];
+    }
+
+    function loadProjectSearchData(){
+      var projects = getLoadedProjects();
+
+      if(!projects.length){
         return;
       }
 
-      window.wcProjects.forEach(function(project){
+      projects.forEach(function(project){
+        var projectTitle = getProjectValue(project, [
+          "title",
+          "projectTitle",
+          "project_name",
+          "projectName",
+          "name",
+          "Project Name",
+          "Project"
+        ]) || "Untitled Project";
 
-        var projectTitle = project.title || project.projectTitle || project.name || "Untitled Project";
+        var projectDepartment = getProjectValue(project, [
+          "department",
+          "dept",
+          "Department",
+          "category",
+          "division"
+        ]) || "CIP Project";
 
-        var projectDepartment = project.department || project.dept || project.category || "CIP Project";
+        var projectSearchText = flattenProjectText(project);
 
         addSearchLink(
           projectTitle,
           "CIP Project • " + projectDepartment,
-          wcProjectSearchBaseUrl + encodeURIComponent(projectTitle)
+          wcProjectSearchBaseUrl + encodeURIComponent(projectTitle),
+          projectSearchText
         );
-
       });
+
+      if(input && document.activeElement === input){
+        renderResults(input.value);
+      }
     }
 
     var projectScript = document.createElement("script");
-    projectScript.src = "https://budget-pixel.github.io/walton-cip-project-search/projects.js";
+    projectScript.src = "https://budget-pixel.github.io/walton-cip-project-search/projects.js?v=" + Date.now();
     projectScript.onload = function(){
       loadProjectSearchData();
     };
