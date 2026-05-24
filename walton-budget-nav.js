@@ -610,7 +610,7 @@
     min-height:44px !important;
     height:auto !important;
     margin:0 !important;
-    padding:16px 36px 26px 36px !important;
+    padding:18px 36px 38px 36px !important;
     border-top:1px solid rgba(36,52,77,0.10) !important;
     background:#ffffff !important;
     box-sizing:border-box !important;
@@ -777,7 +777,7 @@
     }
 
     .wc-budget-footer-bottom{
-      padding:14px 16px 30px 16px !important;
+      padding:16px 16px 42px 16px !important;
       text-align:left !important;
     }
 
