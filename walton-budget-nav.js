@@ -467,10 +467,10 @@
     bottom:auto !important;
     width:100% !important;
     max-width:100% !important;
-    min-height:210px !important;
+    min-height:150px !important;
     height:auto !important;
     margin:48px 0 0 0 !important;
-    padding:0 0 48px 0 !important;
+    padding:0 0 18px 0 !important;
     background:#ffffff !important;
     border-top:4px solid #006231 !important;
     box-shadow:none !important;
@@ -607,10 +607,10 @@
     opacity:1 !important;
     width:100% !important;
     max-width:100% !important;
-    min-height:96px !important;
+    min-height:52px !important;
     height:auto !important;
     margin:0 !important;
-    padding:22px 36px 52px 36px !important;
+    padding:14px 36px 22px 36px !important;
     border-top:1px solid rgba(36,52,77,0.10) !important;
     background:#ffffff !important;
     box-sizing:border-box !important;
@@ -727,10 +727,10 @@
     footer[role="contentinfo"]{
       width:100% !important;
       max-width:100% !important;
-      min-height:280px !important;
+      min-height:190px !important;
       height:auto !important;
       margin:36px 0 0 0 !important;
-      padding:0 0 64px 0 !important;
+      padding:0 0 24px 0 !important;
       overflow:hidden !important;
     }
 
@@ -778,9 +778,9 @@
     }
 
     .wc-budget-footer-bottom{
-      min-height:120px !important;
+      min-height:64px !important;
       margin:0 !important;
-      padding:18px 16px 64px 16px !important;
+      padding:14px 16px 28px 16px !important;
       text-align:left !important;
       line-height:1.5 !important;
       overflow:visible !important;
