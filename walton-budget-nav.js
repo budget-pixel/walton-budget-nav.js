@@ -467,10 +467,10 @@
     bottom:auto !important;
     width:100% !important;
     max-width:100% !important;
-    min-height:140px !important;
+    min-height:210px !important;
     height:auto !important;
     margin:48px 0 0 0 !important;
-    padding:0 !important;
+    padding:0 0 48px 0 !important;
     background:#ffffff !important;
     border-top:4px solid #006231 !important;
     box-shadow:none !important;
@@ -607,16 +607,16 @@
     opacity:1 !important;
     width:100% !important;
     max-width:100% !important;
-    min-height:72px !important;
+    min-height:96px !important;
     height:auto !important;
-    margin:0 0 28px 0 !important;
-    padding:18px 36px 28px 36px !important;
+    margin:0 !important;
+    padding:22px 36px 52px 36px !important;
     border-top:1px solid rgba(36,52,77,0.10) !important;
     background:#ffffff !important;
     box-sizing:border-box !important;
     color:rgba(36,52,77,0.70) !important;
     font-size:12px !important;
-    line-height:1.4 !important;
+    line-height:1.5 !important;
     font-weight:600 !important;
     text-align:center !important;
     overflow:visible !important;
@@ -727,9 +727,10 @@
     footer[role="contentinfo"]{
       width:100% !important;
       max-width:100% !important;
-      min-height:190px !important;
+      min-height:280px !important;
       height:auto !important;
       margin:36px 0 0 0 !important;
+      padding:0 0 64px 0 !important;
       overflow:hidden !important;
     }
 
@@ -777,10 +778,11 @@
     }
 
     .wc-budget-footer-bottom{
-      min-height:88px !important;
-      margin:0 0 32px 0 !important;
-      padding:16px 16px 28px 16px !important;
+      min-height:120px !important;
+      margin:0 !important;
+      padding:18px 16px 64px 16px !important;
       text-align:left !important;
+      line-height:1.5 !important;
       overflow:visible !important;
     }
 
