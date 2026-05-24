@@ -15,16 +15,32 @@
     overflow-x:hidden !important;
   }
 
+  body{
+    position:relative !important;
+  }
+
   .story-page,
   .content,
   .main-content,
   main,
   section,
+  article,
   [data-testid="story-page"],
-  .page-content{
-    width:100% !important;
+  .page-content,
+  .story-content,
+  .full-width,
+  .contains-media-block,
+  .media-block{
     max-width:100% !important;
     overflow-x:hidden !important;
+  }
+
+  img,
+  svg,
+  canvas,
+  iframe,
+  video{
+    max-width:100% !important;
   }
 
   /* WALTON COUNTY MENU RESTYLE */
@@ -454,18 +470,19 @@
     left:auto !important;
     right:auto !important;
     bottom:auto !important;
-    width:100vw !important;
-    max-width:100vw !important;
+    width:100% !important;
+    max-width:100% !important;
     min-height:120px !important;
     height:auto !important;
-    margin:48px 0 0 calc(50% - 50vw) !important;
+    margin:48px 0 0 0 !important;
     padding:0 !important;
     background:#ffffff !important;
     border-top:4px solid #006231 !important;
     box-shadow:none !important;
     font-family:Arial, Helvetica, sans-serif !important;
     box-sizing:border-box !important;
-    overflow:visible !important;
+    overflow-x:hidden !important;
+    overflow-y:visible !important;
     z-index:1 !important;
   }
 
@@ -727,12 +744,13 @@
     }
 
     footer[role="contentinfo"]{
-      width:100vw !important;
-      max-width:100vw !important;
+      width:100% !important;
+      max-width:100% !important;
       min-height:160px !important;
       height:auto !important;
-      margin:36px 0 0 calc(50% - 50vw) !important;
-      overflow:visible !important;
+      margin:36px 0 0 0 !important;
+      overflow-x:hidden !important;
+      overflow-y:visible !important;
     }
 
     footer[role="contentinfo"] .footer-container{
@@ -1512,5 +1530,22 @@
   }
 
   startWcBudgetNav();
+
+  function lockHorizontalPageScroll(){
+    document.documentElement.style.setProperty('overflow-x','hidden','important');
+    document.documentElement.style.setProperty('max-width','100%','important');
+    document.body.style.setProperty('overflow-x','hidden','important');
+    document.body.style.setProperty('max-width','100%','important');
+
+    document.querySelectorAll('.story-page, .content, .main-content, main, section, article, [data-testid="story-page"], .page-content, .story-content, .full-width, .contains-media-block, .media-block').forEach(function(el){
+      el.style.setProperty('max-width','100%','important');
+      el.style.setProperty('overflow-x','hidden','important');
+    });
+  }
+
+  lockHorizontalPageScroll();
+  setTimeout(lockHorizontalPageScroll, 500);
+  setTimeout(lockHorizontalPageScroll, 1500);
+  setTimeout(lockHorizontalPageScroll, 3000);
 
 })();
