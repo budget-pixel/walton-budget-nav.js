@@ -607,10 +607,10 @@
     opacity:1 !important;
     width:100% !important;
     max-width:100% !important;
-    min-height:44px !important;
+    min-height:72px !important;
     height:auto !important;
-    margin:0 !important;
-    padding:18px 36px 38px 36px !important;
+    margin:0 0 28px 0 !important;
+    padding:18px 36px 28px 36px !important;
     border-top:1px solid rgba(36,52,77,0.10) !important;
     background:#ffffff !important;
     box-sizing:border-box !important;
@@ -619,7 +619,7 @@
     line-height:1.4 !important;
     font-weight:600 !important;
     text-align:center !important;
-    overflow:hidden !important;
+    overflow:visible !important;
   }
   
   /* STANDALONE WALTON HEADER */
@@ -777,8 +777,11 @@
     }
 
     .wc-budget-footer-bottom{
-      padding:16px 16px 42px 16px !important;
+      min-height:88px !important;
+      margin:0 0 32px 0 !important;
+      padding:16px 16px 28px 16px !important;
       text-align:left !important;
+      overflow:visible !important;
     }
 
     .wc-standalone-budget-nav{
