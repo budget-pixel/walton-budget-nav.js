@@ -467,7 +467,7 @@
     bottom:auto !important;
     width:100% !important;
     max-width:100% !important;
-    min-height:120px !important;
+    min-height:140px !important;
     height:auto !important;
     margin:48px 0 0 0 !important;
     padding:0 !important;
@@ -610,7 +610,7 @@
     min-height:44px !important;
     height:auto !important;
     margin:0 !important;
-    padding:14px 36px 18px 36px !important;
+    padding:16px 36px 26px 36px !important;
     border-top:1px solid rgba(36,52,77,0.10) !important;
     background:#ffffff !important;
     box-sizing:border-box !important;
@@ -727,7 +727,7 @@
     footer[role="contentinfo"]{
       width:100% !important;
       max-width:100% !important;
-      min-height:160px !important;
+      min-height:190px !important;
       height:auto !important;
       margin:36px 0 0 0 !important;
       overflow:hidden !important;
@@ -777,7 +777,7 @@
     }
 
     .wc-budget-footer-bottom{
-      padding:14px 16px 18px 16px !important;
+      padding:14px 16px 30px 16px !important;
       text-align:left !important;
     }
 
