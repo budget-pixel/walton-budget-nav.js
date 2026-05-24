@@ -2,14 +2,30 @@
 
   var css = `
 
-html,
-body,
-.story-page,
-.content,
-.main-content{
-  overflow-x:hidden !important;
-  max-width:100% !important;
-}
+  *,
+  *::before,
+  *::after{
+    box-sizing:border-box !important;
+  }
+
+  html,
+  body{
+    width:100% !important;
+    max-width:100% !important;
+    overflow-x:hidden !important;
+  }
+
+  .story-page,
+  .content,
+  .main-content,
+  main,
+  section,
+  [data-testid="story-page"],
+  .page-content{
+    width:100% !important;
+    max-width:100% !important;
+    overflow-x:hidden !important;
+  }
 
   /* WALTON COUNTY MENU RESTYLE */
 
