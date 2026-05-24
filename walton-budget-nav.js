@@ -23,14 +23,10 @@
   .content,
   .main-content,
   main,
-  section,
   article,
   [data-testid="story-page"],
   .page-content,
-  .story-content,
-  .full-width,
-  .contains-media-block,
-  .media-block{
+  .story-content{
     max-width:100% !important;
     overflow-x:hidden !important;
   }
@@ -369,8 +365,8 @@
   [data-report-table-container-id]{
     border:1px solid rgba(209,190,120,0.45) !important;
     border-radius:24px !important;
-    overflow-x:hidden !important;
-    overflow-y:visible !important;
+    overflow:auto !important;
+    -webkit-overflow-scrolling:touch !important;
     background:#ffffff !important;
     box-shadow:
       0 14px 34px rgba(0,98,49,0.08),
@@ -378,15 +374,14 @@
   }
 
   [data-table-scroll-container="true"]{
-    overflow-x:hidden !important;
-    overflow-y:visible !important;
+    overflow:auto !important;
+    -webkit-overflow-scrolling:touch !important;
     max-width:100% !important;
   }
 
   [data-report-table-id]{
-    width:100% !important;
+    width:max-content !important;
     min-width:100% !important;
-    table-layout:fixed !important;
     border-collapse:separate !important;
     border-spacing:0 !important;
     font-family:Arial, Helvetica, sans-serif !important;
@@ -481,8 +476,7 @@
     box-shadow:none !important;
     font-family:Arial, Helvetica, sans-serif !important;
     box-sizing:border-box !important;
-    overflow-x:hidden !important;
-    overflow-y:visible !important;
+    overflow:hidden !important;
     z-index:1 !important;
   }
 
@@ -496,14 +490,14 @@
     visibility:visible !important;
     opacity:1 !important;
     width:100% !important;
-    max-width:none !important;
+    max-width:100% !important;
     min-height:82px !important;
     height:auto !important;
     margin:0 !important;
     padding:28px 36px 22px 36px !important;
     background:#ffffff !important;
     box-sizing:border-box !important;
-    overflow:visible !important;
+    overflow:hidden !important;
   }
 
   footer[role="contentinfo"] .logo-container{
@@ -612,7 +606,7 @@
     visibility:visible !important;
     opacity:1 !important;
     width:100% !important;
-    max-width:none !important;
+    max-width:100% !important;
     min-height:44px !important;
     height:auto !important;
     margin:0 !important;
@@ -625,7 +619,7 @@
     line-height:1.4 !important;
     font-weight:600 !important;
     text-align:center !important;
-    overflow:visible !important;
+    overflow:hidden !important;
   }
   
   /* STANDALONE WALTON HEADER */
@@ -730,27 +724,13 @@
 
   @media(max-width:768px){
 
-    [data-report-table-container-id],
-    [data-table-scroll-container="true"]{
-      overflow-x:auto !important;
-      overflow-y:visible !important;
-      -webkit-overflow-scrolling:touch !important;
-    }
-
-    [data-report-table-id]{
-      width:max-content !important;
-      min-width:100% !important;
-      table-layout:auto !important;
-    }
-
     footer[role="contentinfo"]{
       width:100% !important;
       max-width:100% !important;
       min-height:160px !important;
       height:auto !important;
       margin:36px 0 0 0 !important;
-      overflow-x:hidden !important;
-      overflow-y:visible !important;
+      overflow:hidden !important;
     }
 
     footer[role="contentinfo"] .footer-container{
@@ -1537,7 +1517,7 @@
     document.body.style.setProperty('overflow-x','hidden','important');
     document.body.style.setProperty('max-width','100%','important');
 
-    document.querySelectorAll('.story-page, .content, .main-content, main, section, article, [data-testid="story-page"], .page-content, .story-content, .full-width, .contains-media-block, .media-block').forEach(function(el){
+    document.querySelectorAll('.story-page, .content, .main-content, main, article, [data-testid="story-page"], .page-content, .story-content').forEach(function(el){
       el.style.setProperty('max-width','100%','important');
       el.style.setProperty('overflow-x','hidden','important');
     });
