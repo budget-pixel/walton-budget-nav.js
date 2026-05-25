@@ -18,7 +18,7 @@
     background-image:none !important;
     background-color:#24344d !important;
 
-    min-height:340px !important;
+    min-height:300px !important;
 
     display:flex;
     align-items:center;
@@ -125,7 +125,7 @@
     animation-delay:40s;
   }
 
-  /* KEEP CONTENT ABOVE SLIDES */
+  /* KEEP CONTENT ABOVE SLIDES AND REMOVE OPENGOV HERO SPACING */
 
   header.header .grid,
   header.header .container,
@@ -136,6 +136,37 @@
     position:relative !important;
 
     z-index:3 !important;
+  }
+
+  header.header .grid,
+  header.header .container,
+  header.header .col-1,
+  header.header .header-content,
+  header.header .header-content > div,
+  header.header .header-content > div.editable,
+  header.header .header-content > div.editable[style*="font-family"]{
+    padding-top:0 !important;
+    padding-bottom:0 !important;
+    margin-top:0 !important;
+    margin-bottom:0 !important;
+    min-height:0 !important;
+    height:auto !important;
+  }
+
+  header.header .container,
+  header.header .grid,
+  header.header .col-1,
+  header.header .header-content{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+  }
+
+  header.header .container,
+  header.header .grid,
+  header.header .col-1{
+    width:100% !important;
+    max-width:100% !important;
   }
 
   /* REMOVE PLATFORM BLACK BOX */
