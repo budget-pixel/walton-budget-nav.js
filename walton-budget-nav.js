@@ -161,7 +161,7 @@
   }
 
   .wc-split-brand-right .wc-split-brand-bottom{
-    margin-left:0 !important;
+    margin-left:3px !important;
     margin-right:1px !important;
     letter-spacing:.20em !important;
   }
