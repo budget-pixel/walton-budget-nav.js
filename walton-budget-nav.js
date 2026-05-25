@@ -74,11 +74,13 @@
 
   nav#nav-menu .logo-container{
     position:relative !important;
-    display:block !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
     flex:0 0 auto !important;
-    width:360px !important;
+    width:auto !important;
+    min-width:0 !important;
     height:64px !important;
-    min-width:360px !important;
     min-height:64px !important;
     margin:0 !important;
     padding:0 !important;
@@ -89,69 +91,89 @@
     font-family:"Avenir Next", Avenir, Helvetica, Arial, sans-serif !important;
   }
 
-  nav#nav-menu .logo-container img,
-  nav#nav-menu img.js-logo-navigation{
+  nav#nav-menu .logo-container::before,
+  nav#nav-menu .logo-container::after{
+    content:none !important;
     display:none !important;
+    visibility:hidden !important;
+    opacity:0 !important;
   }
 
-  nav#nav-menu .logo-container .wc-seal-mark{
-    position:absolute !important;
-    left:0 !important;
-    top:50% !important;
-    display:block !important;
-    width:52px !important;
-    height:52px !important;
-    border-radius:999px !important;
-    background:#ffffff url("https://stories.opengov.com/countyofwaltonfl/uploads/c432578eae78-Walton_County_Logo_no_background.png") center center / 49px 49px no-repeat !important;
-    border:2px solid #d1be78 !important;
-    box-sizing:border-box !important;
-    transform:translateY(-50%) !important;
-    z-index:2 !important;
-    cursor:pointer !important;
-    text-decoration:none !important;
-  }
-
+  nav#nav-menu .logo-container img,
+  nav#nav-menu img.js-logo-navigation,
   nav#nav-menu .logo-container .wc-logo-text-link{
-    position:absolute !important;
-    left:58px !important;
-    top:6px !important;
-    display:block !important;
-    width:292px !important;
-    height:48px !important;
-    z-index:3 !important;
-    cursor:pointer !important;
-    text-decoration:none !important;
-    background:transparent !important;
+    display:none !important;
+    visibility:hidden !important;
+    opacity:0 !important;
   }
 
-  nav#nav-menu .logo-container::before{
-    content:"WALTON COUNTY";
-    position:absolute;
-    left:60px !important;
-    top:10px;
+  .wc-split-brand{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
+    gap:4px !important;
+    height:58px !important;
+    font-family:"Avenir Next", Avenir, Helvetica, Arial, sans-serif !important;
+    text-decoration:none !important;
+    color:inherit !important;
+  }
+
+  .wc-split-brand-left,
+  .wc-split-brand-right{
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:center !important;
+    gap:0 !important;
+  }
+
+  .wc-split-brand-left{
+    align-items:flex-end !important;
+  }
+
+  .wc-split-brand-right{
+    align-items:flex-start !important;
+  }
+
+  .wc-split-brand-top{
+    display:block !important;
     color:#006231 !important;
     font-family:"Avenir Next", Avenir, Helvetica, Arial, sans-serif !important;
     font-size:26px !important;
-    line-height:1 !important;
+    line-height:.84 !important;
     font-weight:800 !important;
-    letter-spacing:.085em !important;
+    letter-spacing:.065em !important;
     text-transform:uppercase !important;
     white-space:nowrap !important;
   }
 
-  nav#nav-menu .logo-container::after{
-    content:"BOARD OF COUNTY COMMISSIONERS";
-    position:absolute;
-    left:64px !important;
-    top:38px;
+  .wc-split-brand-bottom{
+    display:block !important;
+    margin-top:2px !important;
     color:#000000 !important;
     font-family:"Avenir Next", Avenir, Helvetica, Arial, sans-serif !important;
-    font-size:9px !important;
-    line-height:1 !important;
+    font-size:8px !important;
+    line-height:.85 !important;
     font-weight:800 !important;
-    letter-spacing:.255em !important;
+    letter-spacing:.12em !important;
     text-transform:uppercase !important;
     white-space:nowrap !important;
+  }
+
+  .wc-split-brand-seal,
+  nav#nav-menu .logo-container .wc-seal-mark{
+    position:static !important;
+    display:block !important;
+    width:50px !important;
+    height:50px !important;
+    flex:0 0 50px !important;
+    border-radius:999px !important;
+    background:#ffffff url("https://stories.opengov.com/countyofwaltonfl/uploads/c432578eae78-Walton_County_Logo_no_background.png") center center / 46px 46px no-repeat !important;
+    border:2px solid #d1be78 !important;
+    box-sizing:border-box !important;
+    transform:none !important;
+    z-index:2 !important;
+    cursor:pointer !important;
+    text-decoration:none !important;
   }
 
   nav#nav-menu .wc-nav-search-slot{
@@ -522,53 +544,12 @@
   .wc-budget-footer-brand{
     display:flex !important;
     align-items:center !important;
-    gap:12px !important;
+    gap:4px !important;
     min-width:0 !important;
     max-width:100% !important;
+    text-decoration:none !important;
   }
 
-  .wc-budget-footer-seal{
-    display:block !important;
-    width:52px !important;
-    height:52px !important;
-    flex:0 0 52px !important;
-    border-radius:999px !important;
-    background:#ffffff url("https://stories.opengov.com/countyofwaltonfl/uploads/c432578eae78-Walton_County_Logo_no_background.png") center center / 49px 49px no-repeat !important;
-    border:2px solid #d1be78 !important;
-    box-sizing:border-box !important;
-  }
-
-  .wc-budget-footer-brand-text{
-    display:flex !important;
-    flex-direction:column !important;
-    gap:3px !important;
-    min-width:0 !important;
-    max-width:100% !important;
-  }
-
-  .wc-budget-footer-brand-text strong{
-    display:block !important;
-    color:#006231 !important;
-    font-family:"Avenir Next", Avenir, Helvetica, Arial, sans-serif !important;
-    font-size:22px !important;
-    line-height:1 !important;
-    font-weight:800 !important;
-    letter-spacing:.085em !important;
-    text-transform:uppercase !important;
-    white-space:nowrap !important;
-  }
-
-  .wc-budget-footer-brand-text span{
-    display:block !important;
-    color:#000000 !important;
-    font-family:"Avenir Next", Avenir, Helvetica, Arial, sans-serif !important;
-    font-size:8px !important;
-    line-height:1 !important;
-    font-weight:800 !important;
-    letter-spacing:.22em !important;
-    text-transform:uppercase !important;
-    white-space:nowrap !important;
-  }
 
   .wc-budget-footer-links{
     display:flex !important;
@@ -648,52 +629,11 @@
   .wc-standalone-brand{
     display:flex !important;
     align-items:center !important;
-    gap:12px !important;
+    gap:4px !important;
     min-width:0 !important;
     text-decoration:none !important;
   }
 
-  .wc-standalone-seal{
-    display:block !important;
-    width:52px !important;
-    height:52px !important;
-    flex:0 0 52px !important;
-    border-radius:999px !important;
-    background:#ffffff url("https://stories.opengov.com/countyofwaltonfl/uploads/c432578eae78-Walton_County_Logo_no_background.png") center center / 49px 49px no-repeat !important;
-    border:2px solid #d1be78 !important;
-    box-sizing:border-box !important;
-  }
-
-  .wc-standalone-brand-text{
-    display:flex !important;
-    flex-direction:column !important;
-    gap:3px !important;
-    min-width:0 !important;
-  }
-
-  .wc-standalone-brand-text strong{
-    display:block !important;
-    color:#006231 !important;
-    font-family:"Avenir Next", Avenir, Helvetica, Arial, sans-serif !important;
-    font-size:26px !important;
-    line-height:1 !important;
-    font-weight:800 !important;
-    letter-spacing:.085em !important;
-    text-transform:uppercase !important;
-    white-space:nowrap !important;
-  }
-
-  .wc-standalone-brand-text small{
-    display:block !important;
-    color:#000000 !important;
-    font-family:"Avenir Next", Avenir, Helvetica, Arial, sans-serif !important;
-    font-size:9px !important;
-    line-height:1 !important;
-    font-weight:800 !important;
-    letter-spacing:.255em !important;
-    text-transform:uppercase !important;
-    white-space:nowrap !important;
-  }
 
   .wc-standalone-links{
     display:flex !important;
@@ -758,26 +698,6 @@
       justify-content:center !important;
     }
 
-    .wc-budget-footer-brand-text strong{
-      font-size:18px !important;
-      max-width:calc(100vw - 104px) !important;
-      overflow:visible !important;
-      text-overflow:clip !important;
-      white-space:normal !important;
-      line-height:1.08 !important;
-      text-align:left !important;
-    }
-
-    .wc-budget-footer-brand-text span{
-      font-size:6px !important;
-      letter-spacing:.18em !important;
-      max-width:calc(100vw - 104px) !important;
-      overflow:visible !important;
-      text-overflow:clip !important;
-      white-space:normal !important;
-      line-height:1.25 !important;
-      text-align:left !important;
-    }
 
     .wc-budget-footer-links{
       width:100% !important;
@@ -827,26 +747,6 @@
       justify-content:center !important;
     }
 
-    .wc-standalone-brand-text strong{
-      font-size:18px !important;
-      max-width:calc(100vw - 104px) !important;
-      overflow:visible !important;
-      text-overflow:clip !important;
-      white-space:normal !important;
-      line-height:1.08 !important;
-      text-align:left !important;
-    }
-
-    .wc-standalone-brand-text small{
-      font-size:6px !important;
-      letter-spacing:.18em !important;
-      max-width:calc(100vw - 104px) !important;
-      overflow:visible !important;
-      text-overflow:clip !important;
-      white-space:normal !important;
-      line-height:1.25 !important;
-      text-align:left !important;
-    }
   @media(max-width:430px){
     .wc-budget-footer-links{
       grid-template-columns:1fr !important;
@@ -866,27 +766,6 @@
       gap:10px !important;
     }
 
-    .wc-budget-footer-seal,
-    .wc-standalone-seal{
-      width:46px !important;
-      height:46px !important;
-      flex-basis:46px !important;
-      background-size:43px 43px !important;
-    }
-
-    .wc-budget-footer-brand-text strong,
-    .wc-standalone-brand-text strong{
-      font-size:16px !important;
-      max-width:calc(100vw - 86px) !important;
-      letter-spacing:.065em !important;
-    }
-
-    .wc-budget-footer-brand-text span,
-    .wc-standalone-brand-text small{
-      font-size:5.5px !important;
-      max-width:calc(100vw - 86px) !important;
-      letter-spacing:.15em !important;
-    }
 
     .wc-budget-footer-bottom{
       padding:12px 12px 24px 12px !important;
@@ -1125,6 +1004,28 @@
     document.head.appendChild(style);
   }
 
+  function getWaltonSplitBrandHtml(linkHref, linkLabel){
+    var sealTag = linkHref ? 'a' : 'span';
+    var hrefAttr = linkHref ? ' href="' + linkHref + '"' : '';
+    var ariaAttr = linkLabel ? ' aria-label="' + linkLabel + '"' : ' aria-hidden="true"';
+
+    return `
+      <div class="wc-split-brand" aria-label="Walton County Board of County Commissioners">
+        <div class="wc-split-brand-left">
+          <div class="wc-split-brand-top">Walton</div>
+          <div class="wc-split-brand-bottom">Board of County</div>
+        </div>
+
+        <${sealTag} class="wc-split-brand-seal wc-seal-mark"${hrefAttr}${ariaAttr}></${sealTag}>
+
+        <div class="wc-split-brand-right">
+          <div class="wc-split-brand-top">County</div>
+          <div class="wc-split-brand-bottom">Commissioners</div>
+        </div>
+      </div>
+    `;
+  }
+
   function initWcNavSearch(){
 
     var nav = document.querySelector("nav#nav-menu.nav-menu");
@@ -1135,20 +1036,11 @@
 
     var logoContainer = nav.querySelector(".logo-container");
 
-    if(logoContainer && !logoContainer.querySelector(".wc-seal-mark")){
-      var sealMark = document.createElement("a");
-      sealMark.className = "wc-seal-mark";
-      sealMark.href = "https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbdb4696f0b333f2246";
-      sealMark.setAttribute("aria-label", "Go to Table of Contents");
-      logoContainer.insertBefore(sealMark, logoContainer.firstChild);
-    }
-
-    if(logoContainer && !logoContainer.querySelector(".wc-logo-text-link")){
-      var logoTextLink = document.createElement("a");
-      logoTextLink.className = "wc-logo-text-link";
-      logoTextLink.href = "https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbdb4696f0b333f2246";
-      logoTextLink.setAttribute("aria-label", "Go to Table of Contents");
-      logoContainer.insertBefore(logoTextLink, logoContainer.firstChild);
+    if(logoContainer && !logoContainer.querySelector(".wc-split-brand")){
+      logoContainer.innerHTML = getWaltonSplitBrandHtml(
+        "https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbdb4696f0b333f2246",
+        "Go to Table of Contents"
+      );
     }
 
     if(nav.querySelector(".wc-nav-search-slot")){
@@ -1573,11 +1465,7 @@
 
     header.innerHTML = `
       <div class="wc-standalone-brand" aria-label="Walton County">
-        <span class="wc-standalone-seal" aria-hidden="true"></span>
-        <span class="wc-standalone-brand-text">
-          <strong>Walton County</strong>
-          <small>Board of County Commissioners</small>
-        </span>
+        ${getWaltonSplitBrandHtml("", "")}
       </div>
     `;
 
@@ -1627,11 +1515,7 @@
     footerContainer.innerHTML = `
       <div class="wc-budget-footer-inner">
         <div class="wc-budget-footer-brand" aria-label="Walton County">
-          <span class="wc-budget-footer-seal" aria-hidden="true"></span>
-          <span class="wc-budget-footer-brand-text">
-            <strong>Walton County</strong>
-            <span>Board of County Commissioners</span>
-          </span>
+          ${getWaltonSplitBrandHtml("", "")}
         </div>
 
         ${hasOpenGovNav ? `
