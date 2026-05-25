@@ -191,7 +191,7 @@
     font-size:26px !important;
     line-height:.84 !important;
     font-weight:800 !important;
-    letter-spacing:.065em !important;
+    letter-spacing:.11em !important;
     text-transform:uppercase !important;
     white-space:nowrap !important;
   }
