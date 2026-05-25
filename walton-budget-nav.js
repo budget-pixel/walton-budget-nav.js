@@ -125,8 +125,13 @@
   nav#nav-menu .wc-split-brand,
   .wc-standalone-brand .wc-split-brand,
   .wc-budget-footer-brand .wc-split-brand{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
+    gap:4px !important;
     width:auto !important;
     min-width:max-content !important;
+    height:58px !important;
     flex:0 0 auto !important;
     overflow:visible !important;
   }
@@ -564,9 +569,14 @@
   .wc-budget-footer-brand{
     display:flex !important;
     align-items:center !important;
-    gap:4px !important;
-    min-width:0 !important;
-    max-width:100% !important;
+    justify-content:flex-start !important;
+    gap:0 !important;
+    width:auto !important;
+    min-width:max-content !important;
+    max-width:none !important;
+    height:64px !important;
+    flex:0 0 auto !important;
+    overflow:visible !important;
     text-decoration:none !important;
   }
 
@@ -649,8 +659,14 @@
   .wc-standalone-brand{
     display:flex !important;
     align-items:center !important;
-    gap:4px !important;
-    min-width:0 !important;
+    justify-content:flex-start !important;
+    gap:0 !important;
+    width:auto !important;
+    min-width:max-content !important;
+    max-width:none !important;
+    height:64px !important;
+    flex:0 0 auto !important;
+    overflow:visible !important;
     text-decoration:none !important;
   }
 
@@ -714,8 +730,13 @@
     }
 
     .wc-budget-footer-brand{
-      width:100% !important;
-      justify-content:center !important;
+      width:auto !important;
+      min-width:max-content !important;
+      max-width:none !important;
+      height:64px !important;
+      flex:0 0 auto !important;
+      justify-content:flex-start !important;
+      overflow:visible !important;
     }
 
 
@@ -763,8 +784,13 @@
     }
 
     .wc-standalone-brand{
-      width:100% !important;
-      justify-content:center !important;
+      width:auto !important;
+      min-width:max-content !important;
+      max-width:none !important;
+      height:64px !important;
+      flex:0 0 auto !important;
+      justify-content:flex-start !important;
+      overflow:visible !important;
     }
 
   @media(max-width:430px){
@@ -783,7 +809,13 @@
 
     .wc-budget-footer-brand,
     .wc-standalone-brand{
-      gap:10px !important;
+      gap:0 !important;
+      width:auto !important;
+      min-width:max-content !important;
+      max-width:none !important;
+      height:64px !important;
+      flex:0 0 auto !important;
+      overflow:visible !important;
     }
 
 
