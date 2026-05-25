@@ -13,6 +13,15 @@
     width:100% !important;
     max-width:100% !important;
     overflow-x:hidden !important;
+
+    -webkit-text-size-adjust:100% !important;
+    text-size-adjust:100% !important;
+  }
+
+  .wc-split-brand,
+  .wc-split-brand *{
+    -webkit-text-size-adjust:100% !important;
+    text-size-adjust:100% !important;
   }
 
   body{
@@ -193,8 +202,8 @@
     margin-right:1px !important;
     color:#000000 !important;
     font-family:"Avenir Next", Avenir, Helvetica, Arial, sans-serif !important;
-    font-size:10px !important;
-    line-height:.85 !important;
+    font-size:10.588235px !important;
+    line-height:9px !important;
     font-weight:800 !important;
     letter-spacing:.15em !important;
     text-transform:uppercase !important;
