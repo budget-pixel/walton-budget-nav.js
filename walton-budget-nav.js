@@ -149,14 +149,19 @@
   .wc-split-brand-bottom{
     display:block !important;
     margin-top:2px !important;
+    margin-right:1px !important;
     color:#000000 !important;
     font-family:"Avenir Next", Avenir, Helvetica, Arial, sans-serif !important;
-    font-size:8px !important;
+    font-size:10px !important;
     line-height:.85 !important;
     font-weight:800 !important;
-    letter-spacing:.12em !important;
+    letter-spacing:.20em !important;
     text-transform:uppercase !important;
     white-space:nowrap !important;
+  }
+
+  .wc-split-brand-right .wc-split-brand-bottom{
+    margin-left:2px !important;
   }
 
   .wc-split-brand-seal,
