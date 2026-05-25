@@ -155,13 +155,15 @@
     font-size:10px !important;
     line-height:.85 !important;
     font-weight:800 !important;
-    letter-spacing:.20em !important;
+    letter-spacing:.15em !important;
     text-transform:uppercase !important;
     white-space:nowrap !important;
   }
 
   .wc-split-brand-right .wc-split-brand-bottom{
-    margin-left:2px !important;
+    margin-left:0 !important;
+    margin-right:1px !important;
+    letter-spacing:.20em !important;
   }
 
   .wc-split-brand-seal,
