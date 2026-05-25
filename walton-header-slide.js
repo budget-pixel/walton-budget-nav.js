@@ -80,6 +80,10 @@
     z-index:0 !important;
   }
 
+  header.header .wc-slide-1{
+    opacity:1;
+  }
+
   /* IMAGE 1 */
 
   header.header .wc-slide-1{
@@ -300,19 +304,15 @@
   @keyframes wcSmoothCrossfade{
 
     0%{
-      opacity:0;
+      opacity:1;
       transform:scale(1.02);
     }
 
-    6%{
+    18%{
       opacity:1;
     }
 
-    20%{
-      opacity:1;
-    }
-
-    28%{
+    26%{
       opacity:0;
       transform:scale(1.045);
     }
@@ -454,8 +454,30 @@
     document.head.appendChild(style);
   }
 
+  function preloadWaltonHeaderImages(){
+    var imageUrls = [
+      "https://stories.opengov.com/countyofwaltonfl/uploads/ba46eed3917b-IMG_0064.jpeg",
+      "https://stories.opengov.com/countyofwaltonfl/uploads/2d191029e912-Morrison-Springs-028.jpg",
+      "https://stories.opengov.com/countyofwaltonfl/uploads/7189e42a6937-defuniak_springs_water_tower.jpg",
+      "https://stories.opengov.com/countyofwaltonfl/uploads/9f88a93a7ea4-paxton.jpg",
+      "https://stories.opengov.com/countyofwaltonfl/uploads/fd1a1a74415f-TBD-W-County-Hwy-30A-Santa-Rosa-Beach-FL-32459-USA-076-077-Seaside-MLS_Size.jpg"
+    ];
+
+    imageUrls.forEach(function(url){
+      var link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "image";
+      link.href = url;
+      document.head.appendChild(link);
+
+      var image = new Image();
+      image.src = url;
+    });
+  }
+
   function initWaltonHeaderSlides(){
     injectWaltonHeaderSlideStyles();
+    preloadWaltonHeaderImages();
 
     var headers = document.querySelectorAll("header.header");
 
@@ -491,11 +513,36 @@
 
   function safelyInitWaltonHeaderSlides(){
     if(!document.head || !document.body){
-      document.addEventListener("DOMContentLoaded", initWaltonHeaderSlides, { once:true });
+      document.addEventListener("DOMContentLoaded", safelyInitWaltonHeaderSlides, { once:true });
       return;
     }
 
     initWaltonHeaderSlides();
+
+    var attempts = 0;
+    var retryTimer = window.setInterval(function(){
+      attempts += 1;
+      initWaltonHeaderSlides();
+
+      if(document.querySelector("header.header .wc-header-slide") || attempts >= 20){
+        window.clearInterval(retryTimer);
+      }
+    }, 250);
+
+    if("MutationObserver" in window){
+      var observer = new MutationObserver(function(){
+        initWaltonHeaderSlides();
+
+        if(document.querySelector("header.header .wc-header-slide")){
+          observer.disconnect();
+        }
+      });
+
+      observer.observe(document.documentElement, {
+        childList:true,
+        subtree:true
+      });
+    }
   }
 
   safelyInitWaltonHeaderSlides();
