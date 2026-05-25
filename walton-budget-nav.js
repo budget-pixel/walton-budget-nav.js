@@ -136,6 +136,29 @@
     overflow:visible !important;
   }
 
+  nav#nav-menu .logo-container,
+  .wc-standalone-brand,
+  .wc-budget-footer-brand{
+    position:relative !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
+    flex:0 0 auto !important;
+    width:auto !important;
+    min-width:max-content !important;
+    max-width:none !important;
+    height:64px !important;
+    min-height:64px !important;
+    margin:0 !important;
+    padding:0 !important;
+    background:transparent !important;
+    border:0 !important;
+    box-shadow:none !important;
+    overflow:visible !important;
+    font-family:"Avenir Next", Avenir, Helvetica, Arial, sans-serif !important;
+    text-decoration:none !important;
+  }
+
   .wc-split-brand-left,
   .wc-split-brand-right{
     display:flex !important;
@@ -793,37 +816,6 @@
       overflow:visible !important;
     }
 
-  @media(max-width:430px){
-    .wc-budget-footer-links{
-      grid-template-columns:1fr !important;
-    }
-
-    .wc-budget-footer-links a{
-      font-size:10px !important;
-      padding:11px 12px !important;
-    }
-
-    footer[role="contentinfo"] .footer-container{
-      padding:20px 12px 16px 12px !important;
-    }
-
-    .wc-budget-footer-brand,
-    .wc-standalone-brand{
-      gap:0 !important;
-      width:auto !important;
-      min-width:max-content !important;
-      max-width:none !important;
-      height:64px !important;
-      flex:0 0 auto !important;
-      overflow:visible !important;
-    }
-
-
-    .wc-budget-footer-bottom{
-      padding:12px 12px 24px 12px !important;
-      font-size:11px !important;
-    }
-  }
 
     .wc-standalone-links{
       width:100% !important;
@@ -997,9 +989,22 @@
 
     .wc-budget-footer-brand,
     .wc-standalone-brand{
-      gap:10px !important;
+      gap:0 !important;
+      width:auto !important;
+      min-width:max-content !important;
+      max-width:none !important;
+      height:64px !important;
+      flex:0 0 auto !important;
+      overflow:visible !important;
+      justify-content:flex-start !important;
     }
 
+    .wc-budget-footer-brand .wc-split-brand,
+    .wc-standalone-brand .wc-split-brand{
+      gap:4px !important;
+      height:58px !important;
+      min-width:max-content !important;
+    }
 
     .wc-budget-footer-bottom{
       padding:12px 12px 24px 12px !important;
