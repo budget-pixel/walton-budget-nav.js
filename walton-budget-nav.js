@@ -516,6 +516,7 @@
     height:auto !important;
     background:#ffffff !important;
     box-sizing:border-box !important;
+    min-width:0 !important;
   }
 
   .wc-budget-footer-brand{
@@ -523,6 +524,7 @@
     align-items:center !important;
     gap:12px !important;
     min-width:0 !important;
+    max-width:100% !important;
   }
 
   .wc-budget-footer-seal{
@@ -540,6 +542,8 @@
     display:flex !important;
     flex-direction:column !important;
     gap:3px !important;
+    min-width:0 !important;
+    max-width:100% !important;
   }
 
   .wc-budget-footer-brand-text strong{
@@ -742,46 +746,68 @@
     }
 
     .wc-budget-footer-inner{
-      align-items:flex-start !important;
+      align-items:center !important;
+      justify-content:center !important;
       flex-direction:column !important;
       gap:18px !important;
+      text-align:center !important;
+    }
+
+    .wc-budget-footer-brand{
+      width:100% !important;
+      justify-content:center !important;
     }
 
     .wc-budget-footer-brand-text strong{
       font-size:18px !important;
       max-width:calc(100vw - 104px) !important;
-      overflow:hidden !important;
-      text-overflow:ellipsis !important;
-      white-space:nowrap !important;
+      overflow:visible !important;
+      text-overflow:clip !important;
+      white-space:normal !important;
+      line-height:1.08 !important;
+      text-align:left !important;
     }
 
     .wc-budget-footer-brand-text span{
       font-size:6px !important;
       letter-spacing:.18em !important;
       max-width:calc(100vw - 104px) !important;
-      overflow:hidden !important;
-      text-overflow:ellipsis !important;
-      white-space:nowrap !important;
+      overflow:visible !important;
+      text-overflow:clip !important;
+      white-space:normal !important;
+      line-height:1.25 !important;
+      text-align:left !important;
     }
 
     .wc-budget-footer-links{
       width:100% !important;
-      justify-content:flex-start !important;
+      justify-content:center !important;
       gap:8px !important;
+      display:grid !important;
+      grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
     }
 
     .wc-budget-footer-links a{
       width:100% !important;
+      min-width:0 !important;
       justify-content:center !important;
-      font-size:11px !important;
-      padding:10px 14px !important;
+      font-size:10px !important;
+      line-height:1.15 !important;
+      padding:10px 10px !important;
+      white-space:normal !important;
+      text-align:center !important;
+    }
+
+    .wc-budget-footer-links a:nth-child(3):last-child,
+    .wc-budget-footer-links a:nth-child(3):nth-last-child(2){
+      grid-column:auto !important;
     }
 
     .wc-budget-footer-bottom{
       min-height:64px !important;
       margin:0 !important;
       padding:14px 16px 28px 16px !important;
-      text-align:left !important;
+      text-align:center !important;
       line-height:1.5 !important;
       overflow:visible !important;
     }
@@ -789,27 +815,84 @@
     .wc-standalone-budget-nav{
       min-height:auto !important;
       padding:14px !important;
-      align-items:flex-start !important;
+      align-items:center !important;
+      justify-content:center !important;
       flex-direction:column !important;
       gap:14px !important;
+      text-align:center !important;
+    }
+
+    .wc-standalone-brand{
+      width:100% !important;
+      justify-content:center !important;
     }
 
     .wc-standalone-brand-text strong{
       font-size:18px !important;
       max-width:calc(100vw - 104px) !important;
-      overflow:hidden !important;
-      text-overflow:ellipsis !important;
-      white-space:nowrap !important;
+      overflow:visible !important;
+      text-overflow:clip !important;
+      white-space:normal !important;
+      line-height:1.08 !important;
+      text-align:left !important;
     }
 
     .wc-standalone-brand-text small{
       font-size:6px !important;
       letter-spacing:.18em !important;
       max-width:calc(100vw - 104px) !important;
-      overflow:hidden !important;
-      text-overflow:ellipsis !important;
-      white-space:nowrap !important;
+      overflow:visible !important;
+      text-overflow:clip !important;
+      white-space:normal !important;
+      line-height:1.25 !important;
+      text-align:left !important;
     }
+  @media(max-width:430px){
+    .wc-budget-footer-links{
+      grid-template-columns:1fr !important;
+    }
+
+    .wc-budget-footer-links a{
+      font-size:10px !important;
+      padding:11px 12px !important;
+    }
+
+    footer[role="contentinfo"] .footer-container{
+      padding:20px 12px 16px 12px !important;
+    }
+
+    .wc-budget-footer-brand,
+    .wc-standalone-brand{
+      gap:10px !important;
+    }
+
+    .wc-budget-footer-seal,
+    .wc-standalone-seal{
+      width:46px !important;
+      height:46px !important;
+      flex-basis:46px !important;
+      background-size:43px 43px !important;
+    }
+
+    .wc-budget-footer-brand-text strong,
+    .wc-standalone-brand-text strong{
+      font-size:16px !important;
+      max-width:calc(100vw - 86px) !important;
+      letter-spacing:.065em !important;
+    }
+
+    .wc-budget-footer-brand-text span,
+    .wc-standalone-brand-text small{
+      font-size:5.5px !important;
+      max-width:calc(100vw - 86px) !important;
+      letter-spacing:.15em !important;
+    }
+
+    .wc-budget-footer-bottom{
+      padding:12px 12px 24px 12px !important;
+      font-size:11px !important;
+    }
+  }
 
     .wc-standalone-links{
       width:100% !important;
@@ -984,6 +1067,17 @@
       top:calc(100% + 8px) !important;
       max-height:320px !important;
       border-radius:16px !important;
+    }
+  }
+
+  @media(max-width:430px){
+    .wc-budget-footer-links{
+      grid-template-columns:1fr !important;
+    }
+
+    .wc-budget-footer-links a{
+      font-size:10px !important;
+      padding:11px 12px !important;
     }
   }
   `;
@@ -1473,6 +1567,8 @@
       footer.insertBefore(footerContainer, footer.firstChild);
     }
 
+    var hasOpenGovNav = !!document.querySelector('nav#nav-menu.nav-menu');
+
     footerContainer.innerHTML = `
       <div class="wc-budget-footer-inner">
         <div class="wc-budget-footer-brand" aria-label="Walton County">
@@ -1482,6 +1578,15 @@
             <span>Board of County Commissioners</span>
           </span>
         </div>
+
+        ${hasOpenGovNav ? `
+        <nav class="wc-budget-footer-links" aria-label="Budget footer links">
+          <a href="https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbdb4696f0b333f2246">Budget Book</a>
+          <a href="https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd4a9d93e5ac05a153">Capital Improvement Plan</a>
+          <a href="https://budget-pixel.github.io/walton-cip-project-search/?view=all&v=6" target="_blank" rel="noopener noreferrer">Project Search</a>
+          <a href="https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd48feef483c784fe0">Glossary & FAQ</a>
+        </nav>
+        ` : ``}
       </div>
     `;
 
