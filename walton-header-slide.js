@@ -317,26 +317,101 @@
     }
   }
 
-  /* MOBILE */
+  /* MOBILE & ACCESSIBILITY */
 
   @media (max-width:768px){
 
     header.header{
+      min-height:300px !important;
+      align-items:center !important;
+      justify-content:center !important;
+    }
 
-      min-height:320px;
+    header.header .wc-header-slide{
+      background-position:center center !important;
+    }
+
+    header.header .header-content{
+      width:100% !important;
+      padding:0 16px !important;
+      text-align:center !important;
+      position:relative !important;
+      z-index:4 !important;
     }
 
     header.header
     .header-content > div.editable[style*="font-family"] h1{
 
-      padding:22px 28px !important;
+      display:inline-block !important;
+      max-width:calc(100vw - 32px) !important;
+      width:auto !important;
+      padding:20px 22px !important;
+      border-radius:18px !important;
+      white-space:normal !important;
+      line-height:1.08 !important;
+      overflow-wrap:anywhere !important;
+      word-break:break-word !important;
+      text-align:center !important;
+    }
 
-      border-radius:20px !important;
+    header.header
+    .header-content > div.editable[style*="font-family"] h1 span{
+      white-space:normal !important;
+      line-height:1.08 !important;
+      overflow-wrap:anywhere !important;
+      word-break:break-word !important;
+    }
+
+    header.header
+    .header-content > div.editable[style*="font-family"] h1::after{
+      width:84px !important;
+      height:4px !important;
+      margin-top:14px !important;
     }
 
     header.header .wc-progress{
+      height:8px !important;
+    }
+  }
 
-      height:8px;
+  @media (max-width:430px){
+
+    header.header{
+      min-height:260px !important;
+    }
+
+    header.header .header-content{
+      padding:0 12px !important;
+    }
+
+    header.header
+    .header-content > div.editable[style*="font-family"] h1{
+      max-width:calc(100vw - 24px) !important;
+      padding:18px 18px !important;
+      border-radius:16px !important;
+    }
+
+    header.header
+    .header-content > div.editable[style*="font-family"] h1::after{
+      width:72px !important;
+    }
+
+    header.header .wc-progress{
+      height:6px !important;
+    }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+
+    header.header .wc-header-slide,
+    header.header .wc-progress::before,
+    header.header .header-content > div.editable[style*="font-family"] h1{
+      animation:none !important;
+    }
+
+    header.header .wc-slide-1{
+      opacity:1 !important;
+      transform:none !important;
     }
   }
 
