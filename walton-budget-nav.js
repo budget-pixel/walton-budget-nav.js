@@ -1446,10 +1446,6 @@
           <small>Board of County Commissioners</small>
         </span>
       </div>
-
-      <nav class="wc-standalone-links" aria-label="Walton County budget navigation">
-        <a href="https://stories.opengov.com/countyofwaltonfl/605050f8-9a6f-4331-912b-a9eaa7f28258/published/dEsmfR2uM">Capital Improvement Plan</a>
-      </nav>
     `;
 
     document.body.insertBefore(header, document.body.firstChild);
@@ -1458,7 +1454,13 @@
   function renderWaltonBudgetFooter(){
     var footer = document.querySelector('footer[role="contentinfo"]');
 
-    if(!footer || footer.querySelector('.wc-budget-footer-inner')){
+    if(!footer){
+      footer = document.createElement('footer');
+      footer.setAttribute('role', 'contentinfo');
+      document.body.appendChild(footer);
+    }
+
+    if(footer.querySelector('.wc-budget-footer-inner')){
       return;
     }
 
@@ -1480,13 +1482,6 @@
             <span>Board of County Commissioners</span>
           </span>
         </div>
-
-        <nav class="wc-budget-footer-links" aria-label="Budget footer links">
-          <a href="https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbdb4696f0b333f2246">Budget Book</a>
-          <a href="https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd4a9d93e5ac05a153">Capital Improvement Plan</a>
-          <a href="https://budget-pixel.github.io/walton-cip-project-search/?view=all&v=6" target="_blank" rel="noopener noreferrer">Project Search</a>
-          <a href="https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd48feef483c784fe0">Glossary & FAQ</a>
-        </nav>
       </div>
     `;
 
