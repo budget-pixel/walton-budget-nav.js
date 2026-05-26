@@ -1086,7 +1086,7 @@
       background-size:30px 30px !important;
     }
   }
-  `;
+  }
 
   @media(max-width:360px){
 
@@ -1109,6 +1109,7 @@
       background-size:26px 26px !important;
     }
   }
+  `;
 
   if(!document.getElementById("wc-budget-nav-styles")){
     var style = document.createElement("style");
