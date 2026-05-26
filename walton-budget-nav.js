@@ -774,19 +774,22 @@
 
     .wc-budget-footer-links{
       width:100% !important;
+      max-width:360px !important;
       justify-content:center !important;
       gap:8px !important;
-      display:grid !important;
-      grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+      display:flex !important;
+      flex-direction:column !important;
+      align-items:stretch !important;
     }
 
     .wc-budget-footer-links a{
       width:100% !important;
       min-width:0 !important;
+      min-height:42px !important;
       justify-content:center !important;
       font-size:10px !important;
-      line-height:1.15 !important;
-      padding:10px 10px !important;
+      line-height:1.2 !important;
+      padding:11px 12px !important;
       white-space:normal !important;
       text-align:center !important;
     }
@@ -842,11 +845,11 @@
     }
 
     nav#nav-menu.nav-menu{
-      min-height:86px !important;
+      min-height:78px !important;
       height:auto !important;
-      padding:14px 14px 18px 14px !important;
-      gap:10px !important;
-      justify-content:flex-start !important;
+      padding:12px 58px 14px 58px !important;
+      gap:0 !important;
+      justify-content:center !important;
       align-items:center !important;
       flex-wrap:nowrap !important;
       overflow:visible !important;
@@ -858,30 +861,34 @@
       order:1 !important;
       position:relative !important;
       width:auto !important;
-      max-width:calc(100vw - 86px) !important;
+      max-width:100% !important;
       height:auto !important;
       min-width:0 !important;
       min-height:48px !important;
       flex:0 1 auto !important;
+      justify-content:center !important;
       overflow:visible !important;
+      margin:0 auto !important;
     }
 
 
     nav#nav-menu .wc-nav-search-slot{
       display:flex !important;
       order:2 !important;
-      flex:0 0 46px !important;
-      width:46px !important;
-      min-width:46px !important;
-      max-width:46px !important;
-      height:46px !important;
-      margin-left:auto !important;
-      margin-right:0 !important;
+      flex:0 0 38px !important;
+      width:38px !important;
+      min-width:38px !important;
+      max-width:38px !important;
+      height:38px !important;
+      margin:0 !important;
       padding:0 !important;
       justify-content:center !important;
       align-items:center !important;
       box-sizing:border-box !important;
-      position:static !important;
+      position:absolute !important;
+      right:14px !important;
+      top:50% !important;
+      transform:translateY(-50%) !important;
       z-index:10001 !important;
     }
 
@@ -890,6 +897,7 @@
       left:14px !important;
       right:14px !important;
       top:calc(100% + 10px) !important;
+      transform:none !important;
       width:auto !important;
       min-width:0 !important;
       max-width:none !important;
@@ -902,8 +910,8 @@
 
     nav#nav-menu .wc-search-wrap{
       display:block !important;
-      width:46px !important;
-      max-width:46px !important;
+      width:38px !important;
+      max-width:38px !important;
     }
 
     nav#nav-menu .wc-nav-search-slot.is-mobile-open .wc-search-wrap{
@@ -915,14 +923,14 @@
       display:flex !important;
       align-items:center !important;
       justify-content:center !important;
-      width:46px !important;
-      max-width:46px !important;
-      min-height:46px !important;
+      width:38px !important;
+      max-width:38px !important;
+      min-height:38px !important;
       padding:0 !important;
       border-radius:999px !important;
       background:linear-gradient(135deg,#006231 0%,#0b7741 100%) !important;
       border:0 !important;
-      box-shadow:0 8px 18px rgba(0,98,49,0.14) !important;
+      box-shadow:0 6px 14px rgba(0,98,49,0.14) !important;
       cursor:pointer !important;
     }
 
@@ -956,8 +964,8 @@
     }
 
     nav#nav-menu .wc-search-icon{
-      width:20px !important;
-      height:20px !important;
+      width:16px !important;
+      height:16px !important;
       flex-shrink:0 !important;
       margin-right:0 !important;
       color:#ffffff !important;
@@ -1020,7 +1028,7 @@
 
   @media(max-width:430px){
     .wc-budget-footer-links{
-      grid-template-columns:1fr !important;
+      max-width:320px !important;
     }
 
     .wc-budget-footer-links a{
@@ -1059,7 +1067,7 @@
     }
 
     nav#nav-menu .logo-container{
-      max-width:calc(100vw - 76px) !important;
+      max-width:100% !important;
       min-height:42px !important;
     }
 
@@ -1085,7 +1093,6 @@
       flex:0 0 34px !important;
       background-size:30px 30px !important;
     }
-  }
   }
 
   @media(max-width:360px){
