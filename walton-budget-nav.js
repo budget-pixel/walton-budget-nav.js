@@ -10,6 +10,49 @@
     document.head.appendChild(mobileStylesheet);
   }
 
+  function loadWcScriptOnce(scriptId, src, onload){
+    var existingScript = document.getElementById(scriptId);
+
+    if(existingScript){
+      if(typeof onload === "function"){
+        if(existingScript.getAttribute("data-loaded") === "true"){
+          onload();
+        }else{
+          existingScript.addEventListener("load", onload, { once:true });
+        }
+      }
+      return;
+    }
+
+    var script = document.createElement("script");
+    script.id = scriptId;
+    script.src = src;
+    script.async = true;
+
+    script.addEventListener("load", function(){
+      script.setAttribute("data-loaded", "true");
+      if(typeof onload === "function"){
+        onload();
+      }
+    });
+
+    document.head.appendChild(script);
+  }
+
+  function loadWaltonBudgetSearchModules(onReady){
+    loadWcScriptOnce(
+      "wc-budget-search-data-script",
+      "https://budget-pixel.github.io/walton-budget-search-data.js?v=1",
+      function(){
+        loadWcScriptOnce(
+          "wc-budget-search-script",
+          "https://budget-pixel.github.io/walton-budget-search.js?v=1",
+          onReady
+        );
+      }
+    );
+  }
+
   var css = `
 
   *,
@@ -747,12 +790,15 @@
   
   `;
 
-  if(!document.getElementById("wc-budget-nav-styles")){
-    var style = document.createElement("style");
+  var style = document.getElementById("wc-budget-nav-styles");
+
+  if(!style){
+    style = document.createElement("style");
     style.id = "wc-budget-nav-styles";
-    style.textContent = css;
     document.head.appendChild(style);
   }
+
+  style.textContent = css;
 
   function getWaltonSplitBrandHtml(linkHref, linkLabel){
     var sealTag = linkHref ? 'a' : 'span';
@@ -777,10 +823,17 @@
   }
 
   function initWcNavSearch(){
-
     var nav = document.querySelector("nav#nav-menu.nav-menu");
 
     if(!nav){
+      return;
+    }
+
+    if(typeof window.initWaltonBudgetSearch === "function"){
+      window.initWaltonBudgetSearch({
+        nav:nav,
+        getWaltonSplitBrandHtml:getWaltonSplitBrandHtml
+      });
       return;
     }
 
@@ -792,371 +845,6 @@
         "Go to Table of Contents"
       );
     }
-
-    if(nav.querySelector(".wc-nav-search-slot")){
-      return;
-    }
-
-    var slot = document.createElement("div");
-    slot.className = "wc-nav-search-slot";
-
-    slot.innerHTML = `
-      <div class="wc-search-wrap">
-        <div class="wc-search-box">
-          <svg class="wc-search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.35-4.35m0 0A7.5 7.5 0 1 0 6.15 6.15a7.5 7.5 0 0 0 10.5 10.5Z"></path>
-          </svg>
-
-          <input
-            type="search"
-            id="wcTocSearch"
-            placeholder="Search the budget publications..."
-            aria-label="Search table of contents"
-            autocomplete="off"
-          >
-        </div>
-      </div>
-
-      <div class="wc-nav-search-results" role="listbox" aria-label="Search results"></div>
-    `;
-
-    nav.appendChild(slot);
-
-    var results = slot.querySelector(".wc-nav-search-results");
-    var input = slot.querySelector("#wcTocSearch");
-    var searchBox = slot.querySelector(".wc-search-box");
-    var searchIcon = slot.querySelector(".wc-search-icon");
-
-    function isMobileNav(){
-      return window.matchMedia && window.matchMedia("(max-width:768px)").matches;
-    }
-
-    function openMobileSearch(){
-      if(!isMobileNav()){
-        return;
-      }
-
-      slot.classList.add("is-mobile-open");
-      setTimeout(function(){
-        input.focus();
-        renderResults(input.value);
-      }, 30);
-    }
-
-    function closeMobileSearch(){
-      if(!isMobileNav()){
-        return;
-      }
-
-      slot.classList.remove("is-mobile-open");
-      results.classList.remove("is-active");
-      input.blur();
-    }
-
-    if(searchBox){
-      searchBox.addEventListener("click", function(e){
-        if(isMobileNav() && !slot.classList.contains("is-mobile-open")){
-          e.preventDefault();
-          openMobileSearch();
-        }
-      });
-    }
-
-    if(searchIcon){
-      searchIcon.addEventListener("click", function(e){
-        if(isMobileNav()){
-          e.preventDefault();
-          openMobileSearch();
-        }
-      });
-    }
-
-    var links = [];
-    var seenHrefs = {};
-
-    var wcProjectSearchBaseUrl = "https://budget-pixel.github.io/walton-cip-project-search/?view=all&v=6&q=";
-
-    var wcBudgetPages = [
-      { title:"Table of Contents", section:"Introduction and Overview", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbdb4696f0b333f2246" },
-      { title:"GFOA Distinguished Budget Presentation Award", section:"Introduction and Overview", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd25815ed4e2fe49b4" },
-      { title:"Transmittal Letter", section:"Introduction and Overview", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbdc3a5aa570050fba9" },
-      { title:"Budget-in-Brief", section:"Introduction and Overview", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=69e8ae83a93da8d66dc5e248" },
-      { title:"Overview of Walton County", section:"Introduction and Overview", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd2e29b2249e0a5b99" },
-      { title:"Organizational Structure", section:"Introduction and Overview", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd1af21806371d68e7" },
-      { title:"Strategic Initiatives", section:"Introduction and Overview", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbda2feb1e35a5b122d" },
-      { title:"Budget Process & Calendar", section:"Financial Structure, Policies, and Process", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbdeb3f9f1b409e86d5" },
-      { title:"Fund Descriptions and Structure", section:"Financial Structure, Policies, and Process", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd623edf6822e6e54d" },
-      { title:"Department to Fund Relationship", section:"Financial Structure, Policies, and Process", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbdcf5e99561d6ee920" },
-      { title:"Financial Policies", section:"Financial Structure, Policies, and Process", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd42737a8f8389d90a" },
-      { title:"Consolidated Financial Schedules", section:"Financial Summaries", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=69ec1d92dac55b6e61a0d5a1" },
-      { title:"Fund Financial Schedules", section:"Financial Summaries", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=69efabd38621d8866c0990bc" },
-      { title:"Summary of Revenues", section:"Financial Summaries", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd901dc122f957d450" },
-      { title:"Summary of Expenses", section:"Financial Summaries", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbdf2d67fd0fb063ce6" },
-      { title:"Summary of Interfund Transfers", section:"Financial Summaries", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd0c507ca05e715043" },
-      { title:"Summary of Personnel", section:"Financial Summaries", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbdacbe9432cc1ec134" },
-      { title:"Summary of Machinery, Vehicles & Equipment", section:"Financial Summaries", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbdfdb1a2c2915743e4" },
-      { title:"Board of County Commissioners", section:"Constitutional Officers", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbc6947be859271a418" },
-      { title:"Clerk of Courts & County Comptroller", section:"Constitutional Officers", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbcc965cb8dc61a1909" },
-      { title:"Property Appraiser", section:"Constitutional Officers", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbc872420fe4b9ad729" },
-      { title:"Sheriff's Office", section:"Constitutional Officers", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbccae62897761aea36" },
-      { title:"Supervisor of Elections", section:"Constitutional Officers", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbc238b94b182a17be3" },
-      { title:"Tax Collector", section:"Constitutional Officers", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbc5a7603d48c5d254c" },
-      { title:"Circuit Court", section:"Autonomous Entities", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd8610a5581eec0eb5" },
-      { title:"County Court", section:"Autonomous Entities", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd80c5b0f0529f9f19" },
-      { title:"Court Technology & Innovations", section:"Autonomous Entities", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbda7032c6c388f5159" },
-      { title:"Guardian Ad Litem", section:"Autonomous Entities", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbda641a1ab299d7803" },
-      { title:"Medical Examiner", section:"Autonomous Entities", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd185c827885253858" },
-      { title:"Non-Profit Funding Program", section:"Autonomous Entities", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbdcb2c399f2c8536fd" },
-      { title:"Public Defender", section:"Autonomous Entities", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd71fca7e3dc1ad0fa" },
-      { title:"South Walton Fire & State Control", section:"Autonomous Entities", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd799cff81b62a9d04" },
-      { title:"State Attorney", section:"Autonomous Entities", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbdfba867c19eddf0d3" },
-      { title:"Statutory & Other Agency Funding", section:"Autonomous Entities", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbdd8b75e8172b9646a" },
-      { title:"Walton County Health Department", section:"Autonomous Entities", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd55c6cf9367a9f70d" },
-      { title:"Building Construction and Maintenance", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbe4a1b46dae2cd66cc" },
-      { title:"Building Department", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd8e620c6522929798" },
-      { title:"Code Compliance", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd5e724bfe505af7d1" },
-      { title:"County Administration", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd15a00b5b02701878" },
-      { title:"Eagle Springs Golf and Recreation Center", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd67c50a9caf8aa87f" },
-      { title:"Eagle Springs Grill", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbdfe52b05dd76fe3e9" },
-      { title:"Emergency Management", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbdfa0047aa8047423d" },
-      { title:"Engineering Department", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd0fd7d79954f0d697" },
-      { title:"Environmental Resources", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbdd658e0914c4e22af" },
-      { title:"Extension Office", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbde2e896043bd2da11" },
-      { title:"Geographic Info Systems", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbee3bceee932fc0d87" },
-      { title:"Housing & Urban Development", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbe639ac21532bb2142" },
-      { title:"Human Resources", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbe479fad77bfe0b08c" },
-      { title:"Libraries", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbea6376f80ba7f7b69" },
-      { title:"Mosquito Control", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbeba6bb0c34fe13bcc" },
-      { title:"Mossy Head Wastewater Treatment Facility", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbe3d7c82948e99141a" },
-      { title:"Office of Management and Budget", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbe31d617f90d821387" },
-      { title:"Office of the County Attorney", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbed0f2f4405191cf7e" },
-      { title:"Planning", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbeee8cc7637f457744" },
-      { title:"Probation", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbeaab1d7fbd1d2ba62" },
-      { title:"Public Works", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbe512b64f66f25b84d" },
-      { title:"Purchasing", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbe30c197fb7c61e522" },
-      { title:"Recreation", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbeb2d7e817998fc5b3" },
-      { title:"Soil Conservation", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbec41205b833c4df0e" },
-      { title:"Solid Waste", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbe3d0fefca6b1a531e" },
-      { title:"Tourism Administration", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbe794aa4891a3dc024" },
-      { title:"Tourism Beach Operations", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbed36e2967b08392bf" },
-      { title:"Tourism Lifeguard Services and Beach Safety", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbecf8c02d147a19f9f" },
-      { title:"Veteran Services", section:"Department Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbf22a7f73b8c6a62b4" },
-      { title:"Capital Improvement Plan", section:"Capital, Debt, and Financial Forecast", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd4a9d93e5ac05a153" },
-      { title:"Debt Overview", section:"Capital, Debt, and Financial Forecast", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd7fa91d193bd3f319" },
-      { title:"Financial Forecast", section:"Capital, Debt, and Financial Forecast", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd986e584c322f6216" },
-      { title:"Glossary, Acronyms, and Frequently Asked Questions", section:"Glossary, Statistical, and Supplemental Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd48feef483c784fe0" },
-      { title:"Statistical & Supplemental Information", section:"Glossary, Statistical, and Supplemental Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd1da6285c17aaf19a" }
-    ];
-
-    function addSearchLink(title, section, href, extraSearchText){
-      title = title ? String(title).trim() : "";
-      section = section ? String(section).trim() : "Budget Book";
-      href = href ? String(href).trim() : "";
-      extraSearchText = extraSearchText ? String(extraSearchText).trim() : "";
-
-      if(!title || !href || href === "#" || seenHrefs[href]){
-        return;
-      }
-
-      seenHrefs[href] = true;
-
-      links.push({
-        title:title,
-        section:section,
-        href:href,
-        searchText:(title + " " + section + " " + extraSearchText).toLowerCase()
-      });
-    }
-
-    wcBudgetPages.forEach(function(page){
-      addSearchLink(page.title, page.section, page.href);
-    });
-
-    function getProjectValue(project, keys){
-      for(var i = 0; i < keys.length; i++){
-        if(project && project[keys[i]] !== undefined && project[keys[i]] !== null && String(project[keys[i]]).trim() !== ""){
-          return String(project[keys[i]]).trim();
-        }
-      }
-      return "";
-    }
-
-    function flattenProjectText(value){
-      var pieces = [];
-
-      function walk(item){
-        if(item === null || item === undefined){
-          return;
-        }
-
-        if(typeof item === "string" || typeof item === "number"){
-          pieces.push(String(item));
-          return;
-        }
-
-        if(Array.isArray(item)){
-          item.forEach(walk);
-          return;
-        }
-
-        if(typeof item === "object"){
-          Object.keys(item).forEach(function(key){
-            walk(item[key]);
-          });
-        }
-      }
-
-      walk(value);
-      return pieces.join(" ");
-    }
-
-    function getLoadedProjects(){
-      if(window.wcProjects && Array.isArray(window.wcProjects)){
-        return window.wcProjects;
-      }
-
-      try{
-        if(typeof wcProjects !== "undefined" && Array.isArray(wcProjects)){
-          return wcProjects;
-        }
-      }catch(e){}
-
-      return [];
-    }
-
-    function loadProjectSearchData(){
-      var projects = getLoadedProjects();
-
-      if(!projects.length){
-        return;
-      }
-
-      projects.forEach(function(project){
-        var projectTitle = getProjectValue(project, [
-          "title",
-          "projectTitle",
-          "project_name",
-          "projectName",
-          "name",
-          "Project Name",
-          "Project"
-        ]) || "Untitled Project";
-
-        var projectDepartment = getProjectValue(project, [
-          "department",
-          "dept",
-          "Department",
-          "category",
-          "division"
-        ]) || "CIP Project";
-
-        var projectSearchText = flattenProjectText(project);
-
-        var projectSlug = getProjectValue(project, [
-          "slug",
-          "projectSlug",
-          "project_slug",
-          "Slug"
-        ]);
-
-        var projectHref = "";
-
-        if(projectSlug){
-          projectHref = "https://budget-pixel.github.io/walton-cip-project-search/project.html?project=" + encodeURIComponent(projectSlug);
-        }else{
-          projectHref = getProjectValue(project, [
-            "href",
-            "url",
-            "link",
-            "detailUrl",
-            "detailURL",
-            "projectUrl",
-            "projectURL",
-            "pageUrl",
-            "pageURL"
-          ]);
-        }
-
-        if(!projectHref){
-          projectHref = wcProjectSearchBaseUrl + encodeURIComponent(projectTitle);
-        }
-
-        addSearchLink(
-          projectTitle,
-          "CIP Project • " + projectDepartment,
-          projectHref,
-          projectSearchText
-        );
-      });
-
-      if(input && document.activeElement === input){
-        renderResults(input.value);
-      }
-    }
-
-    var projectScript = document.createElement("script");
-    projectScript.src = "https://budget-pixel.github.io/walton-cip-project-search/projects.js?v=6";
-    projectScript.onload = function(){
-      loadProjectSearchData();
-    };
-    document.head.appendChild(projectScript);
-
-    function renderResultItem(item){
-      var resultLink = document.createElement("a");
-      resultLink.className = "wc-nav-search-result";
-      resultLink.href = item.href;
-      resultLink.innerHTML = `<strong>${item.title}</strong><span>${item.section}</span>`;
-      results.appendChild(resultLink);
-    }
-
-    function renderResults(query){
-      var normalizedQuery = query.toLowerCase().trim();
-      results.innerHTML = "";
-
-      if(!normalizedQuery){
-        links.forEach(renderResultItem);
-        results.classList.add("is-active");
-        return;
-      }
-
-      var matches = links.filter(function(item){
-        return item.searchText.indexOf(normalizedQuery) !== -1;
-      });
-
-      matches = matches.slice(0,12);
-
-      if(!matches.length){
-        results.innerHTML = '<div class="wc-nav-search-empty">No matching sections found.</div>';
-        results.classList.add("is-active");
-        return;
-      }
-
-      matches.forEach(renderResultItem);
-      results.classList.add("is-active");
-    }
-
-    input.addEventListener("input", function(){
-      renderResults(input.value);
-    });
-
-    input.addEventListener("focus", function(){
-      renderResults(input.value);
-    });
-
-    input.addEventListener("keydown", function(e){
-      if(e.key === "Escape"){
-        results.classList.remove("is-active");
-        input.blur();
-        closeMobileSearch();
-      }
-    });
-
-    document.addEventListener("click", function(e){
-      if(!slot.contains(e.target)){
-        results.classList.remove("is-active");
-        closeMobileSearch();
-      }
-    });
   }
 
   function hideOpenGovMoreButton(){
@@ -1247,10 +935,6 @@
       appContainer.parentNode.insertBefore(footer, appContainer.nextSibling);
     }
 
-    if(footer.querySelector('.wc-budget-footer-inner')){
-      return;
-    }
-
     var footerContainer = footer.querySelector('.footer-container');
 
     if(!footerContainer){
@@ -1289,7 +973,11 @@
 
   function startWcBudgetNav(){
     if(document.querySelector("nav#nav-menu.nav-menu")){
-      initWcNavSearch();
+      loadWaltonBudgetSearchModules(function(){
+        initWcNavSearch();
+      });
+
+      setTimeout(initWcNavSearch, 800);
       hideOpenGovMoreButton();
       renderWaltonBudgetFooter();
       setTimeout(hideOpenGovMoreButton, 500);
