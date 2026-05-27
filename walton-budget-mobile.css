@@ -647,7 +647,7 @@
 
 @media(max-width:768px){
 
-  .wc-performance-table tbody{
+  .wc-performance-table{
     display:none !important;
   }
 
