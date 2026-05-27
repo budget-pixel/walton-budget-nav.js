@@ -79,15 +79,22 @@
     min-height:0 !important;
     height:auto !important;
     max-height:none !important;
-    padding:4px 10px 7px 10px !important;
-    gap:2px !important;
+
+    padding:0 10px 4px 10px !important;
+
+    gap:1px !important;
+
     justify-content:flex-start !important;
     align-items:center !important;
     flex-direction:column !important;
     flex-wrap:nowrap !important;
+
     overflow:visible !important;
+
     border-bottom:4px solid #006231 !important;
     background:#ffffff !important;
+
+    line-height:1 !important;
   }
 
   nav#nav-menu.nav-menu > *{
@@ -124,17 +131,23 @@
   nav#nav-menu.nav-menu .logo-container{
     order:1 !important;
     position:relative !important;
+
     width:100% !important;
     max-width:100% !important;
-    height:30px !important;
+
+    height:52px !important;
     min-width:0 !important;
-    min-height:30px !important;
-    max-height:30px !important;
-    flex:0 0 30px !important;
+    min-height:52px !important;
+    max-height:52px !important;
+
+    flex:0 0 52px !important;
+
     display:flex !important;
     align-items:center !important;
     justify-content:center !important;
+
     overflow:visible !important;
+
     margin:0 auto !important;
     padding:0 !important;
   }
@@ -144,8 +157,8 @@
   .wc-standalone-brand .wc-split-brand{
     min-width:0 !important;
     max-width:100% !important;
-    height:30px !important;
-    gap:2px !important;
+    height:52px !important;
+    gap:4px !important;
     flex:0 1 auto !important;
     justify-content:center !important;
     align-items:center !important;
@@ -154,13 +167,13 @@
   }
 
   nav#nav-menu.nav-menu .wc-split-brand-top{
-    font-size:14px !important;
+    font-size:22px !important;
     line-height:.88 !important;
     letter-spacing:.055em !important;
   }
 
   nav#nav-menu.nav-menu .wc-split-brand-bottom{
-    font-size:5.8px !important;
+    font-size:8px !important;
     line-height:6px !important;
     letter-spacing:.045em !important;
   }
@@ -172,10 +185,10 @@
 
   nav#nav-menu.nav-menu .wc-split-brand-seal,
   nav#nav-menu.nav-menu .logo-container .wc-seal-mark{
-    width:26px !important;
-    height:26px !important;
-    flex:0 0 26px !important;
-    background-size:22px 22px !important;
+    width:42px !important;
+    height:42px !important;
+    flex:0 0 42px !important;
+    background-size:36px 36px !important;
   }
 
   nav#nav-menu.nav-menu .wc-nav-search-slot{
