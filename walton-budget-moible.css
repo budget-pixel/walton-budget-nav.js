@@ -142,11 +142,12 @@
   nav#nav-menu .wc-nav-search-slot{
     display:flex !important;
     order:2 !important;
-    flex:0 0 32px !important;
-    width:32px !important;
-    min-width:32px !important;
-    max-width:32px !important;
-    height:32px !important;
+    flex:0 0 36px !important;
+    width:36px !important;
+    min-width:36px !important;
+    max-width:36px !important;
+    height:36px !important;
+    min-height:36px !important;
     margin:0 !important;
     padding:0 !important;
     justify-content:center !important;
@@ -156,7 +157,10 @@
     right:14px !important;
     top:50% !important;
     transform:translateY(-50%) !important;
-    z-index:10001 !important;
+    z-index:10010 !important;
+    opacity:1 !important;
+    visibility:visible !important;
+    overflow:visible !important;
   }
 
   nav#nav-menu .wc-nav-search-slot.is-mobile-open{
@@ -176,9 +180,12 @@
   }
 
   nav#nav-menu .wc-search-wrap{
-    display:block !important;
-    width:32px !important;
-    max-width:32px !important;
+    display:flex !important;
+    width:36px !important;
+    max-width:36px !important;
+    height:36px !important;
+    align-items:center !important;
+    justify-content:center !important;
   }
 
   nav#nav-menu .wc-nav-search-slot.is-mobile-open .wc-search-wrap{
@@ -190,15 +197,18 @@
     display:flex !important;
     align-items:center !important;
     justify-content:center !important;
-    width:32px !important;
-    max-width:32px !important;
-    min-height:32px !important;
+    width:36px !important;
+    max-width:36px !important;
+    height:36px !important;
+    min-height:36px !important;
     padding:0 !important;
     border-radius:999px !important;
     background:linear-gradient(135deg,#006231 0%,#0b7741 100%) !important;
     border:0 !important;
     box-shadow:0 6px 14px rgba(0,98,49,0.14) !important;
     cursor:pointer !important;
+    opacity:1 !important;
+    visibility:visible !important;
   }
 
   nav#nav-menu .wc-nav-search-slot.is-mobile-open .wc-search-box{
@@ -226,13 +236,19 @@
   }
 
   nav#nav-menu .wc-search-icon{
-    width:13px !important;
-    height:13px !important;
-    flex-shrink:0 !important;
-    margin-right:0 !important;
+    display:block !important;
+    width:16px !important;
+    height:16px !important;
+    min-width:16px !important;
+    min-height:16px !important;
+    flex:0 0 16px !important;
+    margin:0 !important;
     color:#ffffff !important;
     stroke:#ffffff !important;
     fill:none !important;
+    opacity:1 !important;
+    visibility:visible !important;
+    pointer-events:none !important;
   }
 
   nav#nav-menu .wc-nav-search-slot.is-mobile-open .wc-search-icon{
