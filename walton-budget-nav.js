@@ -628,7 +628,7 @@
     min-height:150px !important;
     height:auto !important;
     margin:48px 0 0 0 !important;
-    padding:0 0 18px 0 !important;
+    padding:0 0 4px 0 !important;
     background:#ffffff !important;
     border-top:4px solid #006231 !important;
     box-shadow:none !important;
@@ -652,7 +652,7 @@
     min-height:82px !important;
     height:auto !important;
     margin:0 !important;
-    padding:28px 36px 22px 36px !important;
+    padding:28px 36px 1px 36px !important;
     background:#ffffff !important;
     box-sizing:border-box !important;
     overflow:hidden !important;
@@ -670,7 +670,9 @@
     justify-content:space-between !important;
     gap:28px !important;
     width:100% !important;
-    min-height:52px !important;
+    min-height:auto !important;
+    padding-bottom:1px !important;
+    margin-bottom:0 !important;
     height:auto !important;
     background:#ffffff !important;
     box-sizing:border-box !important;
@@ -736,7 +738,7 @@
     min-height:52px !important;
     height:auto !important;
     margin:0 !important;
-    padding:14px 36px 22px 36px !important;
+    padding:14px 36px 48px 36px !important;
     border-top:1px solid rgba(36,52,77,0.10) !important;
     background:#ffffff !important;
     box-sizing:border-box !important;
