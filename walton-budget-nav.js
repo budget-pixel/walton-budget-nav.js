@@ -1025,7 +1025,7 @@
     if(!footer.querySelector('.wc-budget-footer-bottom')){
       var footerBottom = document.createElement('div');
       footerBottom.className = 'wc-budget-footer-bottom';
-      footerBottom.textContent = 'Prepared by the Walton County Office of Management and Budget for public transparency and informational purposes.';
+      footerBottom.textContent = 'Prepared by the Walton County Office of Management and Budget.';
       footer.appendChild(footerBottom);
     }
   }
