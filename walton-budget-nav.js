@@ -72,6 +72,13 @@
     );
   }
 
+  function loadWaltonPerformanceMobile(){
+    loadWcScriptOnce(
+      "wc-performance-mobile-script",
+      wcBudgetAssetBaseUrl + "walton-performance-mobile.js?v=1"
+    );
+  }
+
   var css = `
 
   *,
@@ -1026,6 +1033,7 @@
       loadWaltonBudgetSearchModules(function(){
         initWcNavSearch();
       });
+      loadWaltonPerformanceMobile();
 
       setTimeout(initWcNavSearch, 800);
       setTimeout(initWcNavSearch, 2000);
@@ -1039,6 +1047,7 @@
     }
 
     renderStandaloneBudgetNav();
+    loadWaltonPerformanceMobile();
 
     if(document.getElementById('app')){
       renderWaltonBudgetFooter();
