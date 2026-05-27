@@ -6,11 +6,16 @@
 
   var mobileStylesheetId = "wc-budget-mobile-styles";
 
-  if(!document.getElementById(mobileStylesheetId)){
-    var mobileStylesheet = document.createElement("link");
-    mobileStylesheet.id = mobileStylesheetId;
-    mobileStylesheet.rel = "stylesheet";
-    mobileStylesheet.href = wcBudgetAssetBaseUrl + "walton-budget-mobile.css?v=4";
+  function loadWaltonMobileStylesheet(){
+    var mobileStylesheet = document.getElementById(mobileStylesheetId);
+
+    if(!mobileStylesheet){
+      mobileStylesheet = document.createElement("link");
+      mobileStylesheet.id = mobileStylesheetId;
+      mobileStylesheet.rel = "stylesheet";
+    }
+
+    mobileStylesheet.href = wcBudgetAssetBaseUrl + "walton-budget-mobile.css?v=7";
     document.head.appendChild(mobileStylesheet);
   }
 
@@ -813,6 +818,7 @@
   }
 
   style.textContent = css;
+  loadWaltonMobileStylesheet();
 
   function getWaltonSplitBrandHtml(linkHref, linkLabel){
     var sealTag = linkHref ? 'a' : 'span';
