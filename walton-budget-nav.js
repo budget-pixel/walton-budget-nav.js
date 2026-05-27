@@ -1,12 +1,14 @@
 (function(){
 
+  var wcBudgetAssetBaseUrl = "https://budget-pixel.github.io/walton-cip-project-search/";
+
   var mobileStylesheetId = "wc-budget-mobile-styles";
 
   if(!document.getElementById(mobileStylesheetId)){
     var mobileStylesheet = document.createElement("link");
     mobileStylesheet.id = mobileStylesheetId;
     mobileStylesheet.rel = "stylesheet";
-    mobileStylesheet.href = "https://budget-pixel.github.io/walton-budget-mobile.css?v=1";
+    mobileStylesheet.href = wcBudgetAssetBaseUrl + "walton-budget-mobile.css?v=1";
     document.head.appendChild(mobileStylesheet);
   }
 
@@ -42,12 +44,22 @@
   function loadWaltonBudgetSearchModules(onReady){
     loadWcScriptOnce(
       "wc-budget-search-data-script",
-      "https://budget-pixel.github.io/walton-budget-search-data.js?v=1",
+      wcBudgetAssetBaseUrl + "walton-budget-search-data.js?v=1",
       function(){
         loadWcScriptOnce(
           "wc-budget-search-script",
-          "https://budget-pixel.github.io/walton-budget-search.js?v=1",
-          onReady
+          wcBudgetAssetBaseUrl + "walton-budget-search.js?v=1",
+          function(){
+            var fallbackSlot = document.querySelector(".wc-nav-search-slot-fallback");
+
+            if(fallbackSlot && fallbackSlot.parentNode){
+              fallbackSlot.parentNode.removeChild(fallbackSlot);
+            }
+
+            if(typeof onReady === "function"){
+              onReady();
+            }
+          }
         );
       }
     );
@@ -845,6 +857,36 @@
         "Go to Table of Contents"
       );
     }
+
+    if(nav.querySelector(".wc-nav-search-slot")){
+      return;
+    }
+
+    var slot = document.createElement("div");
+    slot.className = "wc-nav-search-slot wc-nav-search-slot-fallback";
+
+    slot.innerHTML = `
+      <div class="wc-search-wrap">
+        <div class="wc-search-box">
+          <svg class="wc-search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.35-4.35m0 0A7.5 7.5 0 1 0 6.15 6.15a7.5 7.5 0 0 0 10.5 10.5Z"></path>
+          </svg>
+
+          <input
+            type="search"
+            id="wcTocSearch"
+            placeholder="Search is loading..."
+            aria-label="Search table of contents"
+            autocomplete="off"
+            disabled
+          >
+        </div>
+      </div>
+
+      <div class="wc-nav-search-results" role="listbox" aria-label="Search results"></div>
+    `;
+
+    nav.appendChild(slot);
   }
 
   function hideOpenGovMoreButton(){
@@ -978,6 +1020,7 @@
       });
 
       setTimeout(initWcNavSearch, 800);
+      setTimeout(initWcNavSearch, 2000);
       hideOpenGovMoreButton();
       renderWaltonBudgetFooter();
       setTimeout(hideOpenGovMoreButton, 500);
