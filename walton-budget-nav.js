@@ -10,7 +10,7 @@
     var mobileStylesheet = document.createElement("link");
     mobileStylesheet.id = mobileStylesheetId;
     mobileStylesheet.rel = "stylesheet";
-    mobileStylesheet.href = wcBudgetAssetBaseUrl + "walton-budget-mobile.css?v=3";
+    mobileStylesheet.href = wcBudgetAssetBaseUrl + "walton-budget-mobile.css?v=4";
     document.head.appendChild(mobileStylesheet);
   }
 
