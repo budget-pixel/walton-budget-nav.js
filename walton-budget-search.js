@@ -20,8 +20,14 @@
       );
     }
 
-    if(nav.querySelector(".wc-nav-search-slot")){
-      return;
+    var existingSearchSlot = nav.querySelector(".wc-nav-search-slot");
+
+    if(existingSearchSlot){
+      if(existingSearchSlot.classList.contains("wc-nav-search-slot-fallback")){
+        existingSearchSlot.parentNode.removeChild(existingSearchSlot);
+      }else{
+        return;
+      }
     }
 
     var slot = document.createElement("div");
@@ -56,7 +62,7 @@
 
     var links = [];
     var seenHrefs = {};
-    var wcProjectSearchBaseUrl = "https://budget-pixel.github.io/walton-cip-project-search/?view=all&v=6&q=";
+    var wcProjectSearchBaseUrl = window.wcProjectSearchBaseUrl || "https://budget-pixel.github.io/walton-cip-project-search/?view=all&v=6&q=";
 
     function isMobileNav(){
       return window.matchMedia && window.matchMedia("(max-width:768px)").matches;
