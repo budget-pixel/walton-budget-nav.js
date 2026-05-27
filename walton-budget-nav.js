@@ -1,6 +1,8 @@
 (function(){
 
-  var wcBudgetAssetBaseUrl = "https://budget-pixel.github.io/walton-cip-project-search/";
+  var wcBudgetAssetBaseUrl = "https://budget-pixel.github.io/walton-budget-nav/";
+  var wcCipAssetBaseUrl = "https://budget-pixel.github.io/walton-cip-project-search/";
+  window.wcCipAssetBaseUrl = wcCipAssetBaseUrl;
 
   var mobileStylesheetId = "wc-budget-mobile-styles";
 
@@ -998,7 +1000,7 @@
         <nav class="wc-budget-footer-links" aria-label="Budget footer links">
           <a href="https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbdb4696f0b333f2246">Budget Book</a>
           <a href="https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd4a9d93e5ac05a153">Capital Improvement Plan</a>
-          <a href="https://budget-pixel.github.io/walton-cip-project-search/?view=all&v=6" target="_blank" rel="noopener noreferrer">Project Search</a>
+          <a href="${wcCipAssetBaseUrl}?view=all&v=6" target="_blank" rel="noopener noreferrer">Project Search</a>
           <a href="https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd48feef483c784fe0">Glossary & FAQ</a>
         </nav>
         ` : ``}
