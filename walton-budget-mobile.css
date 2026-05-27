@@ -495,3 +495,112 @@
     background-size:26px 26px !important;
   }
 }
+
+/* FINAL MOBILE HEADER LOCK — keep this at the very bottom */
+
+@media(max-width:768px){
+
+  nav#nav-menu.nav-menu{
+    padding:0 10px 6px 10px !important;
+    gap:1px !important;
+    line-height:1 !important;
+  }
+
+  nav#nav-menu.nav-menu > *{
+    margin-top:0 !important;
+    margin-bottom:0 !important;
+  }
+
+  nav#nav-menu.nav-menu .logo-container{
+    height:66px !important;
+    min-height:66px !important;
+    max-height:66px !important;
+    flex:0 0 66px !important;
+    margin:0 auto !important;
+    padding:0 !important;
+  }
+
+  nav#nav-menu.nav-menu .wc-split-brand{
+    height:66px !important;
+    min-height:66px !important;
+    max-height:66px !important;
+    gap:5px !important;
+    margin:0 auto !important;
+  }
+
+  nav#nav-menu.nav-menu .wc-split-brand-top{
+    font-size:29px !important;
+    line-height:.9 !important;
+    letter-spacing:.045em !important;
+  }
+
+  nav#nav-menu.nav-menu .wc-split-brand-bottom{
+    font-size:9px !important;
+    line-height:8px !important;
+    letter-spacing:.08em !important;
+  }
+
+  nav#nav-menu.nav-menu .wc-split-brand-seal,
+  nav#nav-menu.nav-menu .logo-container .wc-seal-mark{
+    width:52px !important;
+    height:52px !important;
+    flex:0 0 52px !important;
+    background-size:46px 46px !important;
+  }
+
+  nav#nav-menu.nav-menu .wc-nav-search-slot,
+  nav#nav-menu.nav-menu .wc-nav-search-slot.is-mobile-open{
+    width:82vw !important;
+    min-width:0 !important;
+    max-width:260px !important;
+    height:28px !important;
+    min-height:28px !important;
+    max-height:28px !important;
+    flex:0 0 28px !important;
+    margin:-2px auto 0 auto !important;
+    padding:0 !important;
+    box-sizing:border-box !important;
+  }
+
+  nav#nav-menu.nav-menu .wc-search-wrap{
+    width:100% !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    height:28px !important;
+    min-height:28px !important;
+    max-height:28px !important;
+    box-sizing:border-box !important;
+  }
+
+  nav#nav-menu.nav-menu .wc-search-box,
+  nav#nav-menu.nav-menu .wc-nav-search-slot.is-mobile-open .wc-search-box{
+    width:100% !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    height:28px !important;
+    min-height:28px !important;
+    max-height:28px !important;
+    padding:0 8px !important;
+    box-sizing:border-box !important;
+    overflow:hidden !important;
+  }
+
+  nav#nav-menu.nav-menu #wcTocSearch{
+    width:100% !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    font-size:10px !important;
+    line-height:1.1 !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+  }
+
+  nav#nav-menu.nav-menu .wc-search-icon{
+    width:10px !important;
+    height:10px !important;
+    min-width:10px !important;
+    min-height:10px !important;
+    flex:0 0 10px !important;
+    margin:0 6px 0 0 !important;
+  }
+}
