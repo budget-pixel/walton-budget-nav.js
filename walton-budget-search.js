@@ -63,6 +63,7 @@
     var links = [];
     var seenHrefs = {};
     var wcProjectSearchBaseUrl = window.wcProjectSearchBaseUrl || "https://budget-pixel.github.io/walton-cip-project-search/?view=all&v=6&q=";
+    var wcCipAssetBaseUrl = window.wcCipAssetBaseUrl || "https://budget-pixel.github.io/walton-cip-project-search/";
 
     function isMobileNav(){
       return window.matchMedia && window.matchMedia("(max-width:768px)").matches;
@@ -278,7 +279,7 @@
     });
 
     var projectScript = document.createElement("script");
-    projectScript.src = "https://budget-pixel.github.io/walton-cip-project-search/projects.js?v=6";
+    projectScript.src = wcCipAssetBaseUrl + "projects.js?v=6";
     projectScript.onload = function(){
       loadProjectSearchData();
     };
