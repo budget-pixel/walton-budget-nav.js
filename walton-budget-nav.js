@@ -1,6 +1,6 @@
 (function(){
 
-  var wcBudgetAssetBaseUrl = "https://budget-pixel.github.io/walton-budget-nav/";
+  var wcBudgetAssetBaseUrl = "https://budget-pixel.github.io/walton-budget-nav.js/";
   var wcCipAssetBaseUrl = "https://budget-pixel.github.io/walton-cip-project-search/";
   window.wcCipAssetBaseUrl = wcCipAssetBaseUrl;
 
