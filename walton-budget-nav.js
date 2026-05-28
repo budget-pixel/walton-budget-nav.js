@@ -1,5 +1,7 @@
 (function(){
 
+  var wcBudgetNavStarted = false;
+  var wcLastKnownUrl = location.href;
   var wcBudgetAssetBaseUrl = "https://budget-pixel.github.io/walton-budget-nav.js/";
   var wcCipAssetBaseUrl = "https://budget-pixel.github.io/walton-cip-project-search/";
   window.wcCipAssetBaseUrl = wcCipAssetBaseUrl;
@@ -42,6 +44,13 @@
       script.setAttribute("data-loaded", "true");
       if(typeof onload === "function"){
         onload();
+      }
+    });
+
+    script.addEventListener("error", function(){
+      script.setAttribute("data-load-failed", "true");
+      if(window.console && typeof window.console.error === "function"){
+        window.console.error("Failed to load Walton County budget script:", src);
       }
     });
 
@@ -1031,6 +1040,16 @@
   }
 
   function startWcBudgetNav(){
+    if(wcBudgetNavStarted){
+      initWcNavSearch();
+      hideOpenGovMoreButton();
+      renderWaltonBudgetFooter();
+      lockHorizontalPageScroll();
+      return;
+    }
+
+    wcBudgetNavStarted = true;
+
     if(document.querySelector("nav#nav-menu.nav-menu")){
       loadWaltonBudgetSearchModules(function(){
         initWcNavSearch();
@@ -1081,9 +1100,28 @@
     });
   }
 
+  function repairWcBudgetNavAfterOpenGovNavigation(){
+    initWcNavSearch();
+    hideOpenGovMoreButton();
+    renderWaltonBudgetFooter();
+    lockHorizontalPageScroll();
+  }
+
+  function watchForOpenGovNavigation(){
+    setInterval(function(){
+      if(location.href !== wcLastKnownUrl){
+        wcLastKnownUrl = location.href;
+
+        setTimeout(repairWcBudgetNavAfterOpenGovNavigation, 300);
+        setTimeout(repairWcBudgetNavAfterOpenGovNavigation, 1000);
+      }
+    }, 500);
+  }
+
   lockHorizontalPageScroll();
   setTimeout(lockHorizontalPageScroll, 500);
   setTimeout(lockHorizontalPageScroll, 1500);
   setTimeout(lockHorizontalPageScroll, 3000);
+  watchForOpenGovNavigation();
 
 })();
