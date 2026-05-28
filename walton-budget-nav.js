@@ -59,34 +59,19 @@
   }
 
   function loadWaltonBudgetSearchModules(onReady){
-    loadWcScriptOnce(
-      "wc-budget-search-data-script",
-      wcBudgetAssetBaseUrl + "walton-budget-search-data.js?v=1",
-      function(){
-        loadWcScriptOnce(
-          "wc-budget-search-script",
-          wcBudgetAssetBaseUrl + "walton-budget-search.js?v=1",
-          function(){
-            var fallbackSlot = document.querySelector(".wc-nav-search-slot-fallback");
+    if(window.console && typeof window.console.warn === "function"){
+      window.console.warn("Walton County budget search modules are disabled for diagnostic testing.");
+    }
 
-            if(fallbackSlot && fallbackSlot.parentNode){
-              fallbackSlot.parentNode.removeChild(fallbackSlot);
-            }
-
-            if(typeof onReady === "function"){
-              onReady();
-            }
-          }
-        );
-      }
-    );
+    if(typeof onReady === "function"){
+      onReady();
+    }
   }
 
   function loadWaltonPerformanceMobile(){
-    loadWcScriptOnce(
-      "wc-performance-mobile-script",
-      wcBudgetAssetBaseUrl + "walton-performance-mobile.js?v=1"
-    );
+    if(window.console && typeof window.console.warn === "function"){
+      window.console.warn("Walton County performance mobile script is disabled for diagnostic testing.");
+    }
   }
 
   var css = `
