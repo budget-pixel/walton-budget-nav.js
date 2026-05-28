@@ -1,5 +1,8 @@
 (function(){
 
+  var wcHeaderImagesPreloaded = false;
+  var wcHeaderSlideMutationTimer = null;
+
   function injectWaltonHeaderSlideStyles(){
     if(document.getElementById("wc-header-slide-styles")){
       return;
@@ -455,6 +458,12 @@
   }
 
   function preloadWaltonHeaderImages(){
+    if(wcHeaderImagesPreloaded){
+      return;
+    }
+
+    wcHeaderImagesPreloaded = true;
+
     var imageUrls = [
       "https://stories.opengov.com/countyofwaltonfl/uploads/ba46eed3917b-IMG_0064.jpeg",
       "https://stories.opengov.com/countyofwaltonfl/uploads/2d191029e912-Morrison-Springs-028.jpg",
@@ -464,11 +473,13 @@
     ];
 
     imageUrls.forEach(function(url){
-      var link = document.createElement("link");
-      link.rel = "preload";
-      link.as = "image";
-      link.href = url;
-      document.head.appendChild(link);
+      if(!document.querySelector('link[rel="preload"][as="image"][href="' + url + '"]')){
+        var link = document.createElement("link");
+        link.rel = "preload";
+        link.as = "image";
+        link.href = url;
+        document.head.appendChild(link);
+      }
 
       var image = new Image();
       image.src = url;
@@ -531,14 +542,17 @@
 
     if("MutationObserver" in window){
       var observer = new MutationObserver(function(){
-        initWaltonHeaderSlides();
-
-        if(document.querySelector("header.header .wc-header-slide")){
-          observer.disconnect();
+        if(wcHeaderSlideMutationTimer){
+          window.clearTimeout(wcHeaderSlideMutationTimer);
         }
+
+        wcHeaderSlideMutationTimer = window.setTimeout(function(){
+          wcHeaderSlideMutationTimer = null;
+          initWaltonHeaderSlides();
+        }, 250);
       });
 
-      observer.observe(document.documentElement, {
+      observer.observe(document.body, {
         childList:true,
         subtree:true
       });
