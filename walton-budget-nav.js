@@ -2,6 +2,7 @@
 
   var wcBudgetNavStarted = false;
   var wcLastKnownUrl = location.href;
+  var wcRepairTimer = null;
   var wcBudgetAssetBaseUrl = "https://budget-pixel.github.io/walton-budget-nav.js/";
   var wcCipAssetBaseUrl = "https://budget-pixel.github.io/walton-cip-project-search/";
   window.wcCipAssetBaseUrl = wcCipAssetBaseUrl;
@@ -1014,7 +1015,7 @@
 
     var hasOpenGovNav = !!document.querySelector('nav#nav-menu.nav-menu');
 
-    footerContainer.innerHTML = `
+    var desiredFooterHtml = `
       <div class="wc-budget-footer-inner">
         <div class="wc-budget-footer-brand" aria-label="Walton County">
           ${getWaltonSplitBrandHtml("", "")}
@@ -1030,6 +1031,11 @@
         ` : ``}
       </div>
     `;
+
+    if(footerContainer.getAttribute("data-wc-rendered") !== "true" || footerContainer.innerHTML.trim() !== desiredFooterHtml.trim()){
+      footerContainer.innerHTML = desiredFooterHtml;
+      footerContainer.setAttribute("data-wc-rendered", "true");
+    }
 
     if(!footer.querySelector('.wc-budget-footer-bottom')){
       var footerBottom = document.createElement('div');
@@ -1101,21 +1107,65 @@
   }
 
   function repairWcBudgetNavAfterOpenGovNavigation(){
-    initWcNavSearch();
-    hideOpenGovMoreButton();
-    renderWaltonBudgetFooter();
-    lockHorizontalPageScroll();
+    try{
+      hideOpenGovMoreButton();
+      renderWaltonBudgetFooter();
+      lockHorizontalPageScroll();
+
+      if(document.querySelector("nav#nav-menu.nav-menu")){
+        if(typeof window.initWaltonBudgetSearch === "function"){
+          window.initWaltonBudgetSearch({
+            nav:document.querySelector("nav#nav-menu.nav-menu"),
+            getWaltonSplitBrandHtml:getWaltonSplitBrandHtml
+          });
+        }else{
+          initWcNavSearch();
+        }
+      }
+    }catch(error){
+      if(window.console && typeof window.console.error === "function"){
+        window.console.error("Walton County budget nav repair failed:", error);
+      }
+    }
+  }
+
+  function queueWcBudgetNavRepair(){
+    if(wcRepairTimer){
+      clearTimeout(wcRepairTimer);
+    }
+
+    wcRepairTimer = setTimeout(function(){
+      wcRepairTimer = null;
+      repairWcBudgetNavAfterOpenGovNavigation();
+    }, 700);
   }
 
   function watchForOpenGovNavigation(){
-    setInterval(function(){
+    var originalPushState = history.pushState;
+    var originalReplaceState = history.replaceState;
+
+    history.pushState = function(){
+      originalPushState.apply(history, arguments);
       if(location.href !== wcLastKnownUrl){
         wcLastKnownUrl = location.href;
-
-        setTimeout(repairWcBudgetNavAfterOpenGovNavigation, 300);
-        setTimeout(repairWcBudgetNavAfterOpenGovNavigation, 1000);
+        queueWcBudgetNavRepair();
       }
-    }, 500);
+    };
+
+    history.replaceState = function(){
+      originalReplaceState.apply(history, arguments);
+      if(location.href !== wcLastKnownUrl){
+        wcLastKnownUrl = location.href;
+        queueWcBudgetNavRepair();
+      }
+    };
+
+    window.addEventListener("popstate", function(){
+      if(location.href !== wcLastKnownUrl){
+        wcLastKnownUrl = location.href;
+        queueWcBudgetNavRepair();
+      }
+    });
   }
 
   lockHorizontalPageScroll();
