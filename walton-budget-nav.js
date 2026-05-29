@@ -1,5 +1,3 @@
-You’re right. Here is the full corrected file.
-
 (function(){
   var wcBudgetNavStarted = false;
   var wcLastKnownUrl = location.href;
