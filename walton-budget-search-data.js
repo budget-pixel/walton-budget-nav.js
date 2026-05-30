@@ -75,3 +75,292 @@ window.wcBudgetPages = [
   { title:"Glossary, Acronyms, and Frequently Asked Questions", section:"Glossary, Statistical, and Supplemental Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd48feef483c784fe0" },
   { title:"Statistical & Supplemental Information", section:"Glossary, Statistical, and Supplemental Information", href:"https://stories.opengov.com/countyofwaltonfl/cf6eaa7a-a98d-479a-9869-b20398ee38e5/published/re0lJHwus?currentPageId=6989dbbd1da6285c17aaf19a" }
 ];
+
+(function(){
+  const keywordMap = {
+    "Table of Contents": [
+      "contents", "index", "navigation", "budget book", "budget sections", "chapters", "pages", "find a page", "where is"
+    ],
+
+    "GFOA Distinguished Budget Presentation Award": [
+      "gfoa", "distinguished budget award", "budget presentation award", "award", "recognition", "government finance officers association", "budget award criteria"
+    ],
+
+    "Transmittal Letter": [
+      "letter", "budget message", "county administrator message", "executive message", "introduction", "overview letter", "budget highlights", "recommended budget"
+    ],
+
+    "Budget-in-Brief": [
+      "budget brief", "summary", "quick summary", "highlights", "overview", "taxes", "millage", "property taxes", "ad valorem taxes", "ad valoram taxes", "revenues", "expenses", "public safety", "capital projects", "total budget"
+    ],
+
+    "Overview of Walton County": [
+      "county profile", "community profile", "demographics", "population", "history", "location", "walton county", "about the county", "economic indicators", "county overview"
+    ],
+
+    "Organizational Structure": [
+      "org chart", "organization chart", "departments", "county structure", "governance", "board structure", "reporting structure", "administration structure"
+    ],
+
+    "Strategic Initiatives": [
+      "strategic plan", "goals", "priorities", "initiatives", "objectives", "county priorities", "strategic priorities", "performance", "vision", "mission"
+    ],
+
+    "Budget Process & Calendar": [
+      "budget process", "calendar", "budget calendar", "timeline", "budget adoption", "hearings", "public hearing", "tentative budget", "final budget", "truth in millage", "trim", "millage dates", "budget cycle"
+    ],
+
+    "Fund Descriptions and Structure": [
+      "funds", "fund structure", "fund accounting", "general fund", "special revenue fund", "capital projects fund", "enterprise fund", "internal service fund", "governmental funds", "fiduciary funds", "fund descriptions"
+    ],
+
+    "Department to Fund Relationship": [
+      "department fund", "which fund", "fund relationship", "department funding", "funded by", "department to fund", "general fund departments", "special revenue departments"
+    ],
+
+    "Financial Policies": [
+      "policies", "financial policy", "reserve policy", "fund balance", "debt policy", "investment policy", "budget policy", "accounting policy", "fiscal policy", "reserves"
+    ],
+
+    "Consolidated Financial Schedules": [
+      "consolidated schedule", "financial schedule", "all funds", "total all funds", "total revenues", "total expenses", "revenues by fund", "expenses by fund", "fund totals", "combined schedule", "summary schedule"
+    ],
+
+    "Fund Financial Schedules": [
+      "fund schedule", "fund financials", "fund detail", "general fund schedule", "transportation fund", "fine and forfeiture fund", "tourist development fund", "solid waste fund", "capital projects fund", "non-major funds", "fund revenue", "fund expense"
+    ],
+
+    "Summary of Revenues": [
+      "revenues", "revenue", "revenue summary", "property taxes", "ad valorem taxes", "ad valoram taxes", "taxes", "tourist development taxes", "tdt", "tourist tax", "bed tax", "sales tax", "charges for services", "intergovernmental revenues", "fines", "forfeitures", "miscellaneous revenue", "permits", "fees", "special assessments", "millage", "taxable value"
+    ],
+
+    "Summary of Expenses": [
+      "expenses", "expenditures", "spending", "expense summary", "appropriations", "operating expenses", "personnel services", "operating costs", "capital outlay", "debt service", "public safety", "general government", "transportation", "culture recreation", "human services"
+    ],
+
+    "Summary of Interfund Transfers": [
+      "transfers", "interfund transfers", "transfer in", "transfer out", "other financing sources", "other financing uses", "fund transfers", "subsidy", "fund support"
+    ],
+
+    "Summary of Personnel": [
+      "personnel", "positions", "fte", "full time equivalent", "staffing", "headcount", "employees", "authorized positions", "new positions", "vacancies", "payroll", "salary", "benefits"
+    ],
+
+    "Summary of Machinery, Vehicles & Equipment": [
+      "machinery", "vehicles", "equipment", "fleet", "capital equipment", "mve", "vehicle replacement", "equipment replacement", "heavy equipment", "trucks", "public works equipment"
+    ],
+
+    "Board of County Commissioners": [
+      "bcc", "board", "commissioners", "county commission", "county commissioners", "district commissioners", "governing board", "legislative", "board budget"
+    ],
+
+    "Clerk of Courts & County Comptroller": [
+      "clerk", "clerk of court", "comptroller", "finance", "accounting", "court records", "official records", "constitutional officer", "clerk budget"
+    ],
+
+    "Property Appraiser": [
+      "property appraiser", "assessed value", "taxable value", "property values", "assessment", "ad valorem", "ad valoram", "property taxes", "tax roll", "constitutional officer"
+    ],
+
+    "Sheriff's Office": [
+      "sheriff", "law enforcement", "public safety", "deputies", "jail", "corrections", "detention", "patrol", "sheriff office", "constitutional officer", "fine and forfeiture"
+    ],
+
+    "Supervisor of Elections": [
+      "elections", "supervisor elections", "voting", "election administration", "voter registration", "polling places", "constitutional officer"
+    ],
+
+    "Tax Collector": [
+      "tax collector", "tax collection", "property tax collection", "licenses", "tags", "dmv", "business tax", "tourist development tax collection", "constitutional officer"
+    ],
+
+    "Circuit Court": [
+      "circuit court", "court", "judicial", "court services", "courthouse", "trial court", "state court"
+    ],
+
+    "County Court": [
+      "county court", "court", "judicial", "misdemeanor", "civil traffic", "small claims", "court services"
+    ],
+
+    "Court Technology & Innovations": [
+      "court technology", "court tech", "technology", "innovations", "case management", "court systems", "judicial technology"
+    ],
+
+    "Guardian Ad Litem": [
+      "guardian ad litem", "gal", "child advocacy", "children", "dependency court", "court appointed advocate"
+    ],
+
+    "Medical Examiner": [
+      "medical examiner", "me", "autopsy", "forensics", "death investigation", "district medical examiner"
+    ],
+
+    "Non-Profit Funding Program": [
+      "nonprofit", "non-profit", "outside agency", "agency funding", "community funding", "grants", "human services funding", "local aid"
+    ],
+
+    "Public Defender": [
+      "public defender", "pd", "indigent defense", "legal defense", "court appointed attorney", "judicial"
+    ],
+
+    "South Walton Fire & State Control": [
+      "south walton fire", "swfd", "fire", "fire control", "fire district", "ems", "emergency response", "public safety", "fire services"
+    ],
+
+    "State Attorney": [
+      "state attorney", "prosecutor", "prosecution", "criminal justice", "court", "judicial"
+    ],
+
+    "Statutory & Other Agency Funding": [
+      "statutory funding", "agency funding", "outside agencies", "mandated funding", "state required", "other agencies", "intergovernmental"
+    ],
+
+    "Walton County Health Department": [
+      "health department", "public health", "county health", "florida department of health", "clinic", "environmental health", "health services"
+    ],
+
+    "Building Construction and Maintenance": [
+      "building maintenance", "facilities", "construction maintenance", "county buildings", "facility maintenance", "repairs", "building services"
+    ],
+
+    "Building Department": [
+      "building department", "building permits", "permits", "inspections", "construction permits", "building code", "permit fees", "development review"
+    ],
+
+    "Code Compliance": [
+      "code compliance", "code enforcement", "violations", "ordinance", "compliance", "citations", "nuisance", "property maintenance"
+    ],
+
+    "County Administration": [
+      "administration", "county administrator", "county manager", "executive", "leadership", "county operations", "management"
+    ],
+
+    "Eagle Springs Golf and Recreation Center": [
+      "eagle springs", "golf", "recreation center", "golf course", "parks", "recreation", "clubhouse"
+    ],
+
+    "Eagle Springs Grill": [
+      "eagle springs grill", "grill", "restaurant", "food service", "golf grill", "concessions"
+    ],
+
+    "Emergency Management": [
+      "emergency management", "em", "disaster", "hurricane", "preparedness", "response", "mitigation", "emergency operations", "eoc"
+    ],
+
+    "Engineering Department": [
+      "engineering", "roads", "drainage", "stormwater", "traffic", "infrastructure", "project management", "transportation projects", "civil engineering"
+    ],
+
+    "Environmental Resources": [
+      "environmental", "environmental resources", "natural resources", "water quality", "coastal", "beach", "conservation", "stormwater", "environment"
+    ],
+
+    "Extension Office": [
+      "extension", "uf ifas", "agriculture", "4-h", "horticulture", "family consumer sciences", "cooperative extension"
+    ],
+
+    "Geographic Info Systems": [
+      "gis", "geographic information systems", "mapping", "maps", "spatial data", "parcel maps", "addressing", "geospatial"
+    ],
+
+    "Housing & Urban Development": [
+      "housing", "hud", "urban development", "affordable housing", "community development", "housing assistance", "grants", "ship", "cdbg"
+    ],
+
+    "Human Resources": [
+      "human resources", "hr", "employees", "benefits", "recruiting", "hiring", "risk management", "training", "personnel"
+    ],
+
+    "Libraries": [
+      "library", "libraries", "public library", "books", "library services", "branches", "literacy", "youth services"
+    ],
+
+    "Mosquito Control": [
+      "mosquito", "mosquito control", "vector control", "spraying", "pest control", "public health", "mosquito abatement"
+    ],
+
+    "Mossy Head Wastewater Treatment Facility": [
+      "mossy head", "wastewater", "wwtf", "treatment facility", "sewer", "utilities", "wastewater treatment", "mossy head industrial park"
+    ],
+
+    "Office of Management and Budget": [
+      "omb", "budget office", "management and budget", "budget", "financial planning", "budget development", "budget monitoring", "performance"
+    ],
+
+    "Office of the County Attorney": [
+      "county attorney", "legal", "legal services", "litigation", "contracts", "ordinances", "resolutions", "legal counsel"
+    ],
+
+    "Planning": [
+      "planning", "planning department", "land use", "zoning", "development review", "comprehensive plan", "growth management", "permits", "planning applications"
+    ],
+
+    "Probation": [
+      "probation", "community supervision", "offender supervision", "court services", "misdemeanor probation", "pretrial"
+    ],
+
+    "Public Works": [
+      "public works", "roads", "road maintenance", "bridges", "right of way", "drainage", "transportation", "paving", "maintenance", "infrastructure"
+    ],
+
+    "Purchasing": [
+      "purchasing", "procurement", "contracts", "bids", "rfp", "solicitations", "vendors", "purchase orders", "buying"
+    ],
+
+    "Recreation": [
+      "recreation", "parks", "parks and recreation", "athletics", "sports", "community centers", "playgrounds", "recreational programs"
+    ],
+
+    "Soil Conservation": [
+      "soil conservation", "soil", "conservation", "agriculture", "erosion", "water conservation", "natural resources"
+    ],
+
+    "Solid Waste": [
+      "solid waste", "trash", "garbage", "landfill", "recycling", "waste disposal", "transfer station", "sanitation", "tipping fees"
+    ],
+
+    "Tourism Administration": [
+      "tourism", "tourism administration", "tourist development", "tdc", "tdt", "tourist development tax", "tourist development taxes", "bed tax", "tourist tax", "destination marketing", "beaches", "visitor services"
+    ],
+
+    "Tourism Beach Operations": [
+      "beach operations", "tourism beach", "beach maintenance", "beach access", "beach cleaning", "beach services", "coastal", "tourist development", "tdt", "bed tax"
+    ],
+
+    "Tourism Lifeguard Services and Beach Safety": [
+      "lifeguard", "beach safety", "lifeguard services", "beach rescue", "water safety", "public safety", "tourism", "beach patrol", "tdt"
+    ],
+
+    "Veteran Services": [
+      "veterans", "veteran services", "va", "benefits", "veterans assistance", "claims", "military", "service members"
+    ],
+
+    "Capital Improvement Plan": [
+      "cip", "capital improvement plan", "capital projects", "projects", "infrastructure projects", "roads", "facilities", "parks projects", "project search", "capital spending", "five year plan", "construction projects"
+    ],
+
+    "Debt Overview": [
+      "debt", "bonds", "loans", "debt service", "principal", "interest", "bond rating", "outstanding debt", "long term debt", "borrowing"
+    ],
+
+    "Financial Forecast": [
+      "forecast", "financial forecast", "projection", "long range plan", "future years", "revenue forecast", "expense forecast", "financial outlook", "assumptions"
+    ],
+
+    "Glossary, Acronyms, and Frequently Asked Questions": [
+      "glossary", "acronyms", "faq", "frequently asked questions", "definitions", "terms", "what does", "meaning", "millage", "ad valorem", "tdt", "cip", "fte", "fund balance"
+    ],
+
+    "Statistical & Supplemental Information": [
+      "statistics", "statistical", "supplemental", "demographic", "economic", "historical", "trend", "population", "taxable value", "principal taxpayers", "assessed value", "debt statistics"
+    ]
+  };
+
+  window.wcBudgetPages.forEach(function(page){
+    const keywords = keywordMap[page.title] || [];
+
+    page.keywords = Array.from(new Set([
+      ...(Array.isArray(page.keywords) ? page.keywords : []),
+      ...keywords
+    ]));
+  });
+})();
