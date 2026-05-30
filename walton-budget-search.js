@@ -92,11 +92,29 @@
       input.blur();
     }
 
+    function normalizeSearchText(value){
+      if(value === null || value === undefined){
+        return "";
+      }
+
+      if(Array.isArray(value)){
+        return value.map(normalizeSearchText).join(" ");
+      }
+
+      if(typeof value === "object"){
+        return Object.keys(value).map(function(key){
+          return normalizeSearchText(value[key]);
+        }).join(" ");
+      }
+
+      return String(value).toLowerCase().replace(/[^a-z0-9$%\.\s-]/g, " ").replace(/\s+/g, " ").trim();
+    }
+
     function addSearchLink(title, section, href, extraSearchText){
       title = title ? String(title).trim() : "";
       section = section ? String(section).trim() : "Budget Book";
       href = href ? String(href).trim() : "";
-      extraSearchText = extraSearchText ? String(extraSearchText).trim() : "";
+      extraSearchText = normalizeSearchText(extraSearchText);
 
       if(!title || !href || href === "#" || seenHrefs[href]){
         return;
@@ -108,7 +126,7 @@
         title:title,
         section:section,
         href:href,
-        searchText:(title + " " + section + " " + extraSearchText).toLowerCase()
+        searchText:normalizeSearchText(title + " " + section + " " + extraSearchText)
       });
     }
 
@@ -275,7 +293,18 @@
     var budgetPages = window.wcBudgetPages || [];
 
     budgetPages.forEach(function(page){
-      addSearchLink(page.title, page.section, page.href);
+      var pageSearchText = [
+        page.title,
+        page.section,
+        page.description,
+        page.summary,
+        page.keywords,
+        page.aliases,
+        page.terms,
+        page.searchText
+      ].filter(Boolean).join(" ");
+
+      addSearchLink(page.title, page.section, page.href, pageSearchText);
     });
 
     var projectScript = document.createElement("script");
