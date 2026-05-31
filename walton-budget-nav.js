@@ -6,6 +6,8 @@
   var wcCipAssetBaseUrl = "https://budget-pixel.github.io/walton-cip-project-search/";
   window.wcCipAssetBaseUrl = wcCipAssetBaseUrl;
   var mobileStylesheetId = "wc-budget-mobile-styles";
+  var splitLogoScriptId = "wc-split-logo-script";
+  var splitLogoScriptUrl = wcBudgetAssetBaseUrl + "walton-split-logo.js?v=1";
   function loadWaltonMobileStylesheet(){
     var mobileStylesheet = document.getElementById(mobileStylesheetId);
     if(!mobileStylesheet){
@@ -45,6 +47,22 @@
       }
     });
     document.head.appendChild(script);
+  }
+  function loadWaltonSplitLogo(onReady){
+    if(window.WaltonSplitLogo && typeof window.WaltonSplitLogo.getHtml === "function"){
+      if(typeof onReady === "function"){
+        onReady();
+      }
+      return;
+    }
+    loadWcScriptOnce(splitLogoScriptId, splitLogoScriptUrl, function(){
+      if(window.WaltonSplitLogo && typeof window.WaltonSplitLogo.injectStyles === "function"){
+        window.WaltonSplitLogo.injectStyles();
+      }
+      if(typeof onReady === "function"){
+        onReady();
+      }
+    });
   }
   function loadWaltonBudgetSearchModules(onReady){
     loadWcScriptOnce(
@@ -868,7 +886,7 @@
     }
     startWcBudgetNav();
   }
-  safelyStartWcBudgetNav();
+  loadWaltonSplitLogo(safelyStartWcBudgetNav);
   function lockHorizontalPageScroll(){
     document.documentElement.style.setProperty('overflow-x','hidden','important');
     document.documentElement.style.setProperty('max-width','100%','important');
