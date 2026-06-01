@@ -1,10 +1,14 @@
-<div class="wc-print-brand-pill" aria-hidden="true">
-  <span class="wc-print-brand-text">Walton County</span>
-  <span class="wc-print-brand-seal"></span>
-</div>
-<button type="button" id="wcDownloadPdf" class="wc-pdf-button" aria-label="Print or save this page as a PDF">
-  PDF
-</button><style>
+(function () {
+  "use strict";
+
+  var BRAND_LOGO_URL = "https://stories.opengov.com/countyofwaltonfl/uploads/c432578eae78-Walton_County_Logo_no_background.png";
+
+  function injectStyles() {
+    if (document.getElementById("wc-budget-pdf-styles")) return;
+
+    var style = document.createElement("style");
+    style.id = "wc-budget-pdf-styles";
+    style.textContent = `
 .wc-pdf-button{
   display:inline-flex;
   align-items:center;
@@ -49,7 +53,7 @@
   margin-right:0;
   position:relative;
   left:6px;
-  z-index:2;
+  z-index:9999;
 }
 
 .wc-print-brand-pill{
@@ -115,6 +119,12 @@
     line-height:1.25 !important;
     font-style:italic !important;
     text-align:center !important;
+  }
+
+  .wc-pdf-button,
+  .wc-print-button-slot{
+    display:none !important;
+    visibility:hidden !important;
   }
 
   header.header{
@@ -187,10 +197,6 @@
     letter-spacing:.01em !important;
   }
 
-  header.header h1 span{
-    color:#172033 !important;
-  }
-
   h2,
   .editable h2,
   .editable-content h2,
@@ -229,28 +235,6 @@
     max-width:0 !important;
     overflow:hidden !important;
   }
-
-  nav#nav-menu.nav-menu::after,
-  footer::before,
-  footer::after,
-  .wc-budget-footer::before,
-  .wc-budget-footer::after,
-  .wc-budget-footer-bottom::before,
-  .wc-budget-footer-bottom::after{
-    content:none !important;
-    display:none !important;
-    visibility:hidden !important;
-    height:0 !important;
-    border:0 !important;
-    background:none !important;
-  }
-
-  nav#nav-menu.nav-menu::before{
-    content:none !important;
-    display:none !important;
-    visibility:hidden !important;
-  }
-
 
   .wc-print-brand-pill{
     display:flex !important;
@@ -294,112 +278,11 @@
     height:.13in !important;
     border:1px solid #d1be78 !important;
     border-radius:999px !important;
-    background:#ffffff url("https://stories.opengov.com/countyofwaltonfl/uploads/c432578eae78-Walton_County_Logo_no_background.png") center center / .105in .105in no-repeat !important;
+    background:#ffffff url("${BRAND_LOGO_URL}") center center / .105in .105in no-repeat !important;
     box-sizing:border-box !important;
     overflow:hidden !important;
     -webkit-print-color-adjust:exact !important;
     print-color-adjust:exact !important;
-  }
-
-  nav#nav-menu.nav-menu .nav-menu-list,
-  nav#nav-menu.nav-menu .nav-menu-item,
-  nav#nav-menu.nav-menu .dropdown,
-  nav#nav-menu.nav-menu .dropdown-list,
-  nav#nav-menu.nav-menu .dropdown-item,
-  nav#nav-menu.nav-menu .hamburger-menu,
-  nav#nav-menu.nav-menu .wc-nav-search-slot,
-  nav#nav-menu.nav-menu .wc-search-wrap,
-  nav#nav-menu.nav-menu .wc-search-box,
-  nav#nav-menu.nav-menu .wc-nav-search-results,
-  nav#nav-menu.nav-menu #wcTocSearch{
-    display:none !important;
-    visibility:hidden !important;
-    height:0 !important;
-    width:0 !important;
-    max-height:0 !important;
-    overflow:hidden !important;
-  }
-
-  .wc-pdf-button,
-  script,
-  noscript,
-  nav:not(#nav-menu),
-  footer,
-  footer[role="contentinfo"],
-  .social-wrapper,
-  .follow-container,
-  #community-react-root,
-  .highcharts-exporting-group,
-  .highcharts-credits,
-  .wc-budget-footer,
-  .wc-budget-footer-inner,
-  .wc-budget-footer-links,
-  .wc-budget-footer-bottom,
-  .wc-standalone-budget-nav,
-  .wc-standalone-brand,
-  .wc-nav-search-slot,
-  .wc-search-wrap,
-  .wc-search-box,
-  .wc-nav-search-results,
-  #wcTocSearch,
-  [class*="search"],
-  [class*="Search"],
-  iframe,
-  video,
-  .video,
-  .video-container,
-  .youtube,
-  .youtube-embed,
-  .youtube-player,
-  [src*="youtube.com"],
-  [src*="youtu.be"],
-  a[href*="youtube.com"],
-  a[href*="youtu.be"],
-  a[href*="vimeo.com"],
-  [data-media-type="video"],
-  [data-media-type="youtube"],
-  [class*="video"],
-  [class*="Video"]{
-    display:none !important;
-    visibility:hidden !important;
-    height:0 !important;
-    max-height:0 !important;
-    overflow:hidden !important;
-  }
-
-  main[role="main"]{
-    display:block !important;
-    width:100% !important;
-    max-width:100% !important;
-    box-sizing:border-box !important;
-    overflow:visible !important;
-    margin:0 !important;
-    padding:0 .18in !important;
-  }
-
-  section.full-width,
-  section.left-right,
-  section.contains-media-block,
-  .full-width-content,
-  .editable-content,
-  .media-block,
-  .media-block.large,
-  .media-block.has-media,
-  [data-media-type="embed"],
-  [data-media-type="tableTile"]{
-    display:block !important;
-    width:100% !important;
-    max-width:100% !important;
-    min-width:0 !important;
-    height:auto !important;
-    max-height:none !important;
-    overflow:visible !important;
-    position:static !important;
-    left:auto !important;
-    right:auto !important;
-    margin:0 0 14px 0 !important;
-    padding:0 !important;
-    transform:none !important;
   }
 
   .wc-statement-panel{
@@ -437,12 +320,60 @@
     background:#d1be78 !important;
   }
 
+  .wc-statement-panel,
+  .wc-statement-panel .editable,
+  .wc-statement-panel .editable-content,
+  .wc-statement-panel .editable-paragraph-text,
+  .wc-statement-panel p,
+  .wc-statement-panel span,
+  .wc-statement-panel div:not(.media-block),
+  .wc-statement-panel h2,
+  .wc-statement-panel h2 *,
+  .wc-statement-panel h2 span{
+    color:#000000 !important;
+  }
+
   .wc-statement-panel p,
   .wc-statement-panel .editable-paragraph-text p{
     font-size:9.5pt !important;
     line-height:1.45 !important;
     color:#000000 !important;
     margin:.04in 0 .08in 0 !important;
+  }
+
+  main[role="main"]{
+    display:block !important;
+    width:100% !important;
+    max-width:100% !important;
+    box-sizing:border-box !important;
+    overflow:visible !important;
+    margin:0 !important;
+    padding:0 .18in !important;
+  }
+
+  section.full-width,
+  section.left-right,
+  section.contains-media-block,
+  .full-width-content,
+  .editable-content,
+  .media-block,
+  .media-block.large,
+  .media-block.has-media,
+  [data-media-type="embed"],
+  [data-media-type="tableTile"]{
+    display:block !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    height:auto !important;
+    max-height:none !important;
+    overflow:visible !important;
+    position:static !important;
+    left:auto !important;
+    right:auto !important;
+    margin:0 0 14px 0 !important;
+    padding:0 !important;
+    transform:none !important;
   }
 
   .grid,
@@ -474,19 +405,9 @@
   h2,
   h3,
   .editable,
-  .editable-paragraph-text{
-    max-width:100% !important;
-    width:auto !important;
-    overflow:visible !important;
-    text-align:left !important;
-    word-break:normal !important;
-    overflow-wrap:normal !important;
-    white-space:normal !important;
-  }
-
+  .editable-paragraph-text,
   p,
   .align-justify,
-  .editable-paragraph-text,
   .editable-paragraph-text p,
   .editable-content p{
     max-width:100% !important;
@@ -506,64 +427,51 @@
     margin:.04in 0 .1in 0 !important;
   }
 
-  .wc-statement-panel,
-  .wc-statement-panel .editable,
-  .wc-statement-panel .editable-content,
-  .wc-statement-panel .editable-paragraph-text,
-  .wc-statement-panel p,
-  .wc-statement-panel span,
-  .wc-statement-panel div:not(.media-block){
-    color:#000000 !important;
-  }
-
-  .wc-statement-panel h2,
-  .wc-statement-panel h2 *,
-  .wc-statement-panel h2 span,
-  .wc-statement-panel .editable h2,
-  .wc-statement-panel .editable h2 *,
-  .wc-statement-panel .editable-paragraph-text h2,
-  .wc-statement-panel .editable-paragraph-text h2 *{
-    color:#000000 !important;
-  }
-
-  h2:has(+ p),
-  h2:has(+ .editable-paragraph-text),
-  .wc-statement-panel h2,
-  .wc-statement-panel h2 *{
-    color:#000000 !important;
-  }
-
-  .wc-statement-panel p,
-  .wc-statement-panel .editable-paragraph-text p{
-    font-size:9.5pt !important;
-    line-height:1.45 !important;
-    margin:.04in 0 .08in 0 !important;
-  }
-
   a[href]::after{
     content:"" !important;
   }
 
-  a[href*="youtube.com"],
-  a[href*="youtu.be"],
-  a[href*="vimeo.com"]{
-    display:none !important;
-    visibility:hidden !important;
-  }
-
   script,
   noscript,
-  script[type="text/javascript"],
-  script[data-embed-id],
-  script[data-selector]{
+  footer,
+  footer[role="contentinfo"],
+  .social-wrapper,
+  .follow-container,
+  #community-react-root,
+  .highcharts-exporting-group,
+  .highcharts-credits,
+  .wc-budget-footer,
+  .wc-budget-footer-inner,
+  .wc-budget-footer-links,
+  .wc-budget-footer-bottom,
+  .wc-standalone-budget-nav,
+  .wc-standalone-brand,
+  .wc-nav-search-slot,
+  .wc-search-wrap,
+  .wc-search-box,
+  .wc-nav-search-results,
+  #wcTocSearch,
+  iframe,
+  video,
+  .video,
+  .video-container,
+  .youtube,
+  .youtube-embed,
+  .youtube-player,
+  [src*="youtube.com"],
+  [src*="youtu.be"],
+  a[href*="youtube.com"],
+  a[href*="youtu.be"],
+  a[href*="vimeo.com"],
+  [data-media-type="video"],
+  [data-media-type="youtube"],
+  [class*="video"],
+  [class*="Video"]{
     display:none !important;
     visibility:hidden !important;
     height:0 !important;
     max-height:0 !important;
     overflow:hidden !important;
-    font-size:0 !important;
-    line-height:0 !important;
-    color:transparent !important;
   }
 
   .wc-plaque-card{
@@ -592,26 +500,14 @@
     padding:0 !important;
   }
 
-  .wc-performance-card{
-    display:block !important;
-    width:100% !important;
-    max-width:100% !important;
-    min-width:0 !important;
-    overflow:hidden !important;
-    margin:0 0 14px 0 !important;
-    padding:0 !important;
-    border:0 !important;
-    border-radius:8px !important;
-    background:#ffffff !important;
-  }
-
+  .wc-performance-card,
   .wc-performance-table-wrap{
     display:block !important;
     width:100% !important;
     max-width:100% !important;
     min-width:0 !important;
     overflow:hidden !important;
-    margin:0 !important;
+    margin:0 0 14px 0 !important;
     padding:0 !important;
     border:0 !important;
     border-radius:8px !important;
@@ -626,29 +522,6 @@
     min-width:0 !important;
     table-layout:fixed !important;
     border-collapse:collapse !important;
-  }
-
-  table.wc-performance-table,
-  .wc-performance-table{
-    border-radius:8px !important;
-    overflow:hidden !important;
-  }
-
-  .wc-performance-table thead tr:first-child th:first-child{
-    border-top-left-radius:8px !important;
-  }
-
-  .wc-performance-table thead tr:first-child th:last-child{
-    border-top-right-radius:8px !important;
-  }
-
-  .wc-performance-table tbody tr:last-child td:first-child,
-  .wc-performance-table tbody tr:last-child th:first-child{
-    border-bottom-left-radius:8px !important;
-  }
-
-  .wc-performance-table tbody tr:last-child td:last-child{
-    border-bottom-right-radius:8px !important;
   }
 
   .wc-performance-table th,
@@ -717,28 +590,6 @@
     border-collapse:collapse !important;
   }
 
-  [data-report-table-id]{
-    border-radius:8px !important;
-    overflow:hidden !important;
-  }
-
-  [data-report-table-id] thead tr:first-child th:first-child{
-    border-top-left-radius:8px !important;
-  }
-
-  [data-report-table-id] thead tr:first-child th:last-child{
-    border-top-right-radius:8px !important;
-  }
-
-  [data-report-table-id] tbody tr:last-child th:first-child,
-  [data-report-table-id] tbody tr:last-child td:first-child{
-    border-bottom-left-radius:8px !important;
-  }
-
-  [data-report-table-id] tbody tr:last-child td:last-child{
-    border-bottom-right-radius:8px !important;
-  }
-
   [data-report-table-id] th,
   [data-report-table-id] td{
     white-space:normal !important;
@@ -783,219 +634,86 @@
     background:none !important;
   }
 }
-</style><script>
-(function(){
-  'use strict';
-
-  var BRAND_LOGO_URL = 'https://stories.opengov.com/countyofwaltonfl/uploads/c432578eae78-Walton_County_Logo_no_background.png';
-
-  function injectStyles(){
-    if(document.getElementById('wc-budget-pdf-styles')){
-      return;
-    }
-
-    var style = document.createElement('style');
-    style.id = 'wc-budget-pdf-styles';
-    style.textContent = [
-      '.wc-pdf-button{',
-      'display:inline-flex;',
-      'align-items:center;',
-      'justify-content:center;',
-      'gap:6px;',
-      'margin:0;',
-      'padding:7px 7px;',
-      'border:0;',
-      'border-radius:999px;',
-      'background:linear-gradient(135deg,#006231 0%,#0b7741 100%);',
-      'color:#ffffff;',
-      'font-family:Arial, Helvetica, sans-serif;',
-      'font-size:10px;',
-      'font-weight:900;',
-      'line-height:1;',
-      'letter-spacing:.04em;',
-      'text-transform:uppercase;',
-      'cursor:pointer;',
-      'box-shadow:0 5px 12px rgba(0,98,49,.18);',
-      'white-space:nowrap;',
-      '}',
-      '.wc-pdf-button:hover,.wc-pdf-button:focus{',
-      'background:linear-gradient(135deg,#d1be78 0%,#b99f4f 100%);',
-      'color:#172033;',
-      'outline:3px solid rgba(0,98,49,.22);',
-      'outline-offset:3px;',
-      '}',
-      '.nav-menu .wc-pdf-button{',
-      'flex:0 0 auto;',
-      'align-self:center;',
-      '}',
-      '.wc-print-button-slot{',
-      'display:flex;',
-      'align-items:center;',
-      'justify-content:center;',
-      'flex:0 0 auto;',
-      'margin-left:0;',
-      'margin-right:0;',
-      'position:relative;',
-      'left:6px;',
-      'z-index:2;',
-      '}',
-      '.wc-print-brand-pill{display:none;}',
-      '@media print{',
-      '@page{size:letter landscape;margin:.35in;}',
-      'html,body{width:auto!important;height:auto!important;min-height:0!important;overflow:visible!important;background:#ffffff!important;color:#172033!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}',
-      '*,*::before,*::after{box-shadow:none!important;}',
-      'body{padding-top:.08in!important;padding-bottom:.62in!important;position:relative!important;}',
-      'body::before{content:none!important;display:none!important;visibility:hidden!important;width:0!important;height:0!important;margin:0!important;padding:0!important;border:0!important;}',
-      'body::after{content:"Prepared by the Walton County Office of Management and Budget"!important;display:block!important;visibility:visible!important;position:fixed!important;left:.53in!important;right:.53in!important;bottom:.16in!important;width:auto!important;margin:0!important;padding:.08in 0 0 0!important;border-top:1px solid #c8c8c8!important;color:#666666!important;font-family:Arial, Helvetica, sans-serif!important;font-size:9pt!important;line-height:1.25!important;font-style:italic!important;text-align:center!important;}',
-      'header.header{display:block!important;visibility:visible!important;background:#ffffff!important;background-image:none!important;min-height:auto!important;height:auto!important;margin:.18in 0 .12in 0!important;padding:.12in .16in .12in .18in!important;box-sizing:border-box!important;overflow:visible!important;border:0!important;border-left:.06in solid #006231!important;border-radius:0!important;position:relative!important;}',
-      'header.header .grid.container,header.header .col-1,header.header .header-content{display:block!important;width:100%!important;max-width:100%!important;text-align:left!important;margin:0!important;padding:0!important;}',
-      'header.header h1,header.header h2,header.header .editable{text-align:left!important;margin-left:0!important;margin-right:auto!important;}',
-      'header.header .header-overlay,header.header nav.header-nav{display:none!important;}',
-      'header.header h1{display:block!important;color:#172033!important;font-family:"Avenir Next", "Helvetica Neue", Arial, Helvetica, sans-serif!important;font-size:25pt!important;font-weight:800!important;line-height:1.05!important;letter-spacing:0!important;text-align:left!important;margin:0!important;padding:0!important;border-bottom:0!important;break-after:avoid!important;page-break-after:avoid!important;}',
-      'header.header h1::after{content:"Department Budget Profile"!important;display:block!important;white-space:pre-line!important;margin:.055in 0 0 0!important;color:#435064!important;font-family:"Avenir Next", "Helvetica Neue", Arial, Helvetica, sans-serif!important;font-size:10pt!important;font-weight:600!important;line-height:1.45!important;letter-spacing:.01em!important;}',
-      'header.header h1 span{color:#172033!important;}',
-      'h2,.editable h2,.editable-content h2,.editable-paragraph-text h2{font-family:"Avenir Next", "Helvetica Neue", Arial, Helvetica, sans-serif!important;font-size:11.5pt!important;line-height:1.25!important;margin:.14in 0 .06in 0!important;padding:0 0 .025in 0!important;color:#172033!important;font-weight:650!important;letter-spacing:.025em!important;text-transform:none!important;break-after:avoid!important;page-break-after:avoid!important;}',
-      'h2::after,.editable h2::after,.editable-content h2::after,.editable-paragraph-text h2::after{content:""!important;display:block!important;width:.36in!important;height:2px!important;margin:.055in 0 0 0!important;background:#006231!important;}',
-      'nav#nav-menu.nav-menu{display:none!important;visibility:hidden!important;height:0!important;max-height:0!important;width:0!important;max-width:0!important;overflow:hidden!important;}',
-      'nav#nav-menu.nav-menu::after,footer::before,footer::after,.wc-budget-footer::before,.wc-budget-footer::after,.wc-budget-footer-bottom::before,.wc-budget-footer-bottom::after{content:none!important;display:none!important;visibility:hidden!important;height:0!important;border:0!important;background:none!important;}',
-      'nav#nav-menu.nav-menu::before{content:none!important;display:none!important;visibility:hidden!important;}',
-      '.wc-print-brand-pill{display:flex!important;align-items:center!important;justify-content:center!important;gap:.035in!important;position:absolute!important;top:.02in!important;right:.18in!important;width:auto!important;max-width:1.18in!important;height:.20in!important;min-height:.20in!important;padding:.018in .045in .018in .065in!important;box-sizing:border-box!important;border-radius:999px!important;background:#006231!important;color:#ffffff!important;font-family:"Avenir Next", "Helvetica Neue", Arial, Helvetica, sans-serif!important;font-size:5.9pt!important;font-weight:800!important;line-height:1!important;letter-spacing:.02em!important;text-transform:uppercase!important;white-space:nowrap!important;z-index:10!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}',
-      '.wc-print-brand-text{display:block!important;color:#ffffff!important;white-space:nowrap!important;}',
-      '.wc-print-brand-seal{display:block!important;flex:0 0 .13in!important;width:.13in!important;height:.13in!important;border:1px solid #d1be78!important;border-radius:999px!important;background:#ffffff url("' + BRAND_LOGO_URL + '") center center / .105in .105in no-repeat!important;box-sizing:border-box!important;overflow:hidden!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}',
-      'nav#nav-menu.nav-menu .nav-menu-list,nav#nav-menu.nav-menu .nav-menu-item,nav#nav-menu.nav-menu .dropdown,nav#nav-menu.nav-menu .dropdown-list,nav#nav-menu.nav-menu .dropdown-item,nav#nav-menu.nav-menu .hamburger-menu,nav#nav-menu.nav-menu .wc-nav-search-slot,nav#nav-menu.nav-menu .wc-search-wrap,nav#nav-menu.nav-menu .wc-search-box,nav#nav-menu.nav-menu .wc-nav-search-results,nav#nav-menu.nav-menu #wcTocSearch{display:none!important;visibility:hidden!important;height:0!important;width:0!important;max-height:0!important;overflow:hidden!important;}',
-      '.wc-pdf-button,script,noscript,nav:not(#nav-menu),footer,footer[role="contentinfo"],.social-wrapper,.follow-container,#community-react-root,.highcharts-exporting-group,.highcharts-credits,.wc-budget-footer,.wc-budget-footer-inner,.wc-budget-footer-links,.wc-budget-footer-bottom,.wc-standalone-budget-nav,.wc-standalone-brand,.wc-nav-search-slot,.wc-search-wrap,.wc-search-box,.wc-nav-search-results,#wcTocSearch,[class*="search"],[class*="Search"],iframe,video,.video,.video-container,.youtube,.youtube-embed,.youtube-player,[src*="youtube.com"],[src*="youtu.be"],a[href*="youtube.com"],a[href*="youtu.be"],a[href*="vimeo.com"],[data-media-type="video"],[data-media-type="youtube"],[class*="video"],[class*="Video"]{display:none!important;visibility:hidden!important;height:0!important;max-height:0!important;overflow:hidden!important;}',
-      'main[role="main"]{display:block!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;overflow:visible!important;margin:0!important;padding:0 .18in!important;}',
-      'section.full-width,section.left-right,section.contains-media-block,.full-width-content,.editable-content,.media-block,.media-block.large,.media-block.has-media,[data-media-type="embed"],[data-media-type="tableTile"]{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;height:auto!important;max-height:none!important;overflow:visible!important;position:static!important;left:auto!important;right:auto!important;margin:0 0 14px 0!important;padding:0!important;transform:none!important;}',
-      '.wc-statement-panel{box-sizing:border-box!important;margin:0 0 14px 0!important;padding:0!important;background:transparent!important;border:0!important;border-radius:0!important;break-inside:auto!important;page-break-inside:auto!important;}',
-      '.wc-statement-panel h2,.wc-statement-panel .editable h2,.wc-statement-panel .editable-paragraph-text h2{font-size:10.5pt!important;line-height:1.25!important;margin:0 0 .07in 0!important;padding:0!important;color:#000000!important;font-weight:600!important;letter-spacing:.035em!important;text-transform:none!important;}',
-      '.wc-statement-panel h2::after,.wc-statement-panel .editable h2::after,.wc-statement-panel .editable-paragraph-text h2::after{content:""!important;display:block!important;width:.42in!important;height:2px!important;margin:.055in 0 0 0!important;background:#d1be78!important;}',
-      '.wc-statement-panel p,.wc-statement-panel .editable-paragraph-text p{font-size:9.5pt!important;line-height:1.45!important;color:#000000!important;margin:.04in 0 .08in 0!important;}',
-      '.grid,.grid.container,.grid.container.flip{display:block!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;margin:0!important;padding:0!important;}',
-      '.col-1,.col-2,.left-right .col-2,.left-right-content{display:block!important;float:none!important;width:100%!important;max-width:100%!important;min-width:0!important;margin:0 0 14px 0!important;padding:0!important;position:static!important;}',
-      'h1,h2,h3,.editable,.editable-paragraph-text{max-width:100%!important;width:auto!important;overflow:visible!important;text-align:left!important;word-break:normal!important;overflow-wrap:normal!important;white-space:normal!important;}',
-      'p,.align-justify,.editable-paragraph-text,.editable-paragraph-text p,.editable-content p{max-width:100%!important;width:auto!important;overflow:visible!important;text-align:left!important;text-justify:auto!important;word-break:normal!important;overflow-wrap:normal!important;white-space:normal!important;}',
-      'p,.editable-paragraph-text p{font-size:10pt!important;line-height:1.4!important;margin:.04in 0 .1in 0!important;}',
-      '.wc-statement-panel,.wc-statement-panel .editable,.wc-statement-panel .editable-content,.wc-statement-panel .editable-paragraph-text,.wc-statement-panel p,.wc-statement-panel span,.wc-statement-panel div:not(.media-block){color:#000000!important;}',
-      '.wc-statement-panel h2,.wc-statement-panel h2 *,.wc-statement-panel h2 span,.wc-statement-panel .editable h2,.wc-statement-panel .editable h2 *,.wc-statement-panel .editable-paragraph-text h2,.wc-statement-panel .editable-paragraph-text h2 *{color:#000000!important;}',
-      'h2:has(+ p),h2:has(+ .editable-paragraph-text),.wc-statement-panel h2,.wc-statement-panel h2 *{color:#000000!important;}',
-      'a[href]::after{content:""!important;}',
-      'a[href*="youtube.com"],a[href*="youtu.be"],a[href*="vimeo.com"]{display:none!important;visibility:hidden!important;}',
-      'script,noscript,script[type="text/javascript"],script[data-embed-id],script[data-selector]{display:none!important;visibility:hidden!important;height:0!important;max-height:0!important;overflow:hidden!important;font-size:0!important;line-height:0!important;color:transparent!important;}',
-      '.wc-plaque-card{width:100%!important;max-width:4.6in!important;margin:0 auto 14px auto!important;break-inside:avoid!important;page-break-inside:avoid!important;transform:none!important;box-shadow:none!important;}',
-      '.wc-plaque-inner h2{font-size:17pt!important;}',
-      '.wc-performance-page,.wc-performance-page.is-embedded,#wc-performance-measures{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;overflow:visible!important;margin:0 0 14px 0!important;padding:0!important;}',
-      '.wc-performance-card{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;overflow:hidden!important;margin:0 0 14px 0!important;padding:0!important;border:0!important;border-radius:8px!important;background:#ffffff!important;}',
-      '.wc-performance-table-wrap{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;overflow:hidden!important;margin:0!important;padding:0!important;border:0!important;border-radius:8px!important;background:#ffffff!important;}',
-      '.wc-performance-table,.wc-performance-table table,table.wc-performance-table{width:100%!important;max-width:100%!important;min-width:0!important;table-layout:fixed!important;border-collapse:collapse!important;}',
-      'table.wc-performance-table,.wc-performance-table{border-radius:8px!important;overflow:hidden!important;}',
-      '.wc-performance-table th,.wc-performance-table td{white-space:normal!important;word-break:normal!important;overflow-wrap:break-word!important;hyphens:auto!important;font-size:7.5pt!important;line-height:1.2!important;padding:4px 5px!important;vertical-align:middle!important;}',
-      '.wc-performance-table th:nth-child(1),.wc-performance-table td:nth-child(1){width:6%!important;}',
-      '.wc-performance-table th:nth-child(2),.wc-performance-table td:nth-child(2){width:19%!important;}',
-      '.wc-performance-table th:nth-child(3),.wc-performance-table td:nth-child(3){width:22%!important;}',
-      '.wc-performance-table th:nth-child(4),.wc-performance-table td:nth-child(4){width:23%!important;}',
-      '.wc-performance-table th:nth-child(n+5),.wc-performance-table td:nth-child(n+5){width:7.5%!important;}',
-      '.wc-performance-table td:nth-child(n+5){text-align:right!important;}',
-      '[data-embed-id],[data-table-scroll-container="true"]{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;overflow:visible!important;position:static!important;margin:0 0 14px 0!important;padding:0!important;}',
-      '[data-report-table-container-id]{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;overflow:hidden!important;position:static!important;margin:0 0 14px 0!important;padding:0!important;border:1px solid rgba(209,190,120,.55)!important;border-radius:8px!important;background:#ffffff!important;}',
-      '[data-report-table-id],[data-table-scroll-container="true"] table{width:100%!important;min-width:0!important;max-width:100%!important;table-layout:fixed!important;border-collapse:collapse!important;}',
-      '[data-report-table-id]{border-radius:8px!important;overflow:hidden!important;}',
-      '[data-report-table-id] th,[data-report-table-id] td{white-space:normal!important;word-break:normal!important;overflow-wrap:break-word!important;hyphens:auto!important;font-size:8pt!important;line-height:1.25!important;padding:5px 6px!important;vertical-align:top!important;}',
-      '[data-report-table-id] th:first-child,[data-report-table-id] td:first-child{width:34%!important;}',
-      '[data-report-table-id] th:nth-child(n+2),[data-report-table-id] td:nth-child(n+2){text-align:right!important;}',
-      '.footerNote__VxEBJ,[class*="footerNote"]{display:none!important;}',
-      '.media-block,.wc-performance-card,[data-report-table-container-id],.wc-plaque-card{break-inside:avoid!important;page-break-inside:avoid!important;}',
-      'html::before,html::after{content:none!important;display:none!important;height:0!important;border:0!important;background:none!important;}',
-      '}'
-    ].join('\n');
+`;
 
     document.head.appendChild(style);
   }
 
-  function ensurePrintBrandPill(){
-    if(document.querySelector('.wc-print-brand-pill')){
-      return;
-    }
+  function ensurePrintBrandPill() {
+    if (document.querySelector(".wc-print-brand-pill")) return;
 
-    var pill = document.createElement('div');
-    pill.className = 'wc-print-brand-pill';
-    pill.setAttribute('aria-hidden','true');
-    pill.innerHTML = '<span class="wc-print-brand-text">Walton County</span><span class="wc-print-brand-seal"></span>';
+    var pill = document.createElement("div");
+    pill.className = "wc-print-brand-pill";
+    pill.setAttribute("aria-hidden", "true");
+    pill.innerHTML =
+      '<span class="wc-print-brand-text">Walton County</span><span class="wc-print-brand-seal"></span>';
+
     document.body.insertBefore(pill, document.body.firstChild);
   }
 
-  function ensureStatementPanel(){
-    document.querySelectorAll('h2').forEach(function(heading){
-      if(heading.textContent.trim().toLowerCase() !== 'statement of function'){
-        return;
-      }
+  function ensureStatementPanel() {
+    document.querySelectorAll("h2").forEach(function (heading) {
+      if (heading.textContent.trim().toLowerCase() !== "statement of function") return;
 
-      var section = heading.closest('section');
-      if(section){
-        section.classList.add('wc-statement-panel');
-      }
+      var section = heading.closest("section");
+      if (section) section.classList.add("wc-statement-panel");
     });
   }
 
-  function ensurePdfButton(){
-    var navMenu = document.getElementById('nav-menu');
-    var pdfButton = document.getElementById('wcDownloadPdf');
+  function ensurePdfButton() {
+    var navMenu = document.getElementById("nav-menu");
+    var existingButton = document.getElementById("wcDownloadPdf");
 
-    if(!pdfButton){
-      pdfButton = document.createElement('button');
-      pdfButton.type = 'button';
-      pdfButton.id = 'wcDownloadPdf';
-      pdfButton.className = 'wc-pdf-button';
-      pdfButton.setAttribute('aria-label','Print or save this page as a PDF');
-      pdfButton.textContent = 'PDF';
+    if (existingButton) return;
+    if (!navMenu) return;
+
+    var button = document.createElement("button");
+    button.type = "button";
+    button.id = "wcDownloadPdf";
+    button.className = "wc-pdf-button";
+    button.textContent = "PDF";
+    button.setAttribute("aria-label", "Print or save this page as a PDF");
+
+    button.addEventListener("click", function () {
+      window.print();
+    });
+
+    var slot = document.createElement("div");
+    slot.className = "wc-print-button-slot";
+
+    var searchSlot = navMenu.querySelector(".wc-nav-search-slot");
+
+    if (searchSlot) {
+      searchSlot.insertAdjacentElement("beforebegin", slot);
+    } else {
+      navMenu.appendChild(slot);
     }
 
-    if(!pdfButton.dataset.wcPdfBound){
-      pdfButton.addEventListener('click',function(){
-        window.print();
-      });
-      pdfButton.dataset.wcPdfBound = 'true';
-    }
-
-    if(navMenu && !navMenu.querySelector('.wc-print-button-slot')){
-      var searchSlot = navMenu.querySelector('.wc-nav-search-slot');
-      var buttonSlot = document.createElement('div');
-      buttonSlot.className = 'wc-print-button-slot';
-
-      if(searchSlot){
-        searchSlot.insertAdjacentElement('beforebegin', buttonSlot);
-      }else{
-        navMenu.appendChild(buttonSlot);
-      }
-
-      buttonSlot.appendChild(pdfButton);
-    }else if(!navMenu && !document.body.contains(pdfButton)){
-      document.body.insertBefore(pdfButton, document.body.firstChild);
-    }
+    slot.appendChild(button);
   }
 
-  function init(){
+  function init() {
     injectStyles();
     ensurePrintBrandPill();
     ensureStatementPanel();
     ensurePdfButton();
   }
 
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', init);
-  }else{
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
     init();
   }
 
-  window.addEventListener('beforeprint', function(){
-    ensureStatementPanel();
+  window.addEventListener("beforeprint", function () {
     ensurePrintBrandPill();
+    ensureStatementPanel();
   });
 
-  new MutationObserver(function(){
+  new MutationObserver(function () {
     ensurePdfButton();
   }).observe(document.documentElement, {
-    childList:true,
-    subtree:true
+    childList: true,
+    subtree: true
   });
 })();
-</script>
