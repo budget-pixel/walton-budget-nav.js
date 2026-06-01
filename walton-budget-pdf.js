@@ -41,15 +41,18 @@
   align-self:center !important;
 }
 
+nav#nav-menu .wc-nav-search-slot{
+  gap:6px !important;
+}
+
 .wc-print-button-slot{
   display:flex !important;
   align-items:center !important;
   justify-content:center !important;
   flex:0 0 auto !important;
-  margin-left:0 !important;
-  margin-right:0 !important;
+  margin:0 !important;
   position:relative !important;
-  left:6px !important;
+  left:0 !important;
   z-index:9999 !important;
 }
 
@@ -789,19 +792,31 @@
       pdfButton.dataset.wcPdfBound = "true";
     }
 
-    if (navMenu && !navMenu.querySelector(".wc-print-button-slot")) {
+    if (navMenu) {
       var searchSlot = navMenu.querySelector(".wc-nav-search-slot");
-      var buttonSlot = document.createElement("div");
+      var existingSlot = navMenu.querySelector(".wc-print-button-slot");
+      var buttonSlot = existingSlot || document.createElement("div");
       buttonSlot.className = "wc-print-button-slot";
 
       if (searchSlot) {
-        searchSlot.insertAdjacentElement("beforebegin", buttonSlot);
-      } else {
-        navMenu.appendChild(buttonSlot);
+        var searchWrap = searchSlot.querySelector(".wc-search-wrap");
+        if (searchWrap) {
+          searchWrap.insertAdjacentElement("beforebegin", buttonSlot);
+        } else {
+          searchSlot.insertBefore(buttonSlot, searchSlot.firstChild);
+        }
+        buttonSlot.appendChild(pdfButton);
+        return;
       }
 
+      if (!existingSlot) {
+        navMenu.appendChild(buttonSlot);
+      }
       buttonSlot.appendChild(pdfButton);
-    } else if (!navMenu && !document.body.contains(pdfButton)) {
+      return;
+    }
+
+    if (!document.body.contains(pdfButton)) {
       document.body.insertBefore(pdfButton, document.body.firstChild);
     }
   }
