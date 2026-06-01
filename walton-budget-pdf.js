@@ -10,19 +10,19 @@
   justify-content:center !important;
   gap:6px !important;
   margin:0 !important;
-  padding:7px 7px !important;
+  padding:9px 11px !important;
   border:0 !important;
   border-radius:999px !important;
   background:linear-gradient(135deg,#006231 0%,#0b7741 100%) !important;
   color:#ffffff !important;
   font-family:Arial, Helvetica, sans-serif !important;
-  font-size:10px !important;
+  font-size:11px !important;
   font-weight:900 !important;
   line-height:1 !important;
   letter-spacing:.04em !important;
   text-transform:uppercase !important;
   cursor:pointer !important;
-  box-shadow:0 5px 12px rgba(0,98,49,.18) !important;
+  box-shadow:0 8px 18px rgba(0,98,49,.20) !important;
   white-space:nowrap !important;
   appearance:none !important;
   -webkit-appearance:none !important;
@@ -36,24 +36,15 @@
   outline-offset:3px !important;
 }
 
-.nav-menu .wc-pdf-button{
-  flex:0 0 auto !important;
-  align-self:center !important;
-}
-
-nav#nav-menu .wc-nav-search-slot{
-  gap:6px !important;
-}
-
-.wc-print-button-slot{
+.wc-pdf-fixed-slot{
+  position:fixed !important;
+  top:86px !important;
+  right:18px !important;
+  z-index:2147483647 !important;
   display:flex !important;
   align-items:center !important;
   justify-content:center !important;
-  flex:0 0 auto !important;
-  margin:0 !important;
-  position:relative !important;
-  left:0 !important;
-  z-index:9999 !important;
+  pointer-events:auto !important;
 }
 
 .wc-print-brand-pill{
@@ -64,6 +55,12 @@ nav#nav-menu .wc-nav-search-slot{
   @page{
     size:letter landscape;
     margin:.35in;
+  }
+
+  .wc-pdf-button,
+  .wc-pdf-fixed-slot{
+    display:none !important;
+    visibility:hidden !important;
   }
 
   html,
@@ -323,8 +320,6 @@ nav#nav-menu .wc-nav-search-slot{
     overflow:hidden !important;
   }
 
-  .wc-pdf-button,
-  .wc-print-button-slot,
   script,
   noscript,
   nav:not(#nav-menu),
@@ -773,7 +768,6 @@ nav#nav-menu .wc-nav-search-slot{
   }
 
   function ensurePdfButton() {
-    var navMenu = document.getElementById("nav-menu");
     var pdfButton = document.getElementById("wcDownloadPdf");
 
     if (!pdfButton) {
@@ -792,32 +786,15 @@ nav#nav-menu .wc-nav-search-slot{
       pdfButton.dataset.wcPdfBound = "true";
     }
 
-    if (navMenu) {
-      var searchSlot = navMenu.querySelector(".wc-nav-search-slot");
-      var existingSlot = navMenu.querySelector(".wc-print-button-slot");
-      var buttonSlot = existingSlot || document.createElement("div");
-      buttonSlot.className = "wc-print-button-slot";
-
-      if (searchSlot) {
-        var searchWrap = searchSlot.querySelector(".wc-search-wrap");
-        if (searchWrap) {
-          searchWrap.insertAdjacentElement("beforebegin", buttonSlot);
-        } else {
-          searchSlot.insertBefore(buttonSlot, searchSlot.firstChild);
-        }
-        buttonSlot.appendChild(pdfButton);
-        return;
-      }
-
-      if (!existingSlot) {
-        navMenu.appendChild(buttonSlot);
-      }
-      buttonSlot.appendChild(pdfButton);
-      return;
+    var fixedSlot = document.querySelector(".wc-pdf-fixed-slot");
+    if (!fixedSlot) {
+      fixedSlot = document.createElement("div");
+      fixedSlot.className = "wc-pdf-fixed-slot";
+      document.body.appendChild(fixedSlot);
     }
 
-    if (!document.body.contains(pdfButton)) {
-      document.body.insertBefore(pdfButton, document.body.firstChild);
+    if (!fixedSlot.contains(pdfButton)) {
+      fixedSlot.appendChild(pdfButton);
     }
   }
 
