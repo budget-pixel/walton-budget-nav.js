@@ -10,22 +10,23 @@
   justify-content:center !important;
   gap:6px !important;
   margin:0 !important;
-  padding:9px 11px !important;
+  padding:7px 8px !important;
   border:0 !important;
   border-radius:999px !important;
   background:linear-gradient(135deg,#006231 0%,#0b7741 100%) !important;
   color:#ffffff !important;
   font-family:Arial, Helvetica, sans-serif !important;
-  font-size:11px !important;
+  font-size:10px !important;
   font-weight:900 !important;
   line-height:1 !important;
   letter-spacing:.04em !important;
   text-transform:uppercase !important;
   cursor:pointer !important;
-  box-shadow:0 8px 18px rgba(0,98,49,.20) !important;
+  box-shadow:0 5px 12px rgba(0,98,49,.18) !important;
   white-space:nowrap !important;
   appearance:none !important;
   -webkit-appearance:none !important;
+  flex:0 0 auto !important;
 }
 
 .wc-pdf-button:hover,
@@ -36,15 +37,23 @@
   outline-offset:3px !important;
 }
 
-.wc-pdf-fixed-slot{
-  position:fixed !important;
-  top:86px !important;
-  right:18px !important;
-  z-index:2147483647 !important;
+nav#nav-menu .wc-nav-search-slot{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-end !important;
+  gap:6px !important;
+}
+
+.wc-print-button-slot{
   display:flex !important;
   align-items:center !important;
   justify-content:center !important;
-  pointer-events:auto !important;
+  flex:0 0 auto !important;
+  margin:0 !important;
+  padding:0 !important;
+  position:relative !important;
+  left:0 !important;
+  z-index:9999 !important;
 }
 
 .wc-print-brand-pill{
@@ -58,7 +67,7 @@
   }
 
   .wc-pdf-button,
-  .wc-pdf-fixed-slot{
+  .wc-print-button-slot{
     display:none !important;
     visibility:hidden !important;
   }
@@ -786,15 +795,26 @@
       pdfButton.dataset.wcPdfBound = "true";
     }
 
-    var fixedSlot = document.querySelector(".wc-pdf-fixed-slot");
-    if (!fixedSlot) {
-      fixedSlot = document.createElement("div");
-      fixedSlot.className = "wc-pdf-fixed-slot";
-      document.body.appendChild(fixedSlot);
+    var searchSlot = document.querySelector(".wc-nav-search-slot");
+    if (!searchSlot) return;
+
+    var buttonSlot = document.querySelector(".wc-print-button-slot");
+    if (!buttonSlot) {
+      buttonSlot = document.createElement("div");
+      buttonSlot.className = "wc-print-button-slot";
     }
 
-    if (!fixedSlot.contains(pdfButton)) {
-      fixedSlot.appendChild(pdfButton);
+    if (!buttonSlot.contains(pdfButton)) {
+      buttonSlot.appendChild(pdfButton);
+    }
+
+    if (!searchSlot.contains(buttonSlot)) {
+      var searchWrap = searchSlot.querySelector(".wc-search-wrap");
+      if (searchWrap) {
+        searchWrap.insertAdjacentElement("beforebegin", buttonSlot);
+      } else {
+        searchSlot.insertBefore(buttonSlot, searchSlot.firstChild);
+      }
     }
   }
 
